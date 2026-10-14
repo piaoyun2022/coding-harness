@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "coding-harness"
+version = "0.1.0"
+description = "A small independent coding agent with patch editing and context compaction"
+requires-python = ">=3.11"
+dependencies = ["openai>=2,<3", "pydantic>=2.10,<3", "python-dotenv>=1,<2", "openai-agents>=0.6,<1"]
+
+[project.optional-dependencies]
+modal = ["modal>=1.6,<2"]
+benchmark = ["pyarrow>=14,<24"]
+eval = ["swebench==4.1.0", "pyarrow>=14,<24"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1", "build>=1,<2"]
+
+[project.scripts]
+coding-harness = "coding_harness.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/coding_harness"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
