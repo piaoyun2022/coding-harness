@@ -10,7 +10,7 @@
 |---|---:|
 | 模型 / 推理档 | deepseek-flash / high |
 | 单次最大输出 / 请求超时 | 32768 token / 180 秒 |
-| 每题循环 / 时间 / 总 token | 30 步 / 900 秒 / 100000 |
+| 每题循环 / 时间 / 总 token | 30 步 / 900 秒 / 1000000 |
 | 上下文软上限 / 最近回合预算 | 24000 / 6000 |
 | 并发 | 1 |
 
@@ -21,7 +21,7 @@
 显式传入 settings JSON 和本地密钥文件，输出目录必须不存在：
 
 ~~~powershell
-.venv\Scripts\python.exe scripts\run_agent_batch.py --tasks artifacts\swe-bench-first30\tasks.jsonl --output artifacts\agent-first30 --settings artifacts\agent-first30-settings.json --env-file .env --source-commit 05359aeddfb57e601ff67a5b3567c15a53a29cb3
+.venv\Scripts\python.exe scripts\run_agent_batch.py --tasks artifacts\swe-bench-first30\tasks.jsonl --output artifacts\agent-first30-1m --settings artifacts\agent-first30-1m-settings.json --env-file .env --source-commit 05359aeddfb57e601ff67a5b3567c15a53a29cb3
 ~~~
 
 需要 Docker Linux engine，宿主进程 PATH 能找到 docker。密钥通过指定文件的 `dotenv_values(interpolate=False)` 读取，不搜索其他文件、不写入进程环境、不传容器。输入只经过 `Task` 字段白名单，不读取 grader-only 数据、答案补丁或隐藏测试。
@@ -33,7 +33,7 @@
 - 镜像原 HEAD 可以等于题目的 base commit；否则只接受**单个父提交恰好为 base、标题为 SWE-bench 的安装提交**。记录镜像 ID/digest、HEAD、父提交、安装修改路径，并严格验证干净工作区。保留安装提交作为补丁基线，不执行 checkout/reset/clean，避免撤销官方 Astropy 的安装配置。此判定用于当前官方镜像；未知历史结构作为环境错误报告。
 - `run_one`：读取仓库根目录 AGENTS.md、调用原有 Agent、无论结束原因都尝试导出补丁，最后关闭模型和容器。原始日志及 V2 Evidence 保留。错误只记录阶段和异常类型，不记录可能含凭证的异常文本。
 - `run_batch`：每题仅生成一次；不恢复 Agent 会话、不对失败题重新生成挑优。普通单题失败保留记录后继续，取消、清理失败或源码漂移则停止，未执行题仍在 predictions 中占位。模型 SDK 原有请求行为不变。
-- 镜像只清理本题新产生且 ID 未变化的精确 tag，先工具层后基础镜像；不使用 prune、不强制删除镜像、不清理启动前已存在的镜像。容器清理由原环境的 ownership label 校验负责。须与官方 grader 串行协调，避免另一进程同时依赖本题镜像。
+- 镜像只清理本题新产生且 ID 未变化的精确 tag，先工具层后基础镜像；不使用 prune、不强制删除镜像、不清理启动前已存在的镜像。容器清理由原环境的 ownership label 校验负责。可以与不同题目的官方 grader 各运行一路；须协调同题镜像的使用和清理，避免另一进程仍依赖本题镜像时删除。
 
 ## 产物与状态
 
@@ -57,3 +57,10 @@
 
 已有一次 Astropy12907 Docker 预检保存在 `artifacts/agent-first30-preflight.json`，证明官方镜像存在 synthetic 安装提交和 testbed Python。该旧预检曾在临时容器 checkout base，容器与当次镜像已清理；正式入口已改为保留经过验证的安装提交。它不等于完整 Agent30 或官方评分成功。
 
+## 百万 token 实验的范围变更
+
+2026-10-14，用户明确将下一轮每题累计 token 预算提高到 1000000。旧 100000 预算试跑保留在 `artifacts/agent-first30`，停止后续排队；它的部分结果不能拼接成新实验成绩。新实验从相同顺序的第一题开始，每题生成一次，输出 `artifacts/agent-first30-1m`，独立官方评分输出 `artifacts/official-agent-first30-1m`；不在两轮之间挑选较好补丁。设置差异和范围变更保存在 `artifacts/agent-1m-scope-change.json`。
+
+唯一模型运行参数变化是 `max_total_tokens`：100000 → 1000000。30 步、900 秒、单次输出 32768、上下文预算和冻结核心均不变。一百万是所有 API 调用输入加输出的累计上限，包含缓存命中的输入；它不是单次输出额度或上下文窗口。当前实现按回复后的实际用量判断停止，未在发请求前预留该次输入，因此可能略超累计上限；本次配置实验不更改这段语义。步数、时间也可能先于 token 触发停止。
+
+裸模型已有的前三十题生成与官方验收继续沿用，不为这次 Agent 预算变化重新生成。两组比较仍需单列不同的多轮资源预算。
