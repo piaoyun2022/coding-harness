@@ -22,7 +22,17 @@ character offsets to inspect the stored result, including original tool argument
 A read's next_start=null means the stored content ends; truncated may still mean the
 original capture was incomplete. Original tool_facts are program observations;
 checkpoint model_notes and next_steps are interpretations, not verified facts.
-Run relevant tests and report actual results. Use finish alone to report completion.
+Follow a focused completion workflow: reproduce or inspect the reported problem,
+apply the fix, verify the reported behavior, run relevant tests, and inspect the final diff.
+Once the requested change is implemented and reviewed, relevant verification is done
+or its limitations are explicitly identified, and no concrete issue with the requested
+change remains unresolved, use finish alone to report completion. Continue exploring
+only to answer a specific unresolved question about the task; do not keep checking
+speculative cases after the available evidence supports the fix.
+Completion does not require every test in the repository to pass. Report the commands
+and actual results, tests not run, and remaining anomalies or validation limitations.
+Distinguish a suspected environment cause from a cause you have actually verified;
+never describe a failed or unrun test as passing.
 A finish call is your completion claim, not independent proof that tests pass.
 """
 

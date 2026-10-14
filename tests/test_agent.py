@@ -474,3 +474,33 @@ def test_repetition_hint_forgets_commands_outside_bounded_window(tmp_path, comma
     result, environment, events = run(tmp_path, model)
     assert result["outcome"] == "completed" and environment.commands == commands
     assert not any(event["event"] == "repetition_notice" for event in events)
+
+
+@pytest.mark.parametrize("command_result", [
+    CommandResult(stdout="validation failed: optional dependency unavailable", exit_code=1),
+    CommandResult(stdout="validation did not complete", exit_code=124, timed_out=True),
+])
+def test_honest_finish_accepts_validation_limitations_without_rewriting_facts(
+    tmp_path, command_result,
+):
+    class FailedValidation(Environment):
+        def execute(self, command, timeout):
+            self.commands.append(command)
+            return command_result
+
+    summary = (
+        "Implemented the requested change and reviewed the diff. Validation did not pass; "
+        "the environment cause is suspected, not confirmed. Full suite was not run."
+    )
+    model = Model([
+        reply(call(arguments={"command": "pytest focused"})),
+        reply(call("finish", {"summary": summary})),
+    ])
+    result, environment, events = run(tmp_path, model, FailedValidation())
+    assert result["outcome"] == "completed" and result["summary"] == summary
+    assert environment.commands == ["pytest focused"]
+    observed = json.loads(model.requests[1][0][-1]["content"])["tool_facts"]["observed"]
+    assert observed["exit_code"] == command_result.exit_code
+    assert observed["timed_out"] is command_result.timed_out
+    logged = next(event for event in events if event["event"] == "tool_result")
+    assert logged["result"]["exit_code"] == command_result.exit_code
