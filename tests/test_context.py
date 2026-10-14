@@ -141,7 +141,10 @@ def test_repeated_checkpoint_carries_previous_facts_and_anchor(tmp_path):
         {"text": "First unresolved issue", "evidence_ids": []}
     ]
     assert first in data["previous_checkpoint"]["evidence_ids"]
+    latest = context.messages()[-3:]
     assert context.apply_compaction(plan, summary(["Retained issue plus new discovery"]))
+    assert context.messages()[-3:] == latest
+    assert [item["tool_call_id"] for item in latest[1:]] == ["newrecent0", "newrecent1"]
     assert context.messages()[:2] == pinned
     assert context.checkpoint.evidence_ids == [first]
     # A model statement cannot overwrite actual failed command status.
@@ -165,21 +168,24 @@ def test_forged_or_missing_evidence_rejects_checkpoint(tmp_path):
     assert context.messages() == before
 
 
-def test_cleanup_preserves_evidence_and_recent_whole_turn(tmp_path):
+def test_plan_uses_uncleaned_previews_and_does_not_mutate_history(tmp_path):
     store = EvidenceStore(tmp_path, redactor=lambda value: value)
     context = Context("rules", "task", token_limit=2000, keep_recent_turns=1, evidence=store)
-    known = evidence_turn(context, store, "old", output="full output " * 1000)
+    output = "long diagnostic prefix " * 200 + "CURRENT-BUG-LOCATION-AND-FAILED-ASSERTION"
+    known = evidence_turn(context, store, "old", output=output)
     context.add_turn(*turn("recent", "small latest"))
+    before = json.dumps(context.messages(), ensure_ascii=False)
+    plan = context.plan_compaction()
+    data = json.loads(plan.messages[1]["content"])
+    old_observation = json.loads(data["complete_earlier_turns"][0][1]["content"])
+    assert old_observation["preview"] == output
+    assert old_observation["evidence"]["id"] == known
+    assert "CURRENT-BUG" not in data["evidence_excerpts"][0]["content"]
+    assert json.dumps(context.messages(), ensure_ascii=False) == before
     recent = context.messages()[-3:]
-    before = context.estimated_tokens
-    assert context.clean_old_previews() == 2
-    assert context.estimated_tokens < before
+    assert context.apply_compaction(plan, summary(ids=[known]))
     assert context.messages()[-3:] == recent
-    old = json.loads(context.messages()[3]["content"])
-    assert "preview" not in old and old["preview_omitted"]
-    assert old["evidence"]["id"] == known
-    assert "full output" in store.read(known, limit=16000)["content"]
-    assert context.plan_compaction() is None
+    assert store.read(known, limit=16000)["ok"]
 
 
 def test_recent_turns_are_selected_by_tokens_without_splitting_pair():
@@ -228,7 +234,7 @@ def test_individual_note_cannot_reference_forged_evidence(tmp_path):
     assert context.messages() == before
 
 
-def test_summary_receives_bounded_evidence_excerpts_after_preview_cleanup(tmp_path):
+def test_summary_receives_bounded_evidence_excerpts_without_removing_previews(tmp_path):
     store = EvidenceStore(tmp_path, redactor=lambda value: value)
     context = Context("rules", "task", token_limit=2000, keep_recent_turns=1, evidence=store)
     evidence_turn(
@@ -239,12 +245,14 @@ def test_summary_receives_bounded_evidence_excerpts_after_preview_cleanup(tmp_pa
         reasoning="Prior investigation " * 400,
     )
     context.add_turn(*turn("latest", "small"))
-    assert context.clean_old_previews() == 2
+    before = context.messages()
     plan = context.plan_compaction()
     data = json.loads(plan.messages[1]["content"])
     assert sum(len(page["content"]) for page in data["evidence_excerpts"]) <= 8000
     assert "Failure detail: line 42" in data["evidence_excerpts"][0]["content"]
     assert data["evidence_excerpts"][0]["truncated"]
+    assert context.messages() == before
+    assert json.loads(data["complete_earlier_turns"][0][1]["content"])["preview"]
 
 
 def test_checkpoint_budget_accounts_for_fixed_state_and_requests_deduplicated_current_state():

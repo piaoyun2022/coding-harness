@@ -2,6 +2,8 @@
 
 import json
 import time
+from collections import deque
+from hashlib import sha256
 
 from .config import Settings
 from .context import Context, ToolFact, estimate_tokens
@@ -40,6 +42,8 @@ class Agent:
         self.compactions = 0
         self._started = 0.0
         self._used = False
+        self._recent_results: deque[tuple[str, str]] = deque(maxlen=8)
+        self._repeat_notice_sent = False
 
     def _remaining(self) -> float:
         return self.settings.max_seconds - (time.monotonic() - self._started)
@@ -158,7 +162,8 @@ class Agent:
         metadata = evidence.store(text)
         if metadata["truncated"]:
             raise EvidenceError("Full bounded tool result exceeds evidence item limit")
-        clean_result = json.loads(text)["result"]
+        clean_record = json.loads(text)
+        clean_result = clean_record["result"]
         observed = {
             key: clean_result[key]
             for key in ("ok", "exit_code", "timed_out", "truncated", "changed_files", "error")
@@ -173,26 +178,44 @@ class Agent:
         context.register_fact(fact)
         preview = json.dumps(clean_result, ensure_ascii=False)
         self.trace.event("evidence_stored", tool_call_id=call["id"], evidence=metadata)
-        return {
+        observation = {
             "ok": clean_result.get("ok"),
             "evidence": metadata,
             "tool_facts": fact.model_dump(),
             "preview": preview[: self.settings.max_output_chars],
             "preview_truncated": len(preview) > self.settings.max_output_chars,
         }
+        notice = self._repeat_notice(clean_record, metadata["id"])
+        if notice:
+            observation["repetition_notice"] = notice
+            self.trace.event("repetition_notice", tool_call_id=call["id"], **notice)
+        return observation
+
+    def _repeat_notice(self, record: dict, evidence_id: str) -> dict | None:
+        """One advisory per run; execution has already happened and is never skipped."""
+        if record["tool_name"] == "apply_patch" and record["result"].get("ok"):
+            self._recent_results.clear()
+        if record["tool_name"] != "execute" or self._repeat_notice_sent:
+            return None
+        # Exclude call IDs: providers may reuse them, but they do not identify content.
+        fingerprint = sha256(json.dumps(
+            [record["arguments_json"], record["result"]],
+            ensure_ascii=False, sort_keys=True,
+        ).encode("utf-8")).hexdigest()
+        self._recent_results.append((fingerprint, evidence_id))
+        matches = [item for digest, item in self._recent_results if digest == fingerprint]
+        if len(matches) < 3:
+            return None
+        self._repeat_notice_sent = True
+        return {
+            "evidence_id": matches[0],
+            "message": "The same command arguments and recorded result occurred three times "
+            "within the last eight execute calls. Existing evidence is available via "
+            "read_evidence. Re-execute when fresh verification is needed; identical output "
+            "does not establish that the workspace is unchanged.",
+        }
 
     def _prepare_context(self, context: Context) -> str | None:
-        if context.estimated_tokens <= context.token_limit:
-            return None
-        before = context.estimated_tokens
-        cleaned = context.clean_old_previews()
-        if cleaned:
-            self.trace.event(
-                "context_cleanup",
-                observations=cleaned,
-                before_estimated_tokens=before,
-                after_estimated_tokens=context.estimated_tokens,
-            )
         if context.estimated_tokens <= context.token_limit:
             return None
         plan = context.plan_compaction()

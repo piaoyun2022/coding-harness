@@ -4,6 +4,7 @@ import pytest
 
 from coding_harness.agent import Agent
 from coding_harness.config import Settings
+from coding_harness.context import Context
 from coding_harness.contracts import CommandResult, Reply, Usage
 from coding_harness.trace import Trace
 
@@ -204,9 +205,23 @@ def test_compaction_is_accounted_and_raw_log_retains_removed_history(tmp_path):
     [
         RuntimeError("transport unavailable"),
         Reply({"role": "assistant", "content": "truncated"}, Usage(output_tokens=4), "length"),
+        Reply({"role": "assistant", "content": "bad JSON"}, Usage()),
+        Reply({"role": "assistant", "content": "x" * 12001}, Usage()),
+        Reply({"role": "assistant", "content": json.dumps({
+            "model_notes": [{"text": "unsupported", "evidence_ids": ["ev_" + "f" * 32]}],
+            "next_steps": [], "evidence_ids": [],
+        })}, Usage()),
     ],
 )
-def test_compaction_failure_stops_without_discarding_history(tmp_path, summary):
+def test_compaction_failure_stops_without_discarding_history(tmp_path, summary, monkeypatch):
+    contexts = []
+
+    class CapturingContext(Context):
+        def plan_compaction(self):
+            contexts.append((self, json.dumps(self.messages(), ensure_ascii=False)))
+            return super().plan_compaction()
+
+    monkeypatch.setattr("coding_harness.agent.Context", CapturingContext)
     model = Model([reply(call()) for _ in range(6)], summary=summary)
     result, _, events = run(
         tmp_path,
@@ -219,6 +234,13 @@ def test_compaction_failure_stops_without_discarding_history(tmp_path, summary):
     compact = next(event for event in events if event["event"] == "compaction")
     assert not compact["applied"]
     assert compact["before_estimated_tokens"] == compact["after_estimated_tokens"]
+    assert len(contexts) == 1
+    context, before = contexts[0]
+    assert json.dumps(context.messages(), ensure_ascii=False) == before
+    assert context.checkpoint is None
+    assert not any(event["event"] == "context_cleanup" for event in events)
+    executed = [event for event in events if event["event"] == "tool_result"]
+    assert len(executed) == len([request for request in model.requests if request[1]])
 
 
 def test_summary_tokens_can_exhaust_budget_before_next_action(tmp_path):
@@ -379,3 +401,76 @@ def test_checkpoint_call_respects_hard_window_and_does_not_retry(tmp_path):
     assert result["stop_reason"] == "compaction_failed"
     assert len([event for event in events if event["event"] == "compaction"]) == 1
     assert not any(request[2]["purpose"] == "summary" for request in model.requests)
+
+
+def test_summary_request_contains_old_preview_before_any_history_is_removed(tmp_path):
+    marker = "CURRENT-LOCATION: parser.py:42; assertion still failing"
+    model = Model([reply(call()) for _ in range(5)] + [finish()])
+    result, _, events = run(
+        tmp_path, model, Environment("diagnostic " * 230 + marker),
+        context_tokens=4500, keep_recent_turns=1,
+    )
+    assert result["outcome"] == "completed"
+    summaries = [request for request in model.requests if request[2]["purpose"] == "summary"]
+    assert summaries
+    data = json.loads(summaries[0][0][1]["content"])
+    previews = [json.loads(item["content"])["preview"]
+                for group in data["complete_earlier_turns"] for item in group[1:]]
+    assert any(marker in preview for preview in previews)
+    assert not any(event["event"] == "context_cleanup" for event in events)
+
+
+def test_repeated_results_hint_once_and_never_skip_or_unpair_execution(tmp_path):
+    model = Model([reply(call(call_id=str(i))) for i in range(5)] + [finish()])
+    result, environment, events = run(tmp_path, model)
+    assert result["outcome"] == "completed"
+    assert environment.commands == ["inspect"] * 5
+    notices = [event for event in events if event["event"] == "repetition_notice"]
+    assert len(notices) == 1 and notices[0]["tool_call_id"] == "2"
+    stored = [event for event in events if event["event"] == "evidence_stored"]
+    assert notices[0]["evidence_id"] == stored[0]["evidence"]["id"]
+    history = model.requests[-1][0]
+    calls = [call["id"] for item in history for call in item.get("tool_calls", [])]
+    observations = [item for item in history if item["role"] == "tool"]
+    assert calls == [item["tool_call_id"] for item in observations] == list(map(str, range(5)))
+    assert sum("repetition_notice" in json.loads(item["content"]) for item in observations) == 1
+    assert len(list((tmp_path / "evidence").glob("*.txt"))) == 5
+
+
+def test_repetition_hint_window_resets_after_patch_and_requires_matching_results(tmp_path):
+    class ChangingEnvironment(Environment):
+        def apply_patch(self, patch, timeout):
+            return {"ok": True, "changed_files": ["fixed.py"]}
+
+    # A successful edit invalidates prior repetition counts even if printed output is identical.
+    model = Model([
+        reply(call()), reply(call()),
+        reply(call("apply_patch", {"patch": "*** Begin Patch\n*** End Patch"})),
+        reply(call()), reply(call()), finish(),
+    ])
+    result, environment, events = run(tmp_path / "patched", model, ChangingEnvironment())
+    assert result["outcome"] == "completed" and environment.commands == ["inspect"] * 4
+    assert not any(event["event"] == "repetition_notice" for event in events)
+
+    class FreshOutput(Environment):
+        def execute(self, command, timeout):
+            self.commands.append(command)
+            return CommandResult(stdout=str(len(self.commands)))
+
+    model = Model([reply(call()) for _ in range(4)] + [finish()])
+    result, environment, events = run(tmp_path / "changed", model, FreshOutput())
+    assert result["outcome"] == "completed" and len(environment.commands) == 4
+    assert not any(event["event"] == "repetition_notice" for event in events)
+
+
+@pytest.mark.parametrize("commands", [
+    ["read target"] * 2 + [f"read different-{i}" for i in range(7)] + ["read target"],
+    ["read target"] + [f"read different-{i}" for i in range(6)] + ["read target"] * 2,
+])
+def test_repetition_hint_forgets_commands_outside_bounded_window(tmp_path, commands):
+    model = Model(
+        [reply(call(arguments={"command": command})) for command in commands] + [finish()]
+    )
+    result, environment, events = run(tmp_path, model)
+    assert result["outcome"] == "completed" and environment.commands == commands
+    assert not any(event["event"] == "repetition_notice" for event in events)
