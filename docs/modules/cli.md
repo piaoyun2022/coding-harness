@@ -23,7 +23,7 @@ run --repo PATH (--task TEXT | --task-file PATH) --output NEW_DIR
 本地后端拒绝 image 参数。
 
 ## 失败与产物
-产物包含 workspace/、workspace.json、trajectory.jsonl、changes.patch、result.json。
+产物包含 workspace/、workspace.json、trajectory.jsonl、evidence/、changes.patch、result.json。
 模型运行的 outcome/stop_reason 保存在 agent_outcome/agent_stop_reason；补丁导出或清理失败不能抹去它们。
 errors 按 workspace_setup、environment_setup、model_setup、patch_export、
 environment_close、model_close、patch_write/result_write 分层记录异常类型。
@@ -57,3 +57,9 @@ tests/test_cli.py 使用离线模型和可信本地小仓库，覆盖真实 patc
 源文件保持、规则加载、明确 opt-in、设置覆盖、中断清理、失败分层、脱敏、
 单次 baseline 和不依赖模型凭证的评测辅助命令。
 CLI 不自动批量调度 300 题，不声称已有全量成绩；真实 API 与真实容器另行验证。
+
+## 上下文 V2 装配
+`--settings` 的 `execution_capture_bytes` 传给三个后端的 `capture_limit`，默认每个输出流保存 1 MiB；
+`max_output_chars` 只决定 Agent 给模型看的短预览。原始有界输出先由 Agent 脱敏保存到 evidence/，再生成预览。
+证据目录位于宿主产物目录，既不传入被修复仓库，也不挂载到容器。模型仅能通过 read_evidence 按 ID 分页读取。
+增大输出捕获上限时，需要为 JSON 编码膨胀和两个输出流配置足够的证据单项预算；不足时受控停止，不重放写操作。

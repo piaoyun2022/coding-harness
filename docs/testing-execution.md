@@ -29,3 +29,12 @@
 新增测试模拟 HEAD 正确但工作树已有修改、已有未跟踪文件、状态命令失败、截断或超时五种情况。DockerEnvironment 均必须拒绝启动任务，并清理自己创建的容器。fake Docker/Modal 的正常响应区分 HEAD 和 status 请求，避免把只有提交号匹配误当作完整基线验证。该验证同样由两种远端后端共享，不改动未知镜像来“修好”检查。
 
 真实联调追加回归：导出时重建副本index并过滤新增缓存/秘密，验证agent预先暂存__pycache__或.env也不进入补丁，保留正常新增源码，重复导出一致、不修改源目录。
+
+
+## 上下文 V2：执行证据先保留后预览
+
+本次只改变执行输出捕获，不恢复 SWE-bench 或模型调用。默认每流捕获 1 MiB 原始字节；output_limit 不再丢弃中间证据，Agent 入库后生成预览。测试涵盖 Local 输出中部与 stderr 完整返回、每流 4 MiB 输出在 4 KiB 捕获限额下仍执行到结尾、默认限额、超时前 stdout/stderr 保留及后代终止。Docker/Modal fake 经过真实 worker 命令验证 capture_limit RPC 传递与返回一致性；另有独立 worker stdin JSON 往返和非法限额在环境创建前拒绝。并行管道读取取代无界临时文件；超限始终报告 truncated。
+
+本轮验证（2026-10-14）：`python -m pytest tests/test_environment.py -q` 为 32 passed；三个修改的 Python 文件 ruff 通过。Windows 上真实子进程覆盖上述输出、凭证和 timeout 条件，fake 不产生模型或云端调用。
+
+另用既有通用镜像 `coding-harness-tools:469a9f6d9dfe67cf` 做真实 Docker 烟测（model_calls=0，未构建/下载镜像，未运行 SWE）：stdout 约 50 KiB 与 stderr 约 20 KiB 的中部标记完整返回；两流各 4 MiB 写入在每流 64 KiB 捕获额度下顺利退出并明确 truncated；超时前两流保留、后代 PID 已不存在；原始源文件不变，close 后 inspect 确认仅本次容器已删除。六项检查全部通过，Modal 仍仅 fake 验证。

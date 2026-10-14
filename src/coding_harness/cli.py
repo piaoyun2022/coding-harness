@@ -168,12 +168,16 @@ def _environment(args, workspace: Path, base_commit: str, settings: Settings):
     from .environment import DockerEnvironment, LocalEnvironment, ModalEnvironment
 
     if args.backend == "local":
-        return LocalEnvironment(workspace, base_commit, output_limit=settings.max_output_chars)
+        return LocalEnvironment(
+            workspace, base_commit, output_limit=settings.max_output_chars,
+            capture_limit=settings.execution_capture_bytes,
+        )
     factory = DockerEnvironment if args.backend == "docker" else ModalEnvironment
     return factory(
         workspace,
         base_commit,
         output_limit=settings.max_output_chars,
+        capture_limit=settings.execution_capture_bytes,
         lifetime=settings.max_seconds + 120,
         allow_network=args.allow_network,
         image=args.image,

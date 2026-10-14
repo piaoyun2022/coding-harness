@@ -32,5 +32,7 @@
   ".gitattributes": "docs/development.md",
   ".env.example": "docs/development.md",
   "scripts/run_baseline_batch.py": "docs/baseline-batch.md",
-  "tests/test_baseline_batch.py": "docs/baseline-batch.md"
+  "tests/test_baseline_batch.py": "docs/baseline-batch.md",
+  "src/coding_harness/evidence.py": "docs/modules/evidence.md",
+  "tests/test_evidence.py": "docs/testing-evidence.md"
 }

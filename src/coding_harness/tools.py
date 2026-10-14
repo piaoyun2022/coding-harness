@@ -1,4 +1,4 @@
-"""Schemas and recoverable dispatch for the two execution tools."""
+"""Schemas and recoverable dispatch for execution and evidence tools."""
 from __future__ import annotations
 
 from typing import Annotated
@@ -6,6 +6,7 @@ from typing import Annotated
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, ValidationError
 
 from .contracts import Environment
+from .evidence import EVIDENCE_ID_PATTERN, MAX_READ_CHARS, EvidenceStore
 
 
 class ExecuteArgs(BaseModel):
@@ -17,6 +18,13 @@ class ExecuteArgs(BaseModel):
 class PatchArgs(BaseModel):
     model_config = ConfigDict(extra="forbid")
     patch: Annotated[StrictStr, Field(min_length=1, max_length=256 * 1024)]
+
+
+class ReadEvidenceArgs(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    id: Annotated[StrictStr, Field(pattern=EVIDENCE_ID_PATTERN, max_length=35)]
+    start: Annotated[StrictInt, Field(ge=0)] = 0
+    limit: Annotated[StrictInt, Field(ge=1, le=MAX_READ_CHARS)] = 4000
 
 
 class FinishArgs(BaseModel):
@@ -40,6 +48,12 @@ TOOLS = [
         "parameters": PatchArgs.model_json_schema(),
     }},
     {"type": "function", "function": {
+        "name": "read_evidence",
+        "description": "Read a saved observation by its evidence ID, using character offsets. "
+                       "Use next_start for another page; unknown IDs and host paths are rejected.",
+        "parameters": ReadEvidenceArgs.model_json_schema(),
+    }},
+    {"type": "function", "function": {
         "name": "finish",
         "description": "Declare completion and summarize edits and tests. Call alone. "
                        "This does not certify that independent evaluation passes.",
@@ -48,7 +62,8 @@ TOOLS = [
 ]
 
 
-def dispatch(environment: Environment, name: str, args_json: str, timeout: float) -> dict:
+def dispatch(environment: Environment, name: str, args_json: str, timeout: float, *,
+             evidence: EvidenceStore | None = None) -> dict:
     """No automatic retry: a failed write may already have executed outside our process."""
     try:
         if timeout <= 0:
@@ -61,6 +76,11 @@ def dispatch(environment: Environment, name: str, args_json: str, timeout: float
         if name == "apply_patch":
             args = PatchArgs.model_validate_json(args_json)
             return environment.apply_patch(args.patch, timeout)
+        if name == "read_evidence":
+            args = ReadEvidenceArgs.model_validate_json(args_json)
+            if evidence is None:
+                return {"ok": False, "error": "Evidence storage is unavailable"}
+            return evidence.read(args.id, args.start, args.limit)
         return {"ok": False, "error": "Unknown execution tool"}
     except ValidationError as error:
         issues = error.errors(include_url=False, include_context=False, include_input=False)

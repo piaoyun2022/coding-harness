@@ -14,7 +14,7 @@ from pathlib import Path
 
 from .contracts import CommandResult
 from .patching import apply_patch
-from .worker import run_command
+from .worker import DEFAULT_CAPTURE_LIMIT, run_command, validate_capture_limit
 from .workspace import collect_patch
 
 WORKER_DIR = "/opt/coding-harness"
@@ -24,10 +24,13 @@ IMAGE_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/:@-]*\Z")
 class LocalEnvironment:
     """Unisolated backend for explicit trusted local use; CLI must enforce the opt-in."""
 
-    def __init__(self, workspace: Path, base_commit: str, output_limit: int = 12000):
+    def __init__(self, workspace: Path, base_commit: str, output_limit: int = 12000,
+                 capture_limit: int = DEFAULT_CAPTURE_LIMIT):
+        validate_capture_limit(capture_limit)
         self.workspace = Path(workspace).resolve(strict=True)
         self.base_commit = base_commit
         self.output_limit = output_limit
+        self.capture_limit = capture_limit
         self.closed = False
         self.description = (
             f"Trusted LOCAL workspace {self.workspace}; fresh shell each call. "
@@ -40,7 +43,9 @@ class LocalEnvironment:
 
     def execute(self, command: str, timeout: float) -> CommandResult:
         self._open()
-        return CommandResult(**run_command(self.workspace, command, timeout, self.output_limit))
+        return CommandResult(**run_command(
+            self.workspace, command, timeout, self.output_limit, capture_limit=self.capture_limit,
+        ))
 
     def apply_patch(self, patch: str, timeout: float) -> dict:
         self._open()
@@ -60,6 +65,7 @@ class _RemoteEnvironment:
     workdir: str
     base_commit: str
     output_limit: int
+    capture_limit: int
     closed: bool
     prebuilt: bool
 
@@ -93,7 +99,8 @@ class _RemoteEnvironment:
     def execute(self, command: str, timeout: float) -> CommandResult:
         return CommandResult(**self._rpc(
             "execute", timeout, command=command, timeout=timeout,
-            output_limit=self.output_limit, activate_testbed=self.prebuilt,
+            output_limit=self.output_limit, capture_limit=self.capture_limit,
+            activate_testbed=self.prebuilt,
         ))
 
     def apply_patch(self, patch: str, timeout: float) -> dict:
@@ -115,11 +122,14 @@ def _validate_remote(workdir: str, image: str | None, lifetime: int) -> None:
 class ModalEnvironment(_RemoteEnvironment):
     def __init__(self, workspace: Path, base_commit: str, output_limit: int = 12000,
                  lifetime: int = 1200, allow_network: bool = False,
-                 image: str | None = None, workdir: str = "/workspace"):
+                 image: str | None = None, workdir: str = "/workspace",
+                 capture_limit: int = DEFAULT_CAPTURE_LIMIT):
         import modal
 
         _validate_remote(workdir, image, lifetime)
+        validate_capture_limit(capture_limit)
         self.workdir, self.base_commit, self.output_limit = workdir, base_commit, output_limit
+        self.capture_limit = capture_limit
         self.prebuilt, self.closed, self.sandbox = image is not None, False, None
         self.description = f"Modal Linux sandbox; fresh Bash; repository at {workdir}."
         try:
@@ -173,11 +183,14 @@ class DockerEnvironment(_RemoteEnvironment):
     def __init__(self, workspace: Path, base_commit: str, output_limit: int = 12000,
                  lifetime: int = 1200, allow_network: bool = False,
                  image: str | None = None, workdir: str = "/workspace",
-                 cpus: float = 2.0, memory: str = "4g"):
+                 cpus: float = 2.0, memory: str = "4g",
+                 capture_limit: int = DEFAULT_CAPTURE_LIMIT):
         _validate_remote(workdir, image, lifetime)
+        validate_capture_limit(capture_limit)
         if cpus <= 0 or not re.fullmatch(r"[1-9][0-9]*[kmgKMG]?", memory):
             raise ValueError("Invalid Docker CPU/memory limits")
         self.workdir, self.base_commit, self.output_limit = workdir, base_commit, output_limit
+        self.capture_limit = capture_limit
         self.prebuilt, self.closed = image is not None, False
         self.name = "coding-harness-" + uuid.uuid4().hex
         self.created = False

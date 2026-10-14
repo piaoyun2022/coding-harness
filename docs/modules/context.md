@@ -1,31 +1,43 @@
-# 上下文管理 context.py
+# 上下文管理 V2
 
-## 意图与职责
-维护“原始任务和规则 + 较早回合摘要 + 最近完整回合”。这里只保留模型下一次需要的工作上下文，
-完整历史永远由 Trace 追加保存；不加入长期记忆、技能、MCP 或断点恢复。
+## 意图与边界
+`context.py` 只管理下一次模型请求所需的工作状态，不执行工具，不承担会话恢复或长期记忆。原始脱敏轨迹保存在 Trace；被移出工作上下文的执行结果保存在本次运行的 EvidenceStore，模型可用 `read_evidence` 回读。
 
-回合指一条 assistant 消息及其全部 tool observations。压缩边界只能在回合之间，不能留下孤立调用或结果。
-模型纯文本回合附一条 user 提醒，也作为完整回合存储。
+状态分成三部分：
+1. `Anchor(system, task)`：frozen Pydantic 对象，原始规则和任务逐字保留，每次请求固定为最前面的 system/user 两条消息。压缩模型没有修改入口。
+2. `Checkpoint`：较早回合的结构化工作状态。
+3. 近期完整回合：一条原始 assistant 消息及它的全部工具结果；保留 reasoning_content、原始调用顺序和 call ID 配对。
+
+## 检查点及事实边界
+`CheckpointDraft` 是摘要模型唯一允许返回的 JSON 结构，禁止额外字段：
+- `model_notes`：每条为 `{text, evidence_ids}`，描述发现、修改和未解决问题；逐条检查引用是否来自本轮待压缩证据集合。
+- `next_steps`：明确标注为模型推断的计划列表。
+- `evidence_ids`：全局引用列表。
+
+`Checkpoint` 在 Draft 基础上增加 `tool_facts`。模型不得填写此字段。程序将旧检查点和本次移出回合的事实 ID 自动合并，从内部登记表回填原始 `ToolFact(evidence_id, tool_name, tool_call_id, observed)`。`observed` 仅保存结果中的 `ok/exit_code/timed_out/truncated/changed_files/error`，不会把模型猜测升级为执行事实。`ok=true` 可能只表示工具调用成功，测试是否通过仍要看实际退出码和输出。
+
+所有引用必须存在于本轮允许集合及本实例证据存储，并能通过回读完整性检查。模型不能通过删掉引用列表丢弃已经保留的失败状态；也不能提供另一个 exit_code 覆盖原值。引用有效只说明有可定位的原始记录，不证明 note 的自然语言含义正确。无引用的 note 仍是未证实推断，不能作为已验证结果。
 
 ## 方法约定
-- Context(system, task, token_limit, keep_recent_turns)：复制并保存原始 system/task；两个限制必须为正。
-- messages() -> list[dict]：返回深复制，调用方修改不会污染内部状态。
-- add_turn(assistant, observations)：验证工具 ID 的顺序与结果角色；不完整回合抛 ValueError。
-- estimated_tokens：UTF-8 JSON 字节数除二向上取整，再加每条消息开销。
-  这是偏保守的触发启发式，不是 DeepSeek tokenizer，也不保证永远高估真实 token。
-- plan_compaction() -> CompactionPlan | None：仅当超过阈值且有可压缩的老回合时，
-  组合固定摘要说明、原任务、上次摘要和老回合；保留最近指定数量的完整回合。
-- apply_compaction(plan, reply) -> bool：只接受 assistant 角色、非空、未截断、不含工具调用、至多 12000 字符的文本。
-  摘要必须让估计上下文变短；拒绝过期计划。验证失败保留原上下文，返回 False。
+- `estimate_tokens(messages, tools=None) -> int`：将消息与工具 schema 一并按 UTF-8 字节估算并加协议余量，刻意保守，但不等同供应商 tokenizer。
+- `Context(system, task, token_limit, keep_recent_turns=2, recent_token_limit=6000, tools=None, evidence=None)`：不请求模型；工具 schema 深拷贝，证据存储由 Agent 注入。
+- `messages()`：返回深拷贝，调用者修改不会污染内部历史；`checkpoint` 同样返回深拷贝。
+- `register_fact(fact)`：仅程序调用，要求新 ID 已有可用证据；登记副本，重复或缺失证据抛 ValueError。
+- `add_turn(assistant, observations)`：仅接受完整回合；工具 ID 必须唯一且与结果逐项同序匹配。孤立工具结果、缺失或乱序结果抛 ValueError。跨回合复用 ID 允许，证据本身使用独立随机 ID。
+- `clean_old_previews() -> int`：仅在超预算时，先挑选近期完整 tail，再把更旧工具结果的预览替换为证据引用和原始事实；旧 read_evidence 页可替换为已有 ID 与页范围。最近 tail 不动，没有可用证据则不删。返回缩短的观察条数。
+- `plan_compaction() -> CompactionPlan | None`：超预算且确有旧回合才产生计划；包含版本号、拟移出完整回合数、允许引用 ID。输入包含原始 Anchor、上次完整 Checkpoint、待移出回合、JSON schema，以及从 EvidenceStore 回取的有限片段。另提供 checkpoint_budget：先扣除 Anchor、schema、完整 tail、程序事实与64估算 token余量，再给模型状态剩余估算 token与保守目标 JSON UTF-8 字节数（最多3000字节）；它是生成提示，最终仍必须通过整体 fit 校验。
+- `apply_compaction(plan, reply) -> bool`：只有版本未过期、正常停止、无工具调用、严格结构合法、引用可用、候选至少缩短32估算 token且整个候选能放进输入预算，才一次替换旧检查点与旧回合。否则返回 False，旧检查点与历史不变。
 
-## 压缩契约
-摘要保留目标约束、已改文件、发现、测试实际结果、未解决问题、下一步，并区分事实和推测。
-摘要模型调用由 Agent 执行，因此 token、耗时、请求和响应日志都与主任务一起计算。
-一次压缩仍不能降到阈值时停止，不丢掉最近回合来强行继续。
-原始任务或最近回合本身过长也受控停止；当前不递归分块压缩摘要输入。
+## 完整 tail 与压缩流程
+近期从最新一轮向前挑选，受 `recent_token_limit`、扣除固定前缀/schema/检查点后的可用量及 `keep_recent_turns` 上限共同约束。即便最新完整回合过大，也不能拆开或删掉其中某个工具结果。
 
-## 风险与验证
-摘要可能遗漏语义，不是无损压缩；原始日志支持复查。单纯摘要无法消除 prompt injection，
-固定说明用于减少将历史文件内容当指令的风险。
-tests/test_context.py 验证多工具回合保留、深复制、无效摘要不破坏历史、不完整观察被拒绝。
-Agent 集成测试进一步验证压缩失败、用量预算和全日志保留。
+摘要提示要求输出短的当前状态而非逐轮流水账：不复述 Anchor 或程序事实，把重复失败合并成一个未解决事项并附多个相关引用，只保留关键决策/发现；目标最多6条短 note 与3条短 next_steps，预算紧张时更少。已解决/过时信息仅在解释必要决策时保留。提示不能保证模型服从，所以预算不足的候选仍拒绝，不隐式重试。
+
+Agent 按“旧预览清理 → 检查预算 → 一次模型摘要 → 校验并替换”执行。清理已足够时无需额外模型调用。原始工具结果和原始请求/响应继续保留在证据与 trace 中。摘要失败不会撤销先前已完成且仍可回读的预览清理，但不丢弃任何旧回合或已接受检查点。无效摘要不会立即循环重试。
+
+## 限制与验证
+摘要每份证据最多读取2000字符前缀，总共最多8000字符，从较新的旧证据开始。前缀可能主要是命令或补丁参数；它不是完整输出，也不是检索结果，不能保证保全长日志中的全部细节。下一轮行动仍可按 ID 回读完整已存储结果；执行捕获已截断的部分无法恢复。模型对历史的解释、是否完整保留未解决问题仍可能出错。
+
+已有事实随检查点累积，极长任务可能让固定状态自身变大；此版本选择受控停止，不再加多级摘要或长期记忆。临界预算只能由启发式近似；必要时调低软阈值或增加余量。
+
+离线验证覆盖多次压缩 Anchor 不漂移、旧检查点/失败事实继承、逐条伪造引用与缺失文件拒绝、结构/预算/版本失败回退、完整 tail 与配对、schema 计入预算、先清理再摘要及有界片段。详见 `docs/testing-core.md`。

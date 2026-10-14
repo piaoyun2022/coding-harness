@@ -1,14 +1,14 @@
 # Environment：执行后端
 
-共同接口：description 告知 shell/root；execute(command, timeout) 返回 CommandResult；apply_patch(patch, timeout) 返回修改结果；collect_patch() 导出最终 Git diff；close() 清理。后端不判断任务完成，不接触模型密钥。
+共同接口：description 告知 shell/root；execute(command, timeout) 返回 CommandResult；apply_patch(patch, timeout) 返回修改结果；collect_patch() 导出最终 Git diff；close() 清理。后端不判断任务完成，不接触模型密钥。execute 返回捕获限额内完整的 stdout/stderr，不在后端生成模型短预览；Agent 先存证据后按预览预算裁剪。
 
 ## LocalEnvironment
 
-构造参数为 workspace、base_commit、output_limit=12000。只运行可信本地测试，必须由 CLI 显式 opt-in；目录副本无法隔离操作系统。close 标记已关闭；之后操作拒绝。补丁大小有界但本地 SDK 调用不能强制抢占 timeout。
+构造参数为 workspace、base_commit、output_limit=12000、capture_limit=1048576。只运行可信本地测试，必须由 CLI 显式 opt-in；目录副本无法隔离操作系统。close 标记已关闭；之后操作拒绝。补丁大小有界但本地 SDK 调用不能强制抢占 timeout。
 
 ## DockerEnvironment
 
-参数：workspace、base_commit、output_limit=12000、lifetime=1200、allow_network=False、image=None、workdir='/workspace'、cpus=2.0、memory='4g'。
+参数：workspace、base_commit、output_limit=12000、lifetime=1200、allow_network=False、image=None、workdir='/workspace'、cpus=2.0、memory='4g'、capture_limit=1048576。
 
 默认构建缓存镜像（Python 3.12、Git、ripgrep 与固定当前版本的补丁 SDK），通过 docker cp 上传已过滤快照和 worker，不 bind-mount 宿主目录、Docker socket、用户 home 或密钥。不传入宿主环境。容器禁用网络、去掉 capabilities、限制 CPU/内存/PID，并用 sleep 作为生命周期上限；模型任务本身不能延长容器存活。
 
@@ -20,10 +20,10 @@ image 非空时表示标准 SWE-bench 预制镜像，workdir 应为 /testbed：�
 
 ## ModalEnvironment
 
-同样参数到 workdir，不含 Docker 的 cpus/memory 参数。普通镜像复制已过滤工作区；预制镜像使用 Image.from_registry(add_python='3.12')，保留 /testbed，追加工具 SDK 与 worker。沙箱网络默认关闭，不注入 Secrets，结束 terminate(wait=True)，构造后失败也清理。
+同样参数到 workdir，末尾追加 capture_limit=1048576，不含 Docker 的 cpus/memory 参数。普通镜像复制已过滤工作区；预制镜像使用 Image.from_registry(add_python='3.12')，保留 /testbed，追加工具 SDK 与 worker。沙箱网络默认关闭，不注入 Secrets，结束 terminate(wait=True)，构造后失败也清理。
 
 参考官方 API：[Image](https://modal.com/docs/sdk/py/latest/Image)、[Sandbox](https://modal.com/docs/sdk/py/latest/Sandbox)。本地检查 SDK 签名，fake 测试覆盖调用与清理；未运行的云端行为不可宣称验证成功。
 
 ## 共同限制
 
-沙箱网络开关与生命周期不代替预算逻辑；execute 的控制器超时允许额外清理时间。工具日志返回长度有上限，原始进程临时输出仍会占用磁盘。独立补丁格式和 Git diff 格式分离。可复现评分必须使用官方评分环境，不以 agent 自报成功替代。
+沙箱网络开关与生命周期不代替预算逻辑；execute 的控制器超时允许额外清理时间。三种后端的 capture_limit 都按每流原始字节计数，默认分别 1 MiB，在创建环境前校验为正整数。Local 直接传给 worker；Docker/Modal 在 execute 的 JSON 请求中同样传递 capture_limit，原样返回捕获结果。output_limit 保留为兼容参数，不再限制返回内容；旧调用者若依赖短返回值，应在持久化证据后另生成预览。worker 采用有界内存捕获并持续 drain，不产生无界临时日志文件；截断或读取未完整结束时 truncated=true，不声称保留全部输出。独立补丁格式和 Git diff 格式分离。可复现评分必须使用官方评分环境，不以 agent 自报成功替代。

@@ -348,3 +348,27 @@ def test_dataset_and_grade_commands_do_not_need_credentials(tmp_path, monkeypatc
     result = json.loads(capsys.readouterr().out)
     assert result["executed"] is False
     assert result["preflight"]["ready"] is False
+
+
+@pytest.mark.parametrize("backend", ["local", "docker", "modal"])
+def test_environment_receives_independent_capture_and_preview_limits(
+    tmp_path, monkeypatch, backend,
+):
+    from argparse import Namespace
+
+    from coding_harness import environment
+    from coding_harness.config import Settings
+
+    received = {}
+
+    def factory(*args, **kwargs):
+        received.update(kwargs)
+        return received
+
+    for name in ("LocalEnvironment", "DockerEnvironment", "ModalEnvironment"):
+        monkeypatch.setattr(environment, name, factory)
+    args = Namespace(backend=backend, allow_network=False, image=None, workdir="/workspace")
+    settings = Settings(max_output_chars=512, execution_capture_bytes=4096)
+    cli._environment(args, tmp_path, "a" * 40, settings)
+    assert received["capture_limit"] == 4096
+    assert received["output_limit"] == 512

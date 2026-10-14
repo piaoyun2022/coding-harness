@@ -9,7 +9,7 @@ from types import SimpleNamespace
 import pytest
 
 from coding_harness.environment import DockerEnvironment, LocalEnvironment, ModalEnvironment
-from coding_harness.worker import run_command
+from coding_harness.worker import DEFAULT_CAPTURE_LIMIT, run_command
 from coding_harness.workspace import prepare_workspace
 
 BASE = "a" * 40
@@ -26,7 +26,7 @@ def test_local_commands_strip_secrets_and_limit_output(tmp_path, monkeypatch):
     command = python_command(
         "import os; print(os.environ.get('DEEPSEEK_API_KEY','absent')); print('x'*2000)"
     )
-    result = run_command(tmp_path, command, 10, 400)
+    result = run_command(tmp_path, command, 10, 400, capture_limit=400)
     assert result["exit_code"] == 0
     assert result["truncated"] and len(result["stdout"]) <= 400
     assert "absent" in result["stdout"]
@@ -266,3 +266,136 @@ def test_prebuilt_image_requires_clean_complete_baseline(tmp_path, monkeypatch, 
         DockerEnvironment(tmp_path, BASE, image="swebench/instance:test", workdir="/testbed")
     assert any(request.get("command", "").startswith("git status ") for request in requests)
     assert any(call[:2] == ["rm", "-f"] for call in calls)
+
+
+def test_local_returns_middle_evidence_before_preview(tmp_path):
+    env = LocalEnvironment(tmp_path, BASE, output_limit=100, capture_limit=200_000)
+    command = python_command(
+        "import sys; print('a'*30000 + 'MIDDLE_EVIDENCE' + 'z'*30000); "
+        "sys.stderr.write('b'*10000 + 'STDERR_EVIDENCE' + 'y'*10000)"
+    )
+    try:
+        result = env.execute(command, 20)
+        assert result.exit_code == 0 and not result.truncated
+        assert len(result.stdout) > 60_000 and 'MIDDLE_EVIDENCE' in result.stdout
+        assert len(result.stderr) > 20_000 and 'STDERR_EVIDENCE' in result.stderr
+        assert 'output truncated' not in result.stdout
+    finally:
+        env.close()
+
+
+def test_capture_drains_both_streams_after_cap(tmp_path):
+    # The final file proves both much-larger-than-pipe writes completed without blocking.
+    command = python_command(
+        "import sys; from pathlib import Path; "
+        "sys.stdout.write('o' * (4*1024*1024)); sys.stdout.flush(); "
+        "sys.stderr.write('e' * (4*1024*1024)); sys.stderr.flush(); "
+        "Path('completed').write_text('done')"
+    )
+    result = run_command(tmp_path, command, 30, capture_limit=4096)
+    assert result['exit_code'] == 0 and not result['timed_out']
+    assert result['truncated']
+    assert 0 < len(result['stdout']) <= 4096
+    assert 0 < len(result['stderr']) <= 4096
+    assert (tmp_path / 'completed').read_text() == 'done'
+
+
+def test_default_capture_cap_is_independent_of_preview(tmp_path):
+    command = python_command(f"print('x' * {DEFAULT_CAPTURE_LIMIT + 1000})")
+    result = run_command(tmp_path, command, 20, output_limit=100)
+    assert result['exit_code'] == 0 and result['truncated']
+    assert len(result['stdout']) == DEFAULT_CAPTURE_LIMIT
+
+
+def test_timeout_preserves_output_and_kills_descendant(tmp_path):
+    child_code = "import time; time.sleep(30)"
+    code = (
+        "import subprocess, sys, time; from pathlib import Path; "
+        f"child = subprocess.Popen([sys.executable, '-c', {child_code!r}]); "
+        "Path('child.pid').write_text(str(child.pid)); "
+        "print('OUT_BEFORE_TIMEOUT', flush=True); "
+        "print('ERR_BEFORE_TIMEOUT', file=sys.stderr, flush=True); time.sleep(30)"
+    )
+    result = run_command(tmp_path, python_command(code), 2, capture_limit=10_000)
+    assert result['timed_out'] and result['exit_code'] != 0
+    assert 'OUT_BEFORE_TIMEOUT' in result['stdout']
+    assert 'ERR_BEFORE_TIMEOUT' in result['stderr']
+    assert not result['truncated']
+    child_pid = int((tmp_path / 'child.pid').read_text())
+    if os.name == 'nt':
+        probe = subprocess.run(
+            ['tasklist', '/FI', f'PID eq {child_pid}', '/FO', 'CSV', '/NH'],
+            capture_output=True, text=True, check=True, timeout=10,
+        )
+        assert f'"{child_pid}"' not in probe.stdout
+    else:
+        # A dead descendant can briefly remain a zombie awaiting its new parent's reap.
+        proc_status = __import__('pathlib').Path(f'/proc/{child_pid}/stat')
+        if proc_status.exists():
+            assert proc_status.read_text().split(') ', 1)[1].startswith('Z ')
+        else:
+            with pytest.raises(ProcessLookupError):
+                os.kill(child_pid, 0)
+
+
+@pytest.mark.parametrize('backend', ['docker', 'modal'])
+@pytest.mark.parametrize('capture_limit', [256, 100_000])
+def test_remote_capture_rpc_preserves_worker_result(tmp_path, monkeypatch, backend, capture_limit):
+    original = fake_result
+
+    def execute_locally(request, **kwargs):
+        if request.get('command', '').startswith(('git rev-parse HEAD', 'git status ')):
+            return original(request, **kwargs)
+        assert request['output_limit'] == 100
+        assert request['capture_limit'] == capture_limit
+        return run_command(tmp_path, request['command'], request['timeout'],
+                           request['output_limit'], capture_limit=request['capture_limit'])
+
+    monkeypatch.setattr(sys.modules[__name__], 'fake_result', execute_locally)
+    if backend == 'docker':
+        install_fake_docker(monkeypatch)
+        cls = DockerEnvironment
+    else:
+        install_fake_modal(monkeypatch)
+        cls = ModalEnvironment
+    env = cls(tmp_path, BASE, output_limit=100, capture_limit=capture_limit)
+    try:
+        result = env.execute(python_command("print('a'*20000 + 'MIDDLE' + 'z'*20000)"), 20)
+        assert result.exit_code == 0 and not result.timed_out
+        assert result.truncated == (capture_limit == 256)
+        if capture_limit == 256:
+            assert len(result.stdout) <= capture_limit
+        else:
+            assert len(result.stdout) > 40_000 and 'MIDDLE' in result.stdout
+    finally:
+        env.close()
+
+
+@pytest.mark.parametrize('capture_limit', [0, -1, True, 1.5])
+def test_invalid_capture_limit_fails_before_execution(tmp_path, monkeypatch, capture_limit):
+    calls, _ = install_fake_docker(monkeypatch)
+    modal = install_fake_modal(monkeypatch)
+    for cls in (LocalEnvironment, DockerEnvironment, ModalEnvironment):
+        with pytest.raises(ValueError, match='Capture limit'):
+            cls(tmp_path, BASE, capture_limit=capture_limit)
+    with pytest.raises(ValueError, match='Capture limit'):
+        run_command(tmp_path, 'must not execute', 1, capture_limit=capture_limit)
+    assert not calls and 'create' not in modal
+
+
+def test_standalone_worker_rpc_retains_middle(tmp_path):
+    from coding_harness import worker
+
+    request = {
+        'operation': 'execute', 'workspace': str(tmp_path), 'timeout': 20,
+        'command': python_command("print('a'*20000 + 'MIDDLE_RPC' + 'z'*20000)"),
+        'output_limit': 100, 'capture_limit': 100_000,
+    }
+    result = subprocess.run(
+        [sys.executable, worker.__file__, '-'],
+        input=base64.b64encode(json.dumps(request).encode()).decode(),
+        text=True, capture_output=True, timeout=30, check=True,
+    )
+    response = json.loads(result.stdout)
+    assert response['exit_code'] == 0 and not response['truncated']
+    assert 'MIDDLE_RPC' in response['stdout'] and len(response['stdout']) > 40_000

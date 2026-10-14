@@ -1,6 +1,6 @@
 # CLI 集成验证
 
-tests/test_cli.py 当前 11 个离线测试验证以下实际边界：
+tests/test_cli.py 的离线测试验证以下实际边界：
 
 1. 本地可信副本中 apply_patch 修复函数、execute 跑真实 Python 检查并 finish，原始仓库保持不变。
 2. 根目录 AGENTS.md 进入模型上下文，源目录 .env 不进入副本。
@@ -21,3 +21,6 @@ tests/test_cli.py 当前 11 个离线测试验证以下实际边界：
 
 
 WSL真实平台验收发现CLI离线fixture硬编码python别名，在仅有python3且未激活venv时返回127；测试现使用当前sys.executable，PowerShell加调用运算符，避免把主机别名配置误判为harness失败。产品命令仍由任务环境决定。
+
+V2 新增参数化装配测试：Local、Docker、Modal 均接收独立的捕获字节限额和模型预览字符限额。
+此项使用构造器替身验证 CLI 接线，既不连接 Docker/Modal，也不能替代真实容器输出捕获测试。
