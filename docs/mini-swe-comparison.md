@@ -58,7 +58,7 @@ flowchart TB
 - **改善模型犯小错后的反馈。** mini 区分缺少工具调用、参数格式错误、输出被截断，并设置连续错误上限。我们可以借鉴这套提示与计数，仍保留“写工具不自动重放”的约定。
 - **保留当前有目的的差异。** 专用补丁和最小 Context V2 都对应具体需求；先验证它们是否改善长任务中的信息保留，再考虑扩展模型网关、UI 或更多执行后端。
 
-本篇只比较设计与代码，不比较跑分。mini 的公开榜单与我们当前 DeepSeek 的模型、题集、预算和提示设置不同；已有裸模型结果也不能直接当作 harness 对比实验。此次研究未运行模型、评测或修改任何实现代码。
+最初的源码研究不含实测；现在已增加同题对照实验，设置与已核验结果见下节。mini 的公开榜单不等于本地 DeepSeek 的成绩，三题诊断子集也不代表完整 SWE-bench 能力。
 
 ## 源码索引与查证范围
 
@@ -77,3 +77,16 @@ flowchart TB
 | 实际包依赖 | [pyproject.toml:30–57](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/pyproject.toml#L30-L57) |
 
 辅助官方文档：[v2 迁移](https://mini-swe-agent.com/latest/advanced/v2_migration/)、[SWE-bench 生成与评分分离](https://mini-swe-agent.com/latest/usage/swebench/#usage)。除逐文件阅读上述默认路径，还检索了固定提交的 `src/` 中历史替换、摘要/压缩和输出截断代码；“没有自动摘要”结论仅针对本篇默认路径，不泛指用户扩展或其他系统。
+
+## 本地同题对照与循环上限
+
+统一使用原顺序前三题及 DeepSeek Flash/high。裸模型为单次检索后输出补丁，配对前三题0/3；我们的 Context V2 在每题1000000累计token、30步、900秒下为1/3，全部三题在30步停止，各使用约30万至33万token，均触发过一次结构化压缩。第二、三题没有补丁。首题虽未调用finish，导出补丁仍通过官方测试；这不证明更高步数必然解决其余题目。
+
+mini-SWE普通 AgentConfig 的step_limit默认0（无轮数上限），SWE-bench配置明确覆盖为250步、3美元估算费用上限；可以主动提交提前结束。每步计一次模型query，不等于一个shell命令。默认无累计token上限，也无自动摘要。本地对照采用原生SWE配置，并增加900秒宿主保护（包含环境准备），不追加我们的30步或100万累计token限制。费用来自LiteLLM支持缓存与闲时费率的估算，并非账号账单。
+
+mini主预测遵循官方batch runner的native submission；非正常结束时工作区差异仅保存诊断，不补成主提交。我们的预算停止补丁仍会验收，两者提交策略不同；预算与提交差异必须和结果一并展示，不能将分数差直接归因于上下文架构。mini成绩待真实运行与独立验收后补充。
+
+- [我们前三题官方报告](../artifacts/official-agent-first3-1m/report.md)
+- [裸模型三十题报告及配对前三题](../artifacts/official-baseline-first30/report.md)
+- [mini固定版本、默认限制与DeepSeek参数验证](mini-swe-runtime.md)
+- [mini运行入口、隔离和输出约定](mini-swe-batch.md)

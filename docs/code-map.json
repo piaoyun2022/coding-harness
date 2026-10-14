@@ -38,5 +38,7 @@
   "scripts/run_official_batch.py": "docs/official-batch.md",
   "tests/test_official_batch.py": "docs/official-batch.md",
   "scripts/run_agent_batch.py": "docs/agent-batch.md",
-  "tests/test_agent_batch.py": "docs/agent-batch.md"
+  "tests/test_agent_batch.py": "docs/agent-batch.md",
+  "scripts/run_mini_swe_batch.py": "docs/mini-swe-batch.md",
+  "tests/test_mini_swe_batch.py": "docs/mini-swe-batch.md"
 }
