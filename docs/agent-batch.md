@@ -70,3 +70,12 @@
 同日用户进一步要求：百万预算先只跑原顺序前三题，跑不通时可以根据实际预算不足继续调大。当前百万实验不重新生成已开始的题目，在第三题结束后停止后续任务；原运行目录 `artifacts/agent-first30-1m` 留存实际记录，前三题另聚合为 `artifacts/agent-first3-1m`，独立评分目录为 `artifacts/official-agent-first3-1m`。这次验收分母为3，未执行的其余27题既不是失败，也不得补到本次成绩。题目与评分数据分别为 `artifacts/swe-bench-first3/tasks.jsonl` 和 `artifacts/grader-only/swe-bench-lite-first3-pinned.json`。
 
 先确认停止原因：token、步数或时间不足时，可按用户授权在独立新实验增加对应预算，保留旧结果；补丁错误或环境故障不能被简单归因为token不足。不拼接不同预算的最好结果，不把重复尝试的通过率称为单次通过率。当前这一轮仍固定30步、900秒、1000000累计token。
+
+
+## 下一轮配置：300 动作轮、500 万累计 token（未运行）
+
+用户授权的下一轮配置独立保存在 `artifacts/agent-first3-300steps-5m-settings.json`。以百万实验的 `artifacts/agent-first30-1m-settings.json` 为基础，**仅修改 `max_steps`：30 → 300，以及 `max_total_tokens`：1000000 → 5000000**。900 秒、DeepSeek Flash/high、单次输出 32768、请求超时 180 秒、上下文与证据限额等其他字段完全不变。300 指 Agent 动作循环上限，不等于工具调用次数；500 万仍是所有模型调用累计输入加输出，包含缓存输入。
+
+本次只保存并校验配置，**尚未启动模型、Docker 容器或官方评分**；没有更改冻结核心，也没有覆盖旧结果。真实 `Settings` 校验已通过，逐字段比较确认只有上述两项不同。动作轮、累计 token 和 900 秒三个限制仍由最先触发者结束任务；提高前两项不保证 900 秒内能走满 300 轮。
+
+实验题目边界仍为 `artifacts/swe-bench-first3/tasks.jsonl` 中原顺序的 astropy-12907、astropy-14182、astropy-14365，任务 SHA256 为 `c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20`，分母仅为 3。后续如启动，使用全新输出目录与独立评分记录，不与旧百万实验或 mini-SWE-agent 对照结果混合、挑优；其他 27 题不属于本轮范围。上下文交接和提交规则的修复仍另行讨论，此配置文件不表示它们已经修改或验证。
