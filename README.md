@@ -34,6 +34,8 @@ python -m venv .venv
 - [补丁编辑](docs/modules/patching.md)
 - [运行边界](docs/modules/environment.md)
 - [评测方法](docs/benchmark.md)
+- [Agent 批量运行](docs/agent-batch.md)
+- [官方评分批量入口](docs/official-batch.md)
 - [开发与文档同步](docs/development.md)
 - [依赖选择](docs/dependencies.md)
 
