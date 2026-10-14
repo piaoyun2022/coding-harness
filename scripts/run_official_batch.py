@@ -36,7 +36,14 @@ def read_json(path: Path):
 def write_json(path: Path, value: dict) -> None:
     temporary = path.with_name(path.name + '.tmp')
     temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    temporary.replace(path)
+    for attempt in range(8):
+        try:
+            temporary.replace(path)
+            return
+        except PermissionError:
+            if attempt == 7:
+                raise
+            time.sleep(min(0.05 * (2 ** attempt), 0.5))
 
 
 def validate_plan(tasks_path: Path, grader_path: Path) -> tuple[list[str], dict[str, dict]]:
@@ -79,6 +86,8 @@ def generation_input(root: Path, instance_id: str) -> tuple[dict, dict | None] |
         return row | {'status': 'api_error'}, None
     if status == 'setup_error':
         return row | {'status': 'generation_setup_error'}, None
+    if status == 'agent_error':
+        return row | {'status': 'agent_error'}, None
     if status != 'generated':
         return row | {'status': 'infra_unknown_generation_status'}, None
     try:
@@ -436,11 +445,22 @@ class Grader:
 
 def run_batch(ids: list[str], generation: Path, output: Path, grader, fingerprint: dict, *,
               resume: bool = False, retry_infra: bool = False, poll_seconds: float = 5,
-              reuse_from: Path | None = None, grading: dict | None = None) -> dict:
+              reuse_from: Path | None = None, grading: dict | None = None,
+              allow_script_upgrade: bool = False) -> dict:
+    history = [fingerprint]
     if resume:
         previous = read_json(output / 'progress.json')
-        if previous['fingerprint'] != fingerprint:
-            raise ValueError('Cannot resume with changed task, grader, or generation inputs')
+        old = previous['fingerprint']
+        history = previous.get('supervisor_history', [old])
+        if old != fingerprint:
+            changed = {key for key in set(old) | set(fingerprint)
+                       if old.get(key) != fingerprint.get(key)}
+            if not allow_script_upgrade or changed != {'supervisor_sha256'}:
+                raise ValueError('Cannot resume with changed task, grader, or generation inputs')
+            write_json(output / ('supervisor-upgrade-' + fingerprint['supervisor_sha256'][:12]
+                                  + '.json'), {'previous': old, 'current': fingerprint,
+                                              'updated_unix': time.time()})
+            history.append(fingerprint)
         rows = {row['instance_id']: row for row in previous['rows']}
         if retry_infra:
             rows = {key: value for key, value in rows.items()
@@ -456,6 +476,7 @@ def run_batch(ids: list[str], generation: Path, output: Path, grader, fingerprin
 
     def update():
         state = summarize(ids, rows) | {'fingerprint': fingerprint,
+                'supervisor_history': history,
                 'rows': [rows[i] for i in ids if i in rows], 'active_instance': active,
                 'supervisor_elapsed_seconds': round(time.monotonic() - started, 3),
                 'updated_unix': time.time()}
@@ -515,11 +536,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument('--reuse-from', type=Path)
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--retry-infra', action='store_true')
+    parser.add_argument('--allow-script-upgrade', action='store_true')
     args = parser.parse_args(argv)
     if sys.platform != 'linux':
         raise RuntimeError('Official grading requires Linux Python and a Docker Linux engine')
     if args.test_timeout < 1 or args.process_timeout <= args.test_timeout:
         raise ValueError('Process timeout must exceed positive test timeout')
+    if args.allow_script_upgrade and not args.resume:
+        raise ValueError('Script upgrades require an explicit resumed batch')
     if args.retry_infra and not args.resume:
         raise ValueError('Retrying grading requires --resume; model generation is never retried')
     if importlib.metadata.version('swebench') != '4.1.0':
@@ -545,7 +569,7 @@ def main(argv: list[str] | None = None) -> int:
         result = run_batch(ids, args.generation, args.output, grader, fingerprint,
                            resume=args.resume, retry_infra=args.retry_infra,
                            reuse_from=args.reuse_from.resolve() if args.reuse_from else None,
-                           grading=grading)
+                           grading=grading, allow_script_upgrade=args.allow_script_upgrade)
         public = {key: value for key, value in result.items() if key != 'rows'}
         print(json.dumps(public), flush=True)
         return 0 if not result['provisional'] else 2

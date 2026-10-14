@@ -66,7 +66,7 @@ def test_plan_requires_same_task_ids_and_baselines(tmp_path):
 @pytest.mark.parametrize(('status', 'expected'), [
     ('invalid_response', 'generation_invalid'), ('empty_or_invalid_patch', 'generation_invalid'),
     ('model_error', 'api_error'), ('setup_error', 'generation_setup_error'),
-    ('unexpected', 'infra_unknown_generation_status'),
+    ('agent_error', 'agent_error'), ('unexpected', 'infra_unknown_generation_status'),
 ])
 def test_generation_failures_are_distinct_without_needing_images(tmp_path, status, expected):
     generated(tmp_path, status=status)
@@ -311,3 +311,60 @@ def test_agent_budget_outcome_is_preserved_but_nonempty_patch_is_still_graded(tm
     row, prediction = batch.generation_input(tmp_path, 'fixture-1')
     assert prediction is not None and row['generation_mode'] == 'agent'
     assert row['agent_outcome'] == 'budget_exhausted' and row['stop_reason'] == 'max_steps'
+
+
+def test_atomic_progress_update_retries_windows_sharing_lock_without_losing_old_json(
+    tmp_path, monkeypatch,
+):
+    path = tmp_path / 'progress.json'
+    dump(path, {'old': True})
+    original = Path.replace
+    attempts = []
+
+    def locked(temporary, target):
+        attempts.append(True)
+        if len(attempts) < 3:
+            assert batch.read_json(path) == {'old': True}
+            raise PermissionError('Windows reader temporarily holds file')
+        return original(temporary, target)
+
+    monkeypatch.setattr(Path, 'replace', locked)
+    monkeypatch.setattr(batch.time, 'sleep', lambda _: None)
+    batch.write_json(path, {'new': True})
+    assert len(attempts) == 3 and batch.read_json(path) == {'new': True}
+
+
+def test_permanent_sharing_lock_is_bounded_and_preserves_previous_progress(tmp_path, monkeypatch):
+    path = tmp_path / 'progress.json'
+    dump(path, {'old': True})
+    calls = []
+
+    def locked(temporary, target):
+        calls.append(True)
+        raise PermissionError('persistent lock')
+
+    monkeypatch.setattr(Path, 'replace', locked)
+    monkeypatch.setattr(batch.time, 'sleep', lambda _: None)
+    with pytest.raises(PermissionError):
+        batch.write_json(path, {'new': True})
+    assert len(calls) == 8 and batch.read_json(path) == {'old': True}
+
+
+def test_explicit_script_upgrade_preserves_run_inputs_and_existing_results(tmp_path):
+    output = tmp_path / 'output'
+    old = {'supervisor_sha256': 'old', 'tasks_sha256': 'fixed'}
+    new = old | {'supervisor_sha256': 'new'}
+    dump(output / 'progress.json', {'fingerprint': old, 'rows': [
+        {'instance_id': 'done', 'status': 'graded', 'resolved': True},
+    ]})
+    grader = FakeGrader()
+    with pytest.raises(ValueError, match='changed'):
+        batch.run_batch(['done'], tmp_path / 'generation', output, grader, new, resume=True)
+    result = batch.run_batch(['done'], tmp_path / 'generation', output, grader, new,
+                             resume=True, allow_script_upgrade=True)
+    assert result['resolved'] == 1 and not grader.calls
+    assert result['supervisor_history'] == [old, new]
+    assert (output / 'supervisor-upgrade-new.json').is_file()
+    with pytest.raises(ValueError, match='changed'):
+        batch.run_batch(['done'], tmp_path / 'generation', output, grader,
+                        new | {'tasks_sha256': 'different'}, resume=True, allow_script_upgrade=True)

@@ -51,3 +51,11 @@
 Agent 批次可使用同样的 runs/<id> 布局：result.mode=agent，status=generated 仅表示非空补丁已导出，原 outcome/stop_reason 在汇总行保留；completed、预算停止等都不能冒充测试通过。empty_patch 单列已知生成失败；有非空补丁的预算停止仍交官方验收。中断最终 progress 会清除 active_instance，但未完成题继续保留在 pending。
 
 范围缩为固定前30后的追加验证：报告复用/数据一致性/Agent预算停止覆盖在内共24项离线测试通过。baseline-first30 从已生成的 full300 首30文件逐字节复制，source-manifest 保存每个源文件 SHA，不重发模型请求。
+
+### WSL/Windows 共享文件读写修复
+
+真实首30运行在10题完成后遇到 progress.json 原子替换 PermissionError：Windows 读取者可能暂时不允许 WSL 替换文件。write_json 现在仅针对该异常做最多8次、最多0.5秒单次间隔的有界重试；成功前旧JSON保持完整，持续锁定仍明确失败，不伪装评分成功。模型和官方测试不因此重跑。
+
+监督器修复需使用新的稳定副本。`--resume --allow-script-upgrade` 只允许 fingerprint 中 supervisor_sha256 一项变化；题目、生成plan、评分数据、Python、超时任何变化仍拒绝。记录 supervisor-upgrade receipt 与 supervisor_history 后继续未处理题。此选项不是静默复用不同实验设置的后门；已经验收的补丁和官方报告保留原版本证据。
+
+Agent运行异常 agent_error 与 API/setup 错误分别保留，均属于未得到能力结论的状态；不能直接当作未修复的官方成绩。共享锁修复、显式版本升级与状态分类回归共28项测试通过，ruff通过。
