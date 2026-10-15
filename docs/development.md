@@ -56,3 +56,7 @@ tests/test_docs_sync.py 创建独立临时 Git 仓库，验证：
 - 测试、脚本、CI、hook、根配置和依赖文件都在检查范围。
 
 这些测试只操作临时仓库，不运行模型、不接触用户源仓库，也不会触发主仓库 hook。
+
+## 公开发布的密钥模板
+
+`.env.example` 只含变量名和复制说明，保持空值；用户在仓库根目录复制为 `.env` 后填写 DeepSeek 密钥。README 提供 Linux 与 PowerShell 两种复制方式。模板不包含默认凭证，发布前检查 Git 索引与可达历史，禁止将运行日志或 `.env` 上传。新的一键评测入口负责显式读取该文件，具体参数见 `docs/evaluation.md`。

@@ -1,27 +1,20 @@
-# 本机环境安装与验收记录
+# 运行环境与验证边界
 
-2026-10-14，Windows11教育版，约32GB内存；WSL2.6.3已存在。本次创建独立 coding-harness Ubuntu24.04发行版，位于D:\CodingHarnessRuntime\Ubuntu。未重启电脑，未删除旧demo。
+## 新机器的前置条件
 
-Docker Desktop通过官方x86_64安装包安装至当前用户；执行前Authenticode验证Valid、签名Docker Inc。引擎docker info返回29.8.2。实际镜像数据已核验位于 D:\CodingHarnessRuntime\Docker\disk\docker_data.vhdx。后台启动，未开启宿主TCP端口。
+准备 Git、Python 3.11+ 及能够执行 Linux 容器的 Docker。先在将运行评测的 Linux 或 WSL 终端验证 `docker info` 成功。Windows 使用 WSL2 与 Docker Desktop 的 WSL 集成；本仓库不安装、重启或重新配置这些系统服务。
 
-WSL内 /opt/coding-harness-eval 已安装 swebench4.1.0；Docker的WSL集成已开启；WSL中docker info返回29.8.2，Python docker.from_env().ping()为True。Windows项目 .venv 已安装核心、开发、Modal可选依赖和benchmark数据依赖pyarrow23.0.1；openai-agents实际版本0.20.0。
+填写仓库根目录 `.env` 中的 `DEEPSEEK_API_KEY` 后，使用 [README](../README.md) 的一键入口；依赖安装、题集准备、批量生成、官方评分和输出位置详见 [评测指南](evaluation.md)。路径均以本地 checkout 为准，不要求特定用户名、盘符或系统级虚拟环境。
 
-真实DeepSeek连通探测通过：模型deepseek-flash，对应服务端名称DeepSeek-V4.1-Flash；一次极小请求返回OK。密钥仅在忽略的.env中，不进入容器/源码/提交。探测详情artifacts/api-probe.json。
+## 已有验证与当前结果
 
-全量SWE-bench Lite300题已下载到artifacts/swe-bench-lite，固定revision与checksum见manifest.json。没有正式分数。真实Docker工具冒烟已通过：失败测试、补丁修复、测试通过、导出补丁、源目录保持和容器清理全部验证；报告artifacts/docker-smoke.json。首轮真实模型联调暴露父Git忽略目录复制为空的问题，已修复并补回归；原失败保留于artifacts/live-agent-smoke。修复后的真实DeepSeek+Docker任务成功（artifacts/live-agent-smoke-fixed）：5轮、6677总token、9.531秒，apply_patch修复calc.py、两项测试通过，原输入不变。首题官方评分进行中。
+实际开发环境为 Windows 11 / WSL2 / Linux Docker，宿主约 32 GB 内存。已验证真实 DeepSeek API、容器内命令与补丁、相关测试通过后导出补丁、输入目录保持不变，以及独立官方评分。历史预备阶段使用过单题与十题冒烟；它们不是公开汇总表的分母。
 
-初始磁盘余量C约20GB、D约42GB，全量镜像不能同时缓存。评测按并发1起步，先验证首题资源需求；只清理本任务拥有的资源，避免通用docker system prune。
+C 版原顺序前 30 题最终为 20/30，裸模型同题为 9/30；完整结果、停止原因和预算以 [评测结果](evaluation-results.md) 为准。历史实验曾采用机器专用的虚拟环境路径和调度辅助脚本；公开入口将这些步骤收为仓库内脚本。新增入口的测试通过不代表再次获得该成绩。
 
-来源：[Docker安装](https://docs.docker.com/desktop/setup/install/windows-install/)、[SWE-bench官方评测](https://www.swebench.com/SWE-bench/guides/evaluation/)。
+镜像下载、构建和测试会消耗磁盘与内存，并发度需要与机器资源匹配。仅清理本轮拥有且不再使用的容器或镜像，不使用全局 Docker prune。
 
-首次全仓离线验收为125 passed、2 skipped；两项跳过涉及Windows创建symlink权限。最终修复后的测试数量以最后一次验收为准。
+## 参考
 
-## 最终集成验收（首轮交付）
-
-Windows完整离线测试147 passed、2 skipped；WSL Linux149 passed，无跳过。Windows的两项跳过是创建真实symlink权限，Linux已执行通过。Ruff与文档同步检查通过，wheel成功构建。Linux测试中已消除对python别名的依赖。
-
-artifacts/live-agent-final为最终真实DeepSeek+Docker冒烟：8轮、12448总token、17.297秒；两项测试通过，源目录不变。补丁导出已加新增缓存/秘密过滤，即使预先git add也不会导出；所有改动和原失败轨迹分别保留。
-
-首题裸模型官方验收（psf__requests-1963）成功：FAIL_TO_PASS7/7、PASS_TO_PASS112/112；单次生成35.813秒、23795tokens，官方评分64.599秒。初始8192输出预算截断的记录独立保留，校准后固定32768输出预算，不混分。详细证据artifacts/official-baseline-calibrated/smoke-summary.json。这是1题验证，不是完整基准成绩。
-
-用户随后明确先跑10题。artifacts/swe-bench-smoke10记录固定随机种子42在完整300题中抽取的10题；裸模型批次artifacts/baseline-smoke10与官方验收artifacts/official-baseline-smoke10已启动。agent也按同10题另行运行，使用独立产物，不将冒烟样例或未评分生成数量冒充通过数。结果待实际完成后补充。
+- [Docker Desktop Windows 安装](https://docs.docker.com/desktop/setup/install/windows-install/)
+- [SWE-bench 官方评测](https://www.swebench.com/SWE-bench/guides/evaluation/)
