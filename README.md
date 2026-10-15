@@ -77,6 +77,7 @@ flowchart LR
     P --> G[独立官方评分]
 ```
 
+- [面试官版 PDF（2 页）](docs/interview-report.pdf) · [简洁文字版](docs/interview-report.md)
 - [项目总报告：架构、组件、实现与实验](docs/project-report.md)
 - [可复核的评测结果](docs/evaluation-results.md) · [一键评测指南](docs/evaluation.md)
 - [代码与文档对应关系](docs/code-map.json) · [开发约定](AGENTS.md)

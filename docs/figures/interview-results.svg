@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="510" height="282" preserveAspectRatio="xMinYMin meet" viewBox="0 0 510 282" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="510" height="282"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-282)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="304" height="282" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(94%,97%,97%); fill-rule: evenodd;"/>
+			<rect x="316" y="0" width="194" height="282" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(95%,94%,97%); fill-rule: evenodd;"/>
+			<text x="17" y="259" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 12px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,518) scale(1,-1)">本地同题对照</text>
+			<text x="17" y="242" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 9px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,484) scale(1,-1)">DeepSeek Flash · SWE-bench Lite 30</text>
+			<text x="332" y="259" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 12px;fill: rgb(48%,44%,61%); stroke:none;" transform="translate(0,518) scale(1,-1)">官方公开参考</text>
+			<text x="332" y="242" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 10px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,484) scale(1,-1)">Claude Opus 4.6</text>
+			<path d="M 40,80 L 286,80 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="28.484521484375" y="77.0" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,154) scale(1,-1)">0</text>
+			<path d="M 40,146.5 L 286,146.5 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="23.96904296875" y="143.5" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,287) scale(1,-1)">50</text>
+			<path d="M 40,213 L 286,213 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="19.453564453124997" y="210.0" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,420) scale(1,-1)">100</text>
+			<path d="M 348,80 L 492,80 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="336.484521484375" y="77.0" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,154) scale(1,-1)">0</text>
+			<path d="M 348,146.5 L 492,146.5 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="331.96904296875" y="143.5" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,287) scale(1,-1)">50</text>
+			<path d="M 348,213 L 492,213 Z" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.6;"/>
+			<text x="327.453564453125" y="210.0" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 7.7px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,420) scale(1,-1)">100</text>
+			<rect x="86" y="80" width="53" height="39.900000000000006" rx="3" ry="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(25%,43%,60%); fill-rule: evenodd;"/>
+			<text x="87.96484375" y="129.9" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 16px;fill: rgb(25%,43%,60%); stroke:none;" transform="translate(0,259) scale(1,-1)">30.0%</text>
+			<text x="99.99755859375" y="65" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 9px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,130) scale(1,-1)">9 / 30</text>
+			<rect x="202" y="80" width="53" height="88.71100000000001" rx="3" ry="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="203.96484375" y="178.711" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 16px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,357) scale(1,-1)">66.7%</text>
+			<text x="213.358642578125" y="65" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 9px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,130) scale(1,-1)">20 / 30</text>
+			<rect x="392" y="80" width="53" height="100.548" rx="3" ry="3" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(48%,44%,61%); fill-rule: evenodd;"/>
+			<text x="393.96484375" y="190.548" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 16px;fill: rgb(48%,44%,61%); stroke:none;" transform="translate(0,381) scale(1,-1)">75.6%</text>
+			<text x="392.55029296875" y="65" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 9px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,130) scale(1,-1)">Verified 500</text>
+			<text x="97.5" y="43" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 10px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,86) scale(1,-1)">裸模型</text>
+			<text x="196.7080078125" y="43" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 10px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,86) scale(1,-1)">本项目 Agent</text>
+			<text x="91.7197265625" y="21" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.5px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,42) scale(1,-1)">动作 / 裸模型 high；摘要 none</text>
+			<text x="362.0838623046875" y="43" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 9.3px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,86) scale(1,-1)">mini-SWE-agent 2.0.0</text>
+			<text x="369.8849853515625" y="22" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.3px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,44) scale(1,-1)">单次尝试 · 2026-02-17</text>
+		</g>
+	</g>
+</svg>

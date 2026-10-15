@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="510" height="245" preserveAspectRatio="xMinYMin meet" viewBox="0 0 510 245" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="510" height="245"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-245)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="510" height="245" rx="12" ry="12" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(96%,97%,98%); fill-rule: evenodd;"/>
+			<text x="220.1658935546875" y="228" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 9.5px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,456) scale(1,-1)">任务 + 仓库规则</text>
+			<path d="M 255,220 L 255,195 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="255 195, 257.3089 199.435, 252.6911 199.435" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<rect x="190" y="137" width="130" height="58" rx="9" ry="9" style="stroke: rgb(3%,49%,54%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(3%,49%,54%); fill-rule: evenodd;"/>
+			<text x="229.0" y="172" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 13px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,344) scale(1,-1)">核心循环</text>
+			<text x="211.83623046875" y="150" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,300) scale(1,-1)">继续 / 工具调用 / 结束</text>
+			<rect x="10" y="153" width="135" height="58" rx="9" ry="9" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(93%,96%,97%); fill-rule: evenodd;"/>
+			<text x="50.0" y="188" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,376) scale(1,-1)">上下文管理</text>
+			<text x="45.965966796875" y="166" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(3%,49%,54%); stroke:none;" transform="translate(0,332) scale(1,-1)">压缩 + 证据回读</text>
+			<rect x="365" y="153" width="135" height="58" rx="9" ry="9" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(92%,94%,98%); fill-rule: evenodd;"/>
+			<text x="389.313720703125" y="188" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(25%,43%,60%); stroke:none;" transform="translate(0,376) scale(1,-1)">DeepSeek Flash</text>
+			<text x="415.70732421875" y="166" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(25%,43%,60%); stroke:none;" transform="translate(0,332) scale(1,-1)">模型 API</text>
+			<rect x="190" y="38" width="130" height="58" rx="9" ry="9" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="233.0" y="73" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,146) scale(1,-1)">工具调度</text>
+			<text x="216.218115234375" y="51" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,102) scale(1,-1)">执行命令 / 应用补丁</text>
+			<rect x="365" y="38" width="135" height="58" rx="9" ry="9" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="394.7412109375" y="73" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,146) scale(1,-1)">Docker 工作区</text>
+			<text x="393.63623046875" y="51" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(7%,16%,25%); stroke:none;" transform="translate(0,102) scale(1,-1)">读代码 / 修改 / 测试</text>
+			<rect x="10" y="38" width="135" height="58" rx="9" ry="9" style="stroke: rgb(86%,89%,92%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(94%,94%,96%); fill-rule: evenodd;"/>
+			<text x="37.036865234375" y="73" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(48%,44%,61%); stroke:none;" transform="translate(0,146) scale(1,-1)">补丁 + 运行记录</text>
+			<text x="43.1" y="51" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(48%,44%,61%); stroke:none;" transform="translate(0,102) scale(1,-1)">交给独立官方验收</text>
+			<path d="M 145,181 L 190,181 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="190 181, 185.565 183.3089, 185.565 178.6911" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<polygon points="145 181, 149.435 178.6911, 149.435 183.3089" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<path d="M 320,181 L 365,181 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="365 181, 360.565 183.3089, 360.565 178.6911" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<polygon points="320 181, 324.435 178.6911, 324.435 183.3089" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<path d="M 255,137 L 255,96 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="255 96, 257.3089 100.435, 252.6911 100.435" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<text x="264" y="113" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,226) scale(1,-1)">工具请求</text>
+			<path d="M 320,67 L 365,67 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="365 67, 360.565 69.3089, 360.565 64.6911" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<path d="M 432,96 L 432,116 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<path d="M 432,116 L 320,116 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<path d="M 320,116 L 320,144 Z" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="320 144, 317.6911 139.565, 322.3089 139.565" style="stroke: rgb(32%,40%,47%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(32%,40%,47%); fill-rule: evenodd;"/>
+			<text x="347.8" y="122" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,244) scale(1,-1)">执行反馈</text>
+			<path d="M 190,151 L 78,151 Z" style="stroke: rgb(48%,44%,61%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<path d="M 78,151 L 78,96 Z" style="stroke: rgb(48%,44%,61%); stroke-linecap: butt; stroke-width: 1.3;"/>
+			<polygon points="78 96, 80.3089 100.435, 75.6911 100.435" style="stroke: rgb(48%,44%,61%); stroke-linecap: butt; stroke-width: 0.5; fill: rgb(48%,44%,61%); fill-rule: evenodd;"/>
+			<text x="99" y="128" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.6px;fill: rgb(48%,44%,61%); stroke:none;" transform="translate(0,256) scale(1,-1)">结束后导出</text>
+			<text x="136.2" y="14" style="font-family: Microsoft YaHei, Noto Sans CJK SC, sans-serif; font-size: 8.8px;fill: rgb(32%,40%,47%); stroke:none;" transform="translate(0,28) scale(1,-1)">验收在循环外进行；隐藏测试与标准答案不进入模型上下文。</text>
+		</g>
+	</g>
+</svg>
