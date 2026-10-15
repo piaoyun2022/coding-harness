@@ -1,0 +1,8 @@
+# Reproducible top-level runtime versions; full installed versions are recorded per run.
+openai==2.54.0
+openai-agents==0.20.0
+pydantic==2.14.1
+python-dotenv==1.2.4
+pyarrow==23.0.1
+swebench==4.1.0
+

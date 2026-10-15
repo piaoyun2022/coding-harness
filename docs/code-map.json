@@ -40,5 +40,12 @@
   "scripts/run_agent_batch.py": "docs/agent-batch.md",
   "tests/test_agent_batch.py": "docs/agent-batch.md",
   "scripts/run_mini_swe_batch.py": "docs/mini-swe-batch.md",
-  "tests/test_mini_swe_batch.py": "docs/mini-swe-batch.md"
+  "tests/test_mini_swe_batch.py": "docs/mini-swe-batch.md",
+  "scripts/evaluate.py": "docs/evaluation.md",
+  "scripts/evaluation_images.py": "docs/evaluation.md",
+  "scripts/evaluate.sh": "docs/evaluation.md",
+  "scripts/evaluate.ps1": "docs/evaluation.md",
+  "scripts/evaluation-constraints.txt": "docs/evaluation.md",
+  "tests/test_evaluate.py": "docs/evaluation.md",
+  "tests/test_evaluation_images.py": "docs/evaluation.md"
 }
