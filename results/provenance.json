@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "exported_at_utc": "2026-10-15T00:52:12.533933+00:00",
+  "source_artifacts": [
+    {
+      "experiment": "bare30",
+      "local_archive_label": "official-baseline-first30",
+      "run_sha256": "34cd170ed8fa6bed585b7375bbecb53be3e2024dcdbf4d06cf2c308baf9ddbb3",
+      "verification_sha256": "da6b16463687aa5de7f29018b86cb9e23dc206274e44e93f22262977918dc7fd",
+      "generation_plan_sha256": "9336ba5f9319628b3de9452790fbf28118f2aeecc7ca65e38d7aa2b4d152033e",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "C30",
+      "local_archive_label": "official-agent-first30-context-finish-300-5m",
+      "run_sha256": "be82cc8b3e425ac5e4df37c4707e95d0decd153c8549bb408e1adbabfe8eda50",
+      "verification_sha256": "b5398b9925af0354840d6b4fe9c82409d9d505d13bcee50fc6ddc2f84c9a4155",
+      "generation_plan_sha256": "aa9073a877150c700c2a5eb837cd98af196d9a71211b200d35248e8333c446d1",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "A",
+      "local_archive_label": "official-agent-first3-budget-control-300-5m",
+      "run_sha256": "c96d06a45b68e0ee9492ca9f77a41200e1d44f402f6dd8b70d1e9ccc78ae6584",
+      "verification_sha256": "a35af02a16df92bef0002321f0eec93de2866d4975e24f9c49574e533e4c27cb",
+      "generation_plan_sha256": "8e432bee55503d7abb05adf4b508283d5c5c1bb2d5ca020e7fa34376e91eb641",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "B",
+      "local_archive_label": "official-agent-first3-context-only-300-5m",
+      "run_sha256": "e98c0d5cd7bff14341026ff2ef7b0d8653b7fb79d74de140fedb3d145cb2646d",
+      "verification_sha256": "856e42e1439de376e3a7932d7b629aa112435626a6bffd677c1095926655511c",
+      "generation_plan_sha256": "2b5b08025edbb448b46831c07ed1300bd4267a5abf4a20263dbe8ef8eb2a99ad",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "C",
+      "local_archive_label": "official-agent-first3-context-finish-300-5m",
+      "run_sha256": "941007cf34f8d2023224b0ca5ec4aa00f1af98ad40c250d4f6b7ca665b0ec6e8",
+      "verification_sha256": "2a54f3a7671084fef9d526eb704c6165da492611167d9d7daf082de549921b88",
+      "generation_plan_sha256": "0c043faf3e82605f373e2c41475dac64911dcb3d24eeb36186a33d3c9a0db6ca",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "D",
+      "local_archive_label": "official-agent-first3-bounded-context-300-5m",
+      "run_sha256": "a5e65860ebf2d2148035fe65bce0f4080d85713a50c0b85417381a1f8f47679f",
+      "verification_sha256": "925c21dde5b2005cf64b82b91af36b5b014e93a7dfd17aaf4998bbd31b90a205",
+      "generation_plan_sha256": "34b458e2a6e5137fd3c90abe25b409c7da045215ea036ae8172ab609aaa5d0f9",
+      "source_rechecked_during_public_export": true
+    },
+    {
+      "experiment": "mini",
+      "local_archive_label": "official-mini-swe-first3",
+      "run_sha256": "c598b05a0bec8744ac971cac11efab765e7c5f280abb340d92279ee92a019dc8",
+      "verification_sha256": "a1f6547dc073ed223d4ed9368207e591c8b33a042bdb82e9b9d5250d6dc8ff2a",
+      "generation_plan_sha256": "c194d91fa8994e833412f1350f82baa87212b3768a755ce04ba596a0d8e73c3c",
+      "source_rechecked_during_public_export": true
+    }
+  ],
+  "fresh_file_checks": {
+    "official_patch_files": 59,
+    "official_reports": 51,
+    "bound_framework_patch_rejections": 8,
+    "C_frozen_source_files": 17,
+    "C3_reused_generation_files": 146
+  },
+  "hash_meaning": "SHA-256 hashes bind the local original files. Raw logs, patches, hidden tests and model outputs are intentionally not redistributed; hashes alone are not independently executable proof.",
+  "deduplication_note": "Counts include C3 and its identical appearances in C30. They are not distinct generations.",
+  "public_fields_policy": "Allowlisted identifiers, configuration, outcomes, counts, timings and hashes only; no user host paths, credentials, prompts, test names or gold patches."
+}

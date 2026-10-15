@@ -1,0 +1,1019 @@
+{
+  "schema_version": 1,
+  "selection": "same first three of the instance_id-sorted fixed manifest; single generation per group; not representative",
+  "model": {
+    "model": "deepseek-flash",
+    "reasoning_effort": "high",
+    "max_output_tokens_per_request": 32768
+  },
+  "experiments": [
+    {
+      "experiment": "A",
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 196,
+        "action_requests": 181,
+        "summary_requests": 15,
+        "total_tokens": 2484140,
+        "active_seconds_sum": 671.687,
+        "generation_total_seconds_sum": 707.761,
+        "grading_seconds_sum": 183.917
+      },
+      "source": {
+        "source_commit": "05359aeddfb57e601ff67a5b3567c15a53a29cb3",
+        "wrapper_commit": "405db4949667ea9435c8df99b1bddf51b3f5ccfb"
+      },
+      "grader": {
+        "tasks_sha256": "c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20",
+        "grading_data_sha256": "291b52e3e19a0111d2407c6970defff8e4608fdc26b4f6ce0491ec38dff43b5e",
+        "generation_plan_sha256": "8e432bee55503d7abb05adf4b508283d5c5c1bb2d5ca020e7fa34376e91eb641",
+        "supervisor_sha256": "bce44400536012e9f4717a36d23cb9872a36ec70e466424240470c94b994dfe8",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 34,
+          "summary_requests": 2,
+          "model_requests": 36,
+          "usage": {
+            "input_tokens": 389588,
+            "output_tokens": 12583,
+            "cached_tokens": 282880,
+            "total_tokens": 402171
+          },
+          "active_seconds": 131.315,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 143.772,
+          "grading_seconds": 66.318,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "9671f5dc28ed724179449cdee252361e0ee827f395d239904ef4ea5eb47ead6d",
+            "prediction_file_sha256": "3c8254841306c3f47a9cbb2190318577cd7d81db583aa5d8b01fb8ef68c66f8e",
+            "candidate_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": {
+            "result_steps": 34,
+            "action_request_count": 34,
+            "model_request_count": 36,
+            "model_requests_by_purpose": {
+              "action": 34,
+              "summary": 2
+            },
+            "successful_compactions": 2,
+            "read_like_execute_count": 11,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 6,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 26,
+            "last_patch_to_stop_rounds": 26,
+            "source_trace_sha256": "dfaf6b5b85208f03c5fa5601cee4e12d80ecd52d0fa90c681caf85cb448060c9"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 113,
+          "summary_requests": 12,
+          "model_requests": 125,
+          "usage": {
+            "input_tokens": 1648006,
+            "output_tokens": 34081,
+            "cached_tokens": 1078528,
+            "total_tokens": 1682087
+          },
+          "active_seconds": 425.321,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 437.612,
+          "grading_seconds": 65.964,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "5fd59ff57e1832f4bd513944162a8bd4fce64f1a29c8a05c308ef7ed353b499b",
+            "prediction_file_sha256": "3ff4900dc16b8e73d05cd0870355b5ad82ec9e68b532f456919445af3be2d2e1",
+            "candidate_patch_sha256": "72333c298f69b983387b3ad87186ef07cced2540ce33375dda4e02b75346cf95",
+            "official_patch_sha256": "72333c298f69b983387b3ad87186ef07cced2540ce33375dda4e02b75346cf95",
+            "official_report_sha256": "c916b93f99f25786c3a8f1c3064546c6df7f2054b7bc75d019209572a18c1530",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": {
+            "result_steps": 113,
+            "action_request_count": 113,
+            "model_request_count": 125,
+            "model_requests_by_purpose": {
+              "action": 113,
+              "summary": 12
+            },
+            "successful_compactions": 11,
+            "read_like_execute_count": 28,
+            "read_like_exact_execute_repeat_count": 5,
+            "successful_read_evidence_count": 4,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 76,
+            "source_trace_sha256": "c851d601ce3a99fcb9fe33b6637e2b6a969eac9064dec93c4de34758554a4398"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 34,
+          "summary_requests": 1,
+          "model_requests": 35,
+          "usage": {
+            "input_tokens": 388756,
+            "output_tokens": 11126,
+            "cached_tokens": 307584,
+            "total_tokens": 399882
+          },
+          "active_seconds": 115.051,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 126.377,
+          "grading_seconds": 51.635,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "51274174ef332214b1c52895bf2200b626396e1a08ca1de4e7ccfb9b49347c91",
+            "prediction_file_sha256": "e06ea7551c221ebb04f8a5e1defda7de8f0f8d70923e36061e3f22ad46688da6",
+            "candidate_patch_sha256": "a76fcce3e3eb0790e69462eecaa69a5e2e9876eaca70f01d88e82a6b55941036",
+            "official_patch_sha256": "a76fcce3e3eb0790e69462eecaa69a5e2e9876eaca70f01d88e82a6b55941036",
+            "official_report_sha256": "384349816e04aed81c4cb27054fca285b6f2707d23741b1303311206f2d7c777",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": {
+            "result_steps": 34,
+            "action_request_count": 34,
+            "model_request_count": 35,
+            "model_requests_by_purpose": {
+              "action": 34,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 8,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 3,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 6,
+            "last_patch_to_stop_rounds": 6,
+            "source_trace_sha256": "447be0834709216ef8fd185b274509527462c3ef76d532e64de4d922d24dfc6b"
+          }
+        }
+      ],
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "agent_settings": {
+        "model": "deepseek-flash",
+        "base_url": "https://api.deepseek.com",
+        "reasoning_effort": "high",
+        "max_steps": 300,
+        "max_seconds": 900,
+        "max_total_tokens": 5000000,
+        "context_tokens": 24000,
+        "model_context_tokens": 128000,
+        "context_margin_tokens": 1024,
+        "recent_context_tokens": 6000,
+        "keep_recent_turns": 2,
+        "checkpoint_output_tokens": 2048,
+        "max_output_tokens": 32768,
+        "command_timeout": 60,
+        "request_timeout": 180,
+        "max_output_chars": 12000,
+        "execution_capture_bytes": 1048576,
+        "evidence_max_item_bytes": 16777216,
+        "evidence_max_total_bytes": 67108864
+      }
+    },
+    {
+      "experiment": "B",
+      "summary": {
+        "planned": 3,
+        "resolved": 1,
+        "resolved_rate": 0.3333333333333333,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 268,
+        "action_requests": 201,
+        "summary_requests": 67,
+        "total_tokens": 3567426,
+        "active_seconds_sum": 1138.589,
+        "generation_total_seconds_sum": 1176.003,
+        "grading_seconds_sum": 189.819
+      },
+      "source": {
+        "source_commit": "6b050fe6a88fc234808007aa1b0c02e513b6dd4c",
+        "wrapper_commit": "6b050fe6a88fc234808007aa1b0c02e513b6dd4c"
+      },
+      "grader": {
+        "tasks_sha256": "c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20",
+        "grading_data_sha256": "291b52e3e19a0111d2407c6970defff8e4608fdc26b4f6ce0491ec38dff43b5e",
+        "generation_plan_sha256": "2b5b08025edbb448b46831c07ed1300bd4267a5abf4a20263dbe8ef8eb2a99ad",
+        "supervisor_sha256": "0ef109f6b2b0ba3191ed335690e6e12a372421054a026ba4c89366e3431a1a91",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 34,
+          "summary_requests": 5,
+          "model_requests": 39,
+          "usage": {
+            "input_tokens": 403879,
+            "output_tokens": 13678,
+            "cached_tokens": 249856,
+            "total_tokens": 417557
+          },
+          "active_seconds": 158.482,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 170.589,
+          "grading_seconds": 70.85,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "d76f56fa1fe4b4a8d02031dd41d0ceebdedba7b71d91dd35bb0564553d29f256",
+            "prediction_file_sha256": "19306922d05b1b069388581554d59120d8edc4f5c1a15acba7e5e57595eaa6ec",
+            "candidate_patch_sha256": "e49d19342bb9aab9db5b8ecf98fadda862848322732e5d7bd8dec1d29eebba01",
+            "official_patch_sha256": "e49d19342bb9aab9db5b8ecf98fadda862848322732e5d7bd8dec1d29eebba01",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": {
+            "result_steps": 34,
+            "action_request_count": 34,
+            "model_request_count": 39,
+            "model_requests_by_purpose": {
+              "action": 34,
+              "summary": 5
+            },
+            "successful_compactions": 5,
+            "read_like_execute_count": 8,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 11,
+            "last_patch_to_stop_rounds": 11,
+            "source_trace_sha256": "2884f0c268dd7dbac2b08e41f3cae83d160b8ca36c753aaafdc96c37716717a4"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 89,
+          "summary_requests": 31,
+          "model_requests": 120,
+          "usage": {
+            "input_tokens": 1532248,
+            "output_tokens": 50886,
+            "cached_tokens": 620544,
+            "total_tokens": 1583134
+          },
+          "active_seconds": 504.811,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 518.781,
+          "grading_seconds": 70.504,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "6a404e20f05f1c3e91f54b314bdc80a94bc41eaa63f58f11f09c988535572187",
+            "prediction_file_sha256": "414b74d0926df8c726caba7d0471e748c3834b1c8dee5d71c692cbdf3335e561",
+            "candidate_patch_sha256": "796f618aba6225899ea51e150ca528f910c68f9ccc2eb9b50363bdb8284b5444",
+            "official_patch_sha256": "796f618aba6225899ea51e150ca528f910c68f9ccc2eb9b50363bdb8284b5444",
+            "official_report_sha256": "c916b93f99f25786c3a8f1c3064546c6df7f2054b7bc75d019209572a18c1530",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": {
+            "result_steps": 89,
+            "action_request_count": 89,
+            "model_request_count": 120,
+            "model_requests_by_purpose": {
+              "action": 89,
+              "summary": 31
+            },
+            "successful_compactions": 30,
+            "read_like_execute_count": 43,
+            "read_like_exact_execute_repeat_count": 11,
+            "successful_read_evidence_count": 2,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 31,
+            "source_trace_sha256": "c630b7b8d005e25ac4b31b19cd2cd4e00e572ed5d1ab137e8a92ac72e8dba87f"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 78,
+          "summary_requests": 31,
+          "model_requests": 109,
+          "usage": {
+            "input_tokens": 1514372,
+            "output_tokens": 52363,
+            "cached_tokens": 537600,
+            "total_tokens": 1566735
+          },
+          "active_seconds": 475.296,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 486.633,
+          "grading_seconds": 48.465,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "38639af0812fec8482e8153c0f42e6f278a83ff8b4d69fdb4467bebeefb52e9d",
+            "prediction_file_sha256": "af00ed0a26dae96914943dba4c8c95259aee40792c75b79be8fb15d346df220e",
+            "candidate_patch_sha256": "99d9042986324b31ffdfb125481cb4c54b4435928dfcc9f652077d6819cf35e0",
+            "official_patch_sha256": "99d9042986324b31ffdfb125481cb4c54b4435928dfcc9f652077d6819cf35e0",
+            "official_report_sha256": "8ed67fd48bf8a95ae8b52d8494f988fdf19cf2e27b37c5d832bf2a4ad75f6136",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": {
+            "result_steps": 78,
+            "action_request_count": 78,
+            "model_request_count": 109,
+            "model_requests_by_purpose": {
+              "action": 78,
+              "summary": 31
+            },
+            "successful_compactions": 31,
+            "read_like_execute_count": 43,
+            "read_like_exact_execute_repeat_count": 9,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 62,
+            "last_patch_to_stop_rounds": 62,
+            "source_trace_sha256": "806dc8d36b2324aaa690cb3655b1fd2841f9ad50b9ae267d6c54a3f50e757ace"
+          }
+        }
+      ],
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "agent_settings": {
+        "model": "deepseek-flash",
+        "base_url": "https://api.deepseek.com",
+        "reasoning_effort": "high",
+        "max_steps": 300,
+        "max_seconds": 900,
+        "max_total_tokens": 5000000,
+        "context_tokens": 24000,
+        "model_context_tokens": 128000,
+        "context_margin_tokens": 1024,
+        "recent_context_tokens": 6000,
+        "keep_recent_turns": 2,
+        "checkpoint_output_tokens": 2048,
+        "max_output_tokens": 32768,
+        "command_timeout": 60,
+        "request_timeout": 180,
+        "max_output_chars": 12000,
+        "execution_capture_bytes": 1048576,
+        "evidence_max_item_bytes": 16777216,
+        "evidence_max_total_bytes": 67108864
+      }
+    },
+    {
+      "experiment": "C",
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 117,
+        "action_requests": 94,
+        "summary_requests": 23,
+        "total_tokens": 1373168,
+        "active_seconds_sum": 472.245,
+        "generation_total_seconds_sum": 499.848,
+        "grading_seconds_sum": 166.369
+      },
+      "source": {
+        "source_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff",
+        "wrapper_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff"
+      },
+      "grader": {
+        "tasks_sha256": "c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20",
+        "grading_data_sha256": "291b52e3e19a0111d2407c6970defff8e4608fdc26b4f6ce0491ec38dff43b5e",
+        "generation_plan_sha256": "0c043faf3e82605f373e2c41475dac64911dcb3d24eeb36186a33d3c9a0db6ca",
+        "supervisor_sha256": "0ef109f6b2b0ba3191ed335690e6e12a372421054a026ba4c89366e3431a1a91",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 17,
+          "summary_requests": 1,
+          "model_requests": 18,
+          "usage": {
+            "input_tokens": 165013,
+            "output_tokens": 5342,
+            "cached_tokens": 127488,
+            "total_tokens": 170355
+          },
+          "active_seconds": 65.484,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 78.487,
+          "grading_seconds": 58.873,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "7d7fe74517e3717f6a49553f9f356276d26af0d3d04a5dbe95080497beaf821e",
+            "prediction_file_sha256": "e95fbe8e020078fc936911c724d245d5e8d663f64942da0d90d0e2aea1d2ba16",
+            "candidate_patch_sha256": "3b70d8655268f8f4ca4a3cac06deb2713c4c88c2802242dd3ef6398129d6e56e",
+            "official_patch_sha256": "3b70d8655268f8f4ca4a3cac06deb2713c4c88c2802242dd3ef6398129d6e56e",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": {
+            "result_steps": 17,
+            "action_request_count": 17,
+            "model_request_count": 18,
+            "model_requests_by_purpose": {
+              "action": 17,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 5,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 4,
+            "last_patch_to_stop_rounds": 4,
+            "source_trace_sha256": "8ba84146d74ce4642773e94a54de360f5b20e0f757b192a37983dda104b39e83"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 44,
+          "summary_requests": 16,
+          "model_requests": 60,
+          "usage": {
+            "input_tokens": 740130,
+            "output_tokens": 30482,
+            "cached_tokens": 285056,
+            "total_tokens": 770612
+          },
+          "active_seconds": 245.233,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 255.643,
+          "grading_seconds": 60.839,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "bf964de57da74e41b9c713dda0b4053522691d2ff91cca252026c97eb35ff2e3",
+            "prediction_file_sha256": "011bb490ec6ba9b927ceb54900f0b21688907bb91b3d498681808513e9c12b95",
+            "candidate_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_report_sha256": "c916b93f99f25786c3a8f1c3064546c6df7f2054b7bc75d019209572a18c1530",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": {
+            "result_steps": 44,
+            "action_request_count": 44,
+            "model_request_count": 60,
+            "model_requests_by_purpose": {
+              "action": 44,
+              "summary": 16
+            },
+            "successful_compactions": 15,
+            "read_like_execute_count": 40,
+            "read_like_exact_execute_repeat_count": 7,
+            "successful_read_evidence_count": 4,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 16,
+            "source_trace_sha256": "a8c0e8c7f6f5c7ffbc06c6a9aa0d761ad572af0b33bb8ee95bf77ac0e33df1d7"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 33,
+          "summary_requests": 6,
+          "model_requests": 39,
+          "usage": {
+            "input_tokens": 415321,
+            "output_tokens": 16880,
+            "cached_tokens": 237824,
+            "total_tokens": 432201
+          },
+          "active_seconds": 161.528,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 165.718,
+          "grading_seconds": 46.657,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "5dbe01483cfc55d375d7c0b462addb569c6a3aed8658d703da25a3ad41ea9cae",
+            "prediction_file_sha256": "80db7ac57a55defb32125f42803b6caaa92e5157197659639b21a421e11aa4ed",
+            "candidate_patch_sha256": "49ce57a8ec8aebc04c6f3fb063efd35050fc2c3518674bc6427b426dff92f6d7",
+            "official_patch_sha256": "49ce57a8ec8aebc04c6f3fb063efd35050fc2c3518674bc6427b426dff92f6d7",
+            "official_report_sha256": "384349816e04aed81c4cb27054fca285b6f2707d23741b1303311206f2d7c777",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": {
+            "result_steps": 33,
+            "action_request_count": 33,
+            "model_request_count": 39,
+            "model_requests_by_purpose": {
+              "action": 33,
+              "summary": 6
+            },
+            "successful_compactions": 6,
+            "read_like_execute_count": 13,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 8,
+            "last_patch_to_stop_rounds": 8,
+            "source_trace_sha256": "88213ec9f156eb6744181e9c9fd795846ff8187462fce3b51693b7357365b4b0"
+          }
+        }
+      ],
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "agent_settings": {
+        "model": "deepseek-flash",
+        "base_url": "https://api.deepseek.com",
+        "reasoning_effort": "high",
+        "max_steps": 300,
+        "max_seconds": 900,
+        "max_total_tokens": 5000000,
+        "context_tokens": 24000,
+        "model_context_tokens": 128000,
+        "context_margin_tokens": 1024,
+        "recent_context_tokens": 6000,
+        "keep_recent_turns": 2,
+        "checkpoint_output_tokens": 2048,
+        "max_output_tokens": 32768,
+        "command_timeout": 60,
+        "request_timeout": 180,
+        "max_output_chars": 12000,
+        "execution_capture_bytes": 1048576,
+        "evidence_max_item_bytes": 16777216,
+        "evidence_max_total_bytes": 67108864
+      }
+    },
+    {
+      "experiment": "D",
+      "summary": {
+        "planned": 3,
+        "resolved": 1,
+        "resolved_rate": 0.3333333333333333,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 2,
+          "empty_patch": 1
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 51,
+        "action_requests": 45,
+        "summary_requests": 6,
+        "total_tokens": 498312,
+        "active_seconds_sum": 192.683,
+        "generation_total_seconds_sum": 218.837,
+        "grading_seconds_sum": 122.269
+      },
+      "source": {
+        "source_commit": "2f77d31c8107f2b440d0ac64a9638dfbb0702234",
+        "wrapper_commit": "2f77d31c8107f2b440d0ac64a9638dfbb0702234"
+      },
+      "grader": {
+        "tasks_sha256": "c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20",
+        "grading_data_sha256": "291b52e3e19a0111d2407c6970defff8e4608fdc26b4f6ce0491ec38dff43b5e",
+        "generation_plan_sha256": "34b458e2a6e5137fd3c90abe25b409c7da045215ea036ae8172ab609aaa5d0f9",
+        "supervisor_sha256": "0ef109f6b2b0ba3191ed335690e6e12a372421054a026ba4c89366e3431a1a91",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 10,
+          "summary_requests": 1,
+          "model_requests": 11,
+          "usage": {
+            "input_tokens": 99447,
+            "output_tokens": 7278,
+            "cached_tokens": 64512,
+            "total_tokens": 106725
+          },
+          "active_seconds": 58.299,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 66.627,
+          "grading_seconds": 58.636,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "879cbc80d87ea5e8cf0a56072863fd6ab627a31e1189afcafcdd9ef1d603010d",
+            "prediction_file_sha256": "3c8254841306c3f47a9cbb2190318577cd7d81db583aa5d8b01fb8ef68c66f8e",
+            "candidate_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": {
+            "result_steps": 10,
+            "action_request_count": 10,
+            "model_request_count": 11,
+            "model_requests_by_purpose": {
+              "action": 10,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 2,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 6,
+            "last_patch_to_stop_rounds": 6,
+            "source_trace_sha256": "6fc16161add5f925768633b70d4132f1d38561eb63925652ebe9e83f0917b54c"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 28,
+          "summary_requests": 4,
+          "model_requests": 32,
+          "usage": {
+            "input_tokens": 307735,
+            "output_tokens": 9511,
+            "cached_tokens": 176512,
+            "total_tokens": 317246
+          },
+          "active_seconds": 105.334,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 113.844,
+          "grading_seconds": 63.633,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "4df5c246def9903ac0f7da563dda38d79c528e02a0fe8748de8a3b7bcf5b1bfa",
+            "prediction_file_sha256": "011bb490ec6ba9b927ceb54900f0b21688907bb91b3d498681808513e9c12b95",
+            "candidate_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_report_sha256": "c916b93f99f25786c3a8f1c3064546c6df7f2054b7bc75d019209572a18c1530",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": {
+            "result_steps": 28,
+            "action_request_count": 28,
+            "model_request_count": 32,
+            "model_requests_by_purpose": {
+              "action": 28,
+              "summary": 4
+            },
+            "successful_compactions": 4,
+            "read_like_execute_count": 18,
+            "read_like_exact_execute_repeat_count": 2,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 9,
+            "last_patch_to_stop_rounds": 9,
+            "source_trace_sha256": "a6d7a0fe148cf3a4657b102a0580d0476882f0819543c5da0805bbbab4080cff"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 7,
+          "summary_requests": 1,
+          "model_requests": 8,
+          "usage": {
+            "input_tokens": 70607,
+            "output_tokens": 3734,
+            "cached_tokens": 41728,
+            "total_tokens": 74341
+          },
+          "active_seconds": 29.05,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 38.366,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "7ad5ca6f09bde4c98817192fce84df814907ec75977c60c1e52f905d764f0fc4",
+            "prediction_file_sha256": "43245f3958e66daa3d4fd6825b3bd53285b1e01d5a1257a688d97642bc0fa011",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 7,
+            "action_request_count": 7,
+            "model_request_count": 8,
+            "model_requests_by_purpose": {
+              "action": 7,
+              "summary": 1
+            },
+            "successful_compactions": 0,
+            "read_like_execute_count": 1,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 2,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "7acc201b9fcb4a911ca44c21a5df020e2698e08780cecea1058a74eb3c80138e"
+          }
+        }
+      ],
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "agent_settings": {
+        "model": "deepseek-flash",
+        "base_url": "https://api.deepseek.com",
+        "reasoning_effort": "high",
+        "max_steps": 300,
+        "max_seconds": 900,
+        "max_total_tokens": 5000000,
+        "context_tokens": 24000,
+        "model_context_tokens": 128000,
+        "context_margin_tokens": 1024,
+        "recent_context_tokens": 6000,
+        "keep_recent_turns": 2,
+        "checkpoint_output_tokens": 2048,
+        "max_output_tokens": 32768,
+        "command_timeout": 60,
+        "request_timeout": 180,
+        "max_output_chars": 12000,
+        "execution_capture_bytes": 1048576,
+        "evidence_max_item_bytes": 16777216,
+        "evidence_max_total_bytes": 67108864
+      }
+    },
+    {
+      "experiment": "mini",
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "Submitted": 3
+        },
+        "model_requests": 108,
+        "action_requests": 108,
+        "summary_requests": 0,
+        "total_tokens": 4423675,
+        "active_seconds_sum": 591.901,
+        "generation_total_seconds_sum": 600.2,
+        "grading_seconds_sum": 178.996
+      },
+      "source": {
+        "vendor_commit": "04d809ceab9df28f9adaed044884180159172930",
+        "native_config_sha256": "9a9c86ac10428b86b932c972b15fefc2f7b6e92230bac5ebdc47e83232a8315e"
+      },
+      "grader": {
+        "tasks_sha256": "c174e7dafc19fe9265d9062738f712fc852fe17b9bc1d8ff8119f3be65612c20",
+        "grading_data_sha256": "291b52e3e19a0111d2407c6970defff8e4608fdc26b4f6ce0491ec38dff43b5e",
+        "generation_plan_sha256": "c194d91fa8994e833412f1350f82baa87212b3768a755ce04ba596a0d8e73c3c",
+        "supervisor_sha256": "bce44400536012e9f4717a36d23cb9872a36ec70e466424240470c94b994dfe8",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "Submitted",
+          "outcome": "completed",
+          "action_requests": 28,
+          "summary_requests": 0,
+          "model_requests": 28,
+          "usage": {
+            "input_tokens": 551924,
+            "output_tokens": 17774,
+            "cached_tokens": 529152,
+            "total_tokens": 569698
+          },
+          "active_seconds": 161.014,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 163.816,
+          "grading_seconds": 63.825,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "8cd9ef60a2ceb2c0858fc4011495aa99160e9fad84c8c10683afba1631e98022",
+            "prediction_file_sha256": "89522ad683f7a04e45d1b67fa27f350867d6ac14396b3d2c232657f032411c4f",
+            "candidate_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_patch_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null,
+            "native_submission_sha256": "7f233cc776d064f8e1d7d39bf0a846434e59d14cc07ac33aab803b7b758ee755"
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "Submitted",
+          "outcome": "completed",
+          "action_requests": 64,
+          "summary_requests": 0,
+          "model_requests": 64,
+          "usage": {
+            "input_tokens": 3594953,
+            "output_tokens": 46635,
+            "cached_tokens": 3527936,
+            "total_tokens": 3641588
+          },
+          "active_seconds": 376.475,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 379.151,
+          "grading_seconds": 65.439,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "99594a85ee6fd99400612de504834c8d501a0d59380059ecd5befa4ae4eba4d1",
+            "prediction_file_sha256": "a1d235c1a9c67c13eeca33be5849dfae7e03644b21f47879717c29cb98bba7ab",
+            "candidate_patch_sha256": "4f5a4bc917ac58c1f27cddf4503525dec4fc871640484d13279f85fb6b737cb4",
+            "official_patch_sha256": "4f5a4bc917ac58c1f27cddf4503525dec4fc871640484d13279f85fb6b737cb4",
+            "official_report_sha256": "2e3888f85867e1b7500dc96379ef072a022a208631fe211bac93958f3ac38de2",
+            "framework_log_sha256": null,
+            "native_submission_sha256": "4f5a4bc917ac58c1f27cddf4503525dec4fc871640484d13279f85fb6b737cb4"
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "Submitted",
+          "outcome": "completed",
+          "action_requests": 16,
+          "summary_requests": 0,
+          "model_requests": 16,
+          "usage": {
+            "input_tokens": 207182,
+            "output_tokens": 5207,
+            "cached_tokens": 189312,
+            "total_tokens": 212389
+          },
+          "active_seconds": 54.412,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 57.233,
+          "grading_seconds": 49.732,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "24ecb8e3d8022bbdf776ec8f7cd6284ea60f2974eb9be0eb05bb9137d9f4d18e",
+            "prediction_file_sha256": "e5f6ec0006172323f33e248385e6f67d6a6fb861ceaf3367718c49796bec1df5",
+            "candidate_patch_sha256": "fd7cb015304d7eaace4b754c9395b0aeaaa2c09290a36f2517c0ce83acd3ef91",
+            "official_patch_sha256": "fd7cb015304d7eaace4b754c9395b0aeaaa2c09290a36f2517c0ce83acd3ef91",
+            "official_report_sha256": "8ed67fd48bf8a95ae8b52d8494f988fdf19cf2e27b37c5d832bf2a4ad75f6136",
+            "framework_log_sha256": null,
+            "native_submission_sha256": "fd7cb015304d7eaace4b754c9395b0aeaaa2c09290a36f2517c0ce83acd3ef91"
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": null
+        }
+      ],
+      "budget": {
+        "native_step_limit": 250,
+        "native_estimated_cost_limit_usd_per_task": 3,
+        "total_token_limit": null,
+        "host_deadline_seconds_including_setup": 900,
+        "native_cost_is_estimate_not_invoice": true
+      }
+    }
+  ],
+  "bare_first3": {
+    "resolved": 0,
+    "planned": 3,
+    "derived_from": "first30.json:bare30 rows[0:3]",
+    "model_requests": 3,
+    "total_tokens": 137941
+  }
+}

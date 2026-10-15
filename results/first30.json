@@ -1,0 +1,2578 @@
+{
+  "schema_version": 1,
+  "dataset": {
+    "name": "princeton-nlp/SWE-bench_Lite",
+    "split": "test",
+    "revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+    "selection": "first 30 after prepare_dataset sorts the pinned test split by instance_id ascending; first3 is its first three; not randomized",
+    "task_manifest_sha256": "6bf3a603e53cc0f4e9a1afa5c3c1d26d6befdcc5f3576c776b050a58f54a5276",
+    "repository_counts": {
+      "astropy/astropy": 6,
+      "django/django": 24
+    }
+  },
+  "model": {
+    "model": "deepseek-flash",
+    "reasoning_effort": "high",
+    "max_output_tokens_per_request": 32768
+  },
+  "experiments": [
+    {
+      "experiment": "bare30",
+      "summary": {
+        "planned": 30,
+        "resolved": 9,
+        "resolved_rate": 0.3,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "generation_invalid": 9,
+          "patch_rejected": 8,
+          "graded": 13
+        },
+        "stop_reasons": {
+          "length": 9,
+          "stop": 21
+        },
+        "model_requests": 30,
+        "action_requests": null,
+        "summary_requests": null,
+        "total_tokens": 1136926,
+        "active_seconds_sum": 2679.56,
+        "generation_total_seconds_sum": 2730.28,
+        "grading_seconds_sum": 1234.205
+      },
+      "source": {
+        "description": "Frozen original one-shot baseline; retrieval issue-lexical-v1; no tools or feedback",
+        "source_files_sha256": {
+          "src/coding_harness/__init__.py": "902e71c66419636a0f745fd137f86d1e31a25c31e30c72f38d83dae41db6a515",
+          "src/coding_harness/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+          "src/coding_harness/agent.py": "5bac8ccb62dfa184f6775975156e64f7b0833ac9ad805d472dab236067a2aba8",
+          "src/coding_harness/benchmark.py": "e81309199de1fd8f660a285eb3c27629b22295272d25f8c64573c949fd186d6f",
+          "src/coding_harness/cli.py": "bf99e271af637de9c7aebd64d8dbbfde706c85bac14b5fe21d1cc11b7c56d528",
+          "src/coding_harness/config.py": "467cfaccecd7c700dab6565fbfc0783174e2e4af78f24cbab5f05ffaa7ac965d",
+          "src/coding_harness/context.py": "1f8e9513d571b934d9e8bb34f916dc3fd7811f79266a817177dd37c36776e1c4",
+          "src/coding_harness/contracts.py": "ab5d08c8e8e2dabdaaf6133393b9cbc4dee53147d1db2a1f71cb472724fde361",
+          "src/coding_harness/environment.py": "76dc373b67082136d66b9626279ee5d2f3549fee88bfa629a64f889fb0644658",
+          "src/coding_harness/patching.py": "83f93747dec0320eac2f7df1fd550ac9c6ff855a3ed1c37ec0f77cd7418ff2fb",
+          "src/coding_harness/provider.py": "7cabc517063fdae546d5b6b9d8b675129cfd92288da57f3294ea4a2bc1790bdd",
+          "src/coding_harness/tools.py": "407b4fd157fc66e2fa63947e7d5ca9f639d4a231949b9b8cfaa3e76884934846",
+          "src/coding_harness/trace.py": "c73fb9f38116052bd78be4d35d48f6f4a353e8b135da3dddeb63c6e24ed1a9e3",
+          "src/coding_harness/worker.py": "bbba2cbfcbc382bf6e6fdb8b7e7af68caa03e477c72fa2363d9e7506f4affaa0",
+          "src/coding_harness/workspace.py": "c49c43cc8952ed32120e9da76c743bb52c9372820c046056976651c85985d8a9"
+        }
+      },
+      "grader": {
+        "tasks_sha256": "6bf3a603e53cc0f4e9a1afa5c3c1d26d6befdcc5f3576c776b050a58f54a5276",
+        "grading_data_sha256": "4c17f8774ddc72f111679d1ca84fd6a8118af9fd160643651320b85503afa8fe",
+        "generation_plan_sha256": "9336ba5f9319628b3de9452790fbf28118f2aeecc7ca65e38d7aa2b4d152033e",
+        "supervisor_sha256": "bce44400536012e9f4717a36d23cb9872a36ec70e466424240470c94b994dfe8",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 17655,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 50423
+          },
+          "active_seconds": 127.234,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 129.843,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "e41ed081cb3da3fead92d5bfe33656042c1adbc6307a05ba661c639cfad01e4d",
+            "prediction_file_sha256": "786d90b00443c450eaeb69535a6e736cf8bd2ff15c3cf5643265c22c59a477ed",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 16479,
+            "output_tokens": 32557,
+            "cached_tokens": 0,
+            "total_tokens": 49036
+          },
+          "active_seconds": 129.375,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 134.687,
+          "grading_seconds": 46.025,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "1f19bf651d24d639a589750eb709e6cf8c9563f502c60ef5e633a5fc588ffe71",
+            "prediction_file_sha256": "7c858cbd86350236980774e821b9493ee37e14fafbb858eceb61ea85d6850c50",
+            "candidate_patch_sha256": "dd42896f0a22a47c2ad1849b0c5c2351618e764086c97b1e8cb99ed440bc2fad",
+            "official_patch_sha256": "dd42896f0a22a47c2ad1849b0c5c2351618e764086c97b1e8cb99ed440bc2fad",
+            "official_report_sha256": null,
+            "framework_log_sha256": "026da0010d690112619ef0acab8ee049392846fbb4b5b4ef5e3e1216fe4a8837"
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 17212,
+            "output_tokens": 21270,
+            "cached_tokens": 0,
+            "total_tokens": 38482
+          },
+          "active_seconds": 78.219,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 84.953,
+          "grading_seconds": 46.024,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "4c4719bcfa300073c03f153fa77e6c34d9288cfe14f3948246b4d70cbea57a13",
+            "prediction_file_sha256": "6a41f342ebf5f31bcc77bd2bdfc7d9a5103335de553d36253228ee2ea4bda85c",
+            "candidate_patch_sha256": "bb91d0ee18e9cb700d070561ba9e5839a2512d04cb04bbbbcacf08ca69a5d909",
+            "official_patch_sha256": "bb91d0ee18e9cb700d070561ba9e5839a2512d04cb04bbbbcacf08ca69a5d909",
+            "official_report_sha256": null,
+            "framework_log_sha256": "02a4dc88c9b9dc0f6eef17f34b348aca0aba53b2a14e70608020b19a87ef4387"
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-14995",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 17701,
+            "output_tokens": 23448,
+            "cached_tokens": 0,
+            "total_tokens": 41149
+          },
+          "active_seconds": 89.5,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 97.625,
+          "grading_seconds": 81.524,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "afe80925790472dfd616489277be0b279ae44dc97d6e92dd9dfb78e8038551e9",
+            "prediction_file_sha256": "b573c3776d681e6f6e28d7f8be78afa00ea448b99246885d81ed55f678131b05",
+            "candidate_patch_sha256": "5e78962651f5d8bc554bbc1f04d0fd5a727d849e88d9f9eca51778d000e711da",
+            "official_patch_sha256": "5e78962651f5d8bc554bbc1f04d0fd5a727d849e88d9f9eca51778d000e711da",
+            "official_report_sha256": "8270434fcd644326326868ca0eb584dd5e8b6877a9887e3c2b2c144517786e72",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e1c746371f8f7132c29768bea9cc1380871c87f6e4404a2282d8d3c582786874",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-6938",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 17416,
+            "output_tokens": 25814,
+            "cached_tokens": 0,
+            "total_tokens": 43230
+          },
+          "active_seconds": 102.437,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 104.906,
+          "grading_seconds": 55.046,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "fa7ce3e6b5e85c89b308931ae45879f092bc19554a4cb310cda1ce6cab677032",
+            "prediction_file_sha256": "e591f82884101179ba8fae8b72897e738453c4c65540e5855f1f2152b1c94f3c",
+            "candidate_patch_sha256": "1767e0b5854c1c882bd0495feaa7761f6955b37e4d8d9577a0b44c3d964d173f",
+            "official_patch_sha256": "1767e0b5854c1c882bd0495feaa7761f6955b37e4d8d9577a0b44c3d964d173f",
+            "official_report_sha256": "4cfd655743d6cc20818d828a6ca470011d6c66fcffbcae2f90a8f71c9d565c91",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:00cb659e4042696f82d4ab703cf6966e33c7d539689df572e1278d38a7ba7bbb",
+          "behavior": null
+        },
+        {
+          "instance_id": "astropy__astropy-7746",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 17033,
+            "output_tokens": 31757,
+            "cached_tokens": 0,
+            "total_tokens": 48790
+          },
+          "active_seconds": 118.25,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 119.765,
+          "grading_seconds": 55.924,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "1e26e922d158c0c4aa267607475fed2be05cc5ceb69d3659b80edcf059bc82b4",
+            "prediction_file_sha256": "53949b7fca84d6f9c7f8dd8f0d91e457ab8fef45ede837511a26b253f9ea45f4",
+            "candidate_patch_sha256": "ae748f951a37a9f95340af04f9b0e7774a34d2b7b956bc96f689c01bb9f9334b",
+            "official_patch_sha256": "ae748f951a37a9f95340af04f9b0e7774a34d2b7b956bc96f689c01bb9f9334b",
+            "official_report_sha256": "fa98ea39a05d0d736f4df3e2acebd8551f108bb0be2f79ee2751e9334e470d14",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:8b0a5d3e7a868fb494f1bf1f4d82f7ecca662a5fe9094de4950de921163138fb",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-10914",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 16206,
+            "output_tokens": 10202,
+            "cached_tokens": 0,
+            "total_tokens": 26408
+          },
+          "active_seconds": 36.484,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 39.047,
+          "grading_seconds": 53.926,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "651678c8e292d8eae70f294beb646fe45b73c4c8338c18b15900d480aab5edc3",
+            "prediction_file_sha256": "47dc649e77093e448140b465d2921ab0ecca118b631ea2bf96d5b461791ef97d",
+            "candidate_patch_sha256": "3f130a15723e4df887a6520c639d266b77f0917e2265f88b3cc5c3aa4d77b4e6",
+            "official_patch_sha256": "3f130a15723e4df887a6520c639d266b77f0917e2265f88b3cc5c3aa4d77b4e6",
+            "official_report_sha256": "b105979fe78dbf4323f40226cf6abc32a4c059331e95c1ae61031e8e8ef651b8",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:f26f0db931c6c1e785ab8287e1ea4f5f948846267db159deaf90b3fe7adea4e9",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-10924",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14318,
+            "output_tokens": 24816,
+            "cached_tokens": 0,
+            "total_tokens": 39134
+          },
+          "active_seconds": 96.313,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 97.516,
+          "grading_seconds": 51.733,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "b8be727d59410a59d910849c0048538e08cf251fa4dab3eef7358e2b5372e2d1",
+            "prediction_file_sha256": "f20f604a2c62428aa5928fb458c5fc25ff95450f4af86e251689d3cef6875077",
+            "candidate_patch_sha256": "403e81b17e11ea3afb8d092300850b366a55c9ffc886d4ff03e62b83df64c2d5",
+            "official_patch_sha256": "403e81b17e11ea3afb8d092300850b366a55c9ffc886d4ff03e62b83df64c2d5",
+            "official_report_sha256": null,
+            "framework_log_sha256": "936d06cf1387cbd034dc920170f486534201bb4533ba6cce8c905edd4d443d2a"
+          },
+          "evaluated_image_id": "sha256:d41b289ea27a92ef6346702388e5ea0b8c8f48c41d83466a72c2dffb934007a1",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11001",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15339,
+            "output_tokens": 2253,
+            "cached_tokens": 0,
+            "total_tokens": 17592
+          },
+          "active_seconds": 10.89,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 11.625,
+          "grading_seconds": 56.923,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "80e1a41bab972f5e47ce0c07da8182769c7ce50acd4d45b38856030082b54dbd",
+            "prediction_file_sha256": "ba948780a86ae0dd5497ad814f57e68bc5a5355fd1562a12706a5cb9f7aaee90",
+            "candidate_patch_sha256": "efc6215f766213b714dbdcaefddf20ff730fd45039751450fa4df242b81384f4",
+            "official_patch_sha256": "efc6215f766213b714dbdcaefddf20ff730fd45039751450fa4df242b81384f4",
+            "official_report_sha256": "9cee548df441c178b26c7f1bacae655ce1f0eefa2f781d7d3b883017d73ebb41",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:68c61032db48a5eef2175532d3555e20acdd426aa5b426ba3acfe34a0ddd83b7",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11019",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15312,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 48080
+          },
+          "active_seconds": 137.797,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 138.625,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "581895745c536ec7e27dec49eb7f55a57f7e06923fbf1b384fa96b06b7cf54cc",
+            "prediction_file_sha256": "d4b123abb835350d1fb824338b916012c0e560c45338657acd6d0d0478ee39d2",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11039",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14790,
+            "output_tokens": 15236,
+            "cached_tokens": 0,
+            "total_tokens": 30026
+          },
+          "active_seconds": 58.531,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 59.312,
+          "grading_seconds": 54.992,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "e222c655438d98a143db54a37fb810ef519ac579d81d724e27ec9822b114224d",
+            "prediction_file_sha256": "8738873d894faa3211fe6d3163d91574abde46118f2caa84e297a04fb0e6725e",
+            "candidate_patch_sha256": "ef4ea289113693dda7f53b192f4095d6242a17becd2685809a4afcec8ec24bda",
+            "official_patch_sha256": "ef4ea289113693dda7f53b192f4095d6242a17becd2685809a4afcec8ec24bda",
+            "official_report_sha256": "a213e90170fa18f1f820762a3e8e48e316a7c34e9cc6f570cd8f9b52f2fb6534",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:895cb9b96a9ba3a7236514c6c6ecc21814b68c3ede142d2bb10df31a3645d496",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11049",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14128,
+            "output_tokens": 19650,
+            "cached_tokens": 0,
+            "total_tokens": 33778
+          },
+          "active_seconds": 76.484,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 77.203,
+          "grading_seconds": 49.929,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "245412dc2690e5a68c767465c2019d0e158cc81456ed345c230a535868d2d701",
+            "prediction_file_sha256": "9f9d3f922aca00791669bf84872b51a2cc640061773bda49abd373923368936a",
+            "candidate_patch_sha256": "a5e763732c346c4b5e4f830748dd3f0b1e8e5137a9940a8cd5d0e0cd085c063a",
+            "official_patch_sha256": "a5e763732c346c4b5e4f830748dd3f0b1e8e5137a9940a8cd5d0e0cd085c063a",
+            "official_report_sha256": null,
+            "framework_log_sha256": "d19f6f5c2292fad63d59767d02b50466edb516e26e5c1e2b61419e9f61c7404b"
+          },
+          "evaluated_image_id": "sha256:c5700017c1dfcca5ee0d2b68bbce2f2e2a69933089f0afa4cd0d888d4f1617f7",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11099",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15135,
+            "output_tokens": 7137,
+            "cached_tokens": 14976,
+            "total_tokens": 22272
+          },
+          "active_seconds": 31.078,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 31.984,
+          "grading_seconds": 51.616,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "fb6510f5c9bc4b64bc3f3e08d0f58ee53b67adc357b9cc432917ffd493bf8a3a",
+            "prediction_file_sha256": "6e9c9354f2e80a7e5be34c57ed863606775535ab82d67984edd491f51b0b10a5",
+            "candidate_patch_sha256": "e59c5401261359215075a04bd06c0b5f7050df1f46487f7b51eff5417044077d",
+            "official_patch_sha256": "e59c5401261359215075a04bd06c0b5f7050df1f46487f7b51eff5417044077d",
+            "official_report_sha256": null,
+            "framework_log_sha256": "7705047e571476df7602dd7764b35277e5eb807709a4bb393f13c43f6cc659a2"
+          },
+          "evaluated_image_id": "sha256:cca302934edd881cc4f1e4647a389a25cdaa3c02bfa33667a4204934a09c4fb1",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11133",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14441,
+            "output_tokens": 10152,
+            "cached_tokens": 0,
+            "total_tokens": 24593
+          },
+          "active_seconds": 34.141,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 35.079,
+          "grading_seconds": 51.223,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "7a8ebfd5eb2cf58d3d84927cb605eaa4fe784d09a6b5ffa31b459497096f6f0e",
+            "prediction_file_sha256": "7f2e9a71346b127df2e0e8a7c0a4631b377af7c26ea235289208ea46270485fa",
+            "candidate_patch_sha256": "36657bfae6bc9c2887bb0fbed31f23d8c190493b438883b56dd191aa56338328",
+            "official_patch_sha256": "36657bfae6bc9c2887bb0fbed31f23d8c190493b438883b56dd191aa56338328",
+            "official_report_sha256": "e6c4e83e2678aa3462dc7ee35126d3dc03429a80a27fe5ef474cc62e5cbc5366",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:914093363dbe12def92c5d36e9bdc5270cce5ed0aa6f3daad8bc4ef0389c29bf",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11179",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14057,
+            "output_tokens": 4591,
+            "cached_tokens": 0,
+            "total_tokens": 18648
+          },
+          "active_seconds": 15.859,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 16.672,
+          "grading_seconds": 55.825,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "add7bc3d2f589fe5574e3560ad5320a47f553bb6cfa0ebb0efbea106a14c0edf",
+            "prediction_file_sha256": "571a5705a5cb8fc5be978db1968fd64eafafbfe4e2e25614c40d435afa1359d6",
+            "candidate_patch_sha256": "482dd22c50f1e33b77529d1c5e2702dcd087e236a2c26ab50acc0e3dde501be0",
+            "official_patch_sha256": "482dd22c50f1e33b77529d1c5e2702dcd087e236a2c26ab50acc0e3dde501be0",
+            "official_report_sha256": "37c4b1bd2975cc6e54026dd99bbbc3e0f08152491cd428fb79cc657549d3dd70",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:23e061f0071647d4c459b2c3aa84081011080f57a4580727c16997cf01e0d477",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11283",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14237,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 47005
+          },
+          "active_seconds": 138.64,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 139.437,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "6be29b7e901edfef9e43abd500a7bbec4b8f3578896b33439e38d4ada22c17ad",
+            "prediction_file_sha256": "e80c0f53fc72bb3fda38dd0acce5f394d38258105051a68efc00df509023c087",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11422",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15149,
+            "output_tokens": 23516,
+            "cached_tokens": 0,
+            "total_tokens": 38665
+          },
+          "active_seconds": 84.828,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 85.671,
+          "grading_seconds": 62.384,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "3a425065e539dfa78dce523862fd70413858f9a2252f2d554002e52ab6d34808",
+            "prediction_file_sha256": "7c15724e5e3f16c7090646ddc863af771a9aece80d1083d031b57f5d5162941c",
+            "candidate_patch_sha256": "c993c4f49a14dd5d7e1a5a5ec5c502deff77e1ccc929a688d6717aa60e5e7e14",
+            "official_patch_sha256": "c993c4f49a14dd5d7e1a5a5ec5c502deff77e1ccc929a688d6717aa60e5e7e14",
+            "official_report_sha256": "5877ca494aee0065898f705bd82f712264b68c3fdc8fb3fe2f49363aa752d713",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d8703d50c49fae62753520403c3d4cd8a1048b7e554159aa4f46bb5f778f0ed3",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11564",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 16859,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 49627
+          },
+          "active_seconds": 130.796,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 132.203,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "986135bd2141b6c5be9b51f4a369991e47f71818db70577ffc7104379f75031a",
+            "prediction_file_sha256": "3d05056f4a9ef88f84861c5735eec1a8e87fb447e741f8bb618c1dff3c2a9909",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11583",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15759,
+            "output_tokens": 11522,
+            "cached_tokens": 0,
+            "total_tokens": 27281
+          },
+          "active_seconds": 47.812,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 48.75,
+          "grading_seconds": 72.463,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "cf32caeeee063f58ff51a427659851945be00bbe465a71951032b5b07affa4ea",
+            "prediction_file_sha256": "6d7f03f98a489a7f938d798413b7838f97009b68548f7b6281c33fbffcc90cee",
+            "candidate_patch_sha256": "908180a8568ea66a09fbff20210cf55032b2f6358fcc09e9f7d54f95cacb6bdd",
+            "official_patch_sha256": "908180a8568ea66a09fbff20210cf55032b2f6358fcc09e9f7d54f95cacb6bdd",
+            "official_report_sha256": "b89ddcc9e9638680861c3b7aa908609c3dc60455081fe010e739e7d0afe16f00",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:f2ac03fe870177231ba0e72452b3617ebc54cbe62318deef41c7949397337d2e",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11620",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 19547,
+            "output_tokens": 20083,
+            "cached_tokens": 0,
+            "total_tokens": 39630
+          },
+          "active_seconds": 84.25,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 85.063,
+          "grading_seconds": 57.244,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "bdf2782d13c8ab3a4c43f208286ad540e4cc5313b3609495221d7e7deeecbd79",
+            "prediction_file_sha256": "a5de4939a5a0612887e4699065826cdbb80668aa44fcf4990338de3779fe48aa",
+            "candidate_patch_sha256": "b6c4280208febfffaf6a80ce38d923dd299213b22a9f05f478b4116ccfca3e48",
+            "official_patch_sha256": "b6c4280208febfffaf6a80ce38d923dd299213b22a9f05f478b4116ccfca3e48",
+            "official_report_sha256": null,
+            "framework_log_sha256": "50dd90334fd0cdd24f459bbd70b5b3d00bd660c9db8c861940264039bb47ee9d"
+          },
+          "evaluated_image_id": "sha256:6c99f08e757436b33640c2a68bfa4572aad8dcdfe78adf77905dc7e25945aa47",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11630",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14536,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 47304
+          },
+          "active_seconds": 130.36,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 131.032,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "d677fd4611199cddc2a4841ac20ba2eccaa6c7baedfd0b25270a688e00155967",
+            "prediction_file_sha256": "0421bb558195ec681f34c1ad44bde9ee27e9734123cb2a7b7da2d354296b016d",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11742",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15718,
+            "output_tokens": 24318,
+            "cached_tokens": 0,
+            "total_tokens": 40036
+          },
+          "active_seconds": 98.953,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 99.766,
+          "grading_seconds": 68.402,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "baa541e7db5107e370bf7c4e5a54d2efd264f289758bfb5183a72681bdd99a8a",
+            "prediction_file_sha256": "42f61fdef6cecec41731e271d037f59508aa97807de033624274c6e27010b8ae",
+            "candidate_patch_sha256": "8f4fb00c2dd533b5f510c4dec53d619ae1adac6df8b4fa8ec3faaf0006e387e2",
+            "official_patch_sha256": "8f4fb00c2dd533b5f510c4dec53d619ae1adac6df8b4fa8ec3faaf0006e387e2",
+            "official_report_sha256": null,
+            "framework_log_sha256": "9210738ca79aba40380236bb636ea59540d2b3033cbd894d50bac448f79f7c28"
+          },
+          "evaluated_image_id": "sha256:64c26c94843c2885714c57bfe0a98849be19cebea3fee7b6f54394554a98a8a5",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11797",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 14576,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 47344
+          },
+          "active_seconds": 137.047,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 137.844,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "2fd4d9a3de8c601fe1a2a3e5eede508932cc778996e6265e71afcec935ac576c",
+            "prediction_file_sha256": "e9b9f0020b97e6dae00ee8bb1514155eab646f1bc17e75fee34d1804de7b3b4a",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11815",
+          "official_status": "patch_rejected",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15389,
+            "output_tokens": 15611,
+            "cached_tokens": 0,
+            "total_tokens": 31000
+          },
+          "active_seconds": 71.141,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 71.859,
+          "grading_seconds": 60.513,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "c81f9a4204023c0ed91d8295d0dc8b2da37d35f94a2005f88b8eb961749c66c8",
+            "prediction_file_sha256": "544876d8bcd27c6f358334195065e51a556602c3bd486c2d6a4ca091bd3a35ad",
+            "candidate_patch_sha256": "fc215cb43551a45632fe97ed257e6b140fc58f12ac958da007fa2edb12089089",
+            "official_patch_sha256": "fc215cb43551a45632fe97ed257e6b140fc58f12ac958da007fa2edb12089089",
+            "official_report_sha256": null,
+            "framework_log_sha256": "f7d79e5a6d7974489c1a1d0d7ea536ddc31012dff32a0a7fe2a95ecedb4171f9"
+          },
+          "evaluated_image_id": "sha256:19b66392c9872e6d07b331b0ed59466c3e6c3588bc4cdd89f56f8767dc774f8a",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11848",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 19761,
+            "output_tokens": 5074,
+            "cached_tokens": 0,
+            "total_tokens": 24835
+          },
+          "active_seconds": 19.969,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 20.703,
+          "grading_seconds": 74.471,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "2f9e375354a0f20e943b82bea005c365995e0cb7c355babe30a19fc258dcbab4",
+            "prediction_file_sha256": "c58ab237e07cbd9519f6120b09548d3bf5e0220bebae16ef84d06cb5e322de27",
+            "candidate_patch_sha256": "67867d2c95c743977f4615fb2f92ed69d0242276230a7d37697089832955e62a",
+            "official_patch_sha256": "67867d2c95c743977f4615fb2f92ed69d0242276230a7d37697089832955e62a",
+            "official_report_sha256": "6eea9db793b448eb25f06d4b91f6b362536cdc539ffe77537589472310500b01",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:08eac9219e5d4b15b445fde26c587157a0ad8a2d9209e4b1e266259edf51bb4b",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11905",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15672,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 48440
+          },
+          "active_seconds": 136.047,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 137.047,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "d28616e2e8f72bddf9be93de68d1a6af808c9bf7252b4c79f3838779ad875063",
+            "prediction_file_sha256": "d0de962b7224cc9b6f72c3815f18e48fd8026dcbb50f9bdbab7d6be377adaa6e",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11910",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15108,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 47876
+          },
+          "active_seconds": 148.969,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 149.797,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "3473cebd84d2ad03f83402c7fcbae66fe11cacbd3500a8a4bbe659ce650dceb5",
+            "prediction_file_sha256": "38351dde9126a737e46ad698e9aaf9cf577b515ede17278d15819ddaa5b33fa7",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11964",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15258,
+            "output_tokens": 14896,
+            "cached_tokens": 0,
+            "total_tokens": 30154
+          },
+          "active_seconds": 60.75,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 61.844,
+          "grading_seconds": 62.512,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "23ef7726d46c01654311d983579e52d6c82fe5ed747cd7e3a83007c62d92f7c2",
+            "prediction_file_sha256": "d62880944373cd7bbd618cf6deb1a83d324dc1cb72194889784fa2612aaf37d5",
+            "candidate_patch_sha256": "ea15893dc8a02f6981a3c771699ffc755c24d40b6b0056549a1972ed37ce8d8d",
+            "official_patch_sha256": "ea15893dc8a02f6981a3c771699ffc755c24d40b6b0056549a1972ed37ce8d8d",
+            "official_report_sha256": "724b61d5839c53685f8bc96709fd2cf604ed66fdebbe5f114e2114f54d19717b",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:098474801410af7303f0814d0d8557791ca2f55e455e5db766c3b3d0a9826df2",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-11999",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "stop",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15164,
+            "output_tokens": 22654,
+            "cached_tokens": 0,
+            "total_tokens": 37818
+          },
+          "active_seconds": 90.0,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 91.516,
+          "grading_seconds": 65.506,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "10fc3f2f98656aad2ab6a4a59d5805e084b2a4e59dcb18876caecdb550d315f1",
+            "prediction_file_sha256": "9919b1f7edd1e794489feb76168aee8621a4399e236baa52e28aa8999584f1d1",
+            "candidate_patch_sha256": "fc71686ed7bacb42a872c6b15c21347fa2537659c63599fc51b9024101736cc2",
+            "official_patch_sha256": "fc71686ed7bacb42a872c6b15c21347fa2537659c63599fc51b9024101736cc2",
+            "official_report_sha256": "196981629b8f9ab0fff6a0c0150c19ee5a8a41bdb9f554f54921a4a238246893",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:3c7e7f035f611b17f2093ee6409364bc28cce8b9bac266b9590db762d197607e",
+          "behavior": null
+        },
+        {
+          "instance_id": "django__django-12113",
+          "official_status": "generation_invalid",
+          "resolved": false,
+          "generation_status": "invalid_response",
+          "stop_reason": "length",
+          "outcome": null,
+          "action_requests": null,
+          "summary_requests": null,
+          "model_requests": 1,
+          "usage": {
+            "input_tokens": 15502,
+            "output_tokens": 32768,
+            "cached_tokens": 0,
+            "total_tokens": 48270
+          },
+          "active_seconds": 157.406,
+          "active_seconds_scope": "model_request",
+          "generation_total_seconds": 158.906,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "99ce2e78994830b243c624554815d497d924400f8602e19739ba182209ba19ad",
+            "prediction_file_sha256": "64c7b85e29a7bc98e79f5d396317ccb0b41a06e18cee303f79245965fc3f9bdc",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": null
+        }
+      ],
+      "budget": {
+        "model_requests_per_task": 1,
+        "retrieved_context_chars": 64000,
+        "retrieval": "issue-lexical-v1",
+        "tools": false,
+        "test_feedback": false
+      }
+    },
+    {
+      "experiment": "C30",
+      "summary": {
+        "planned": 30,
+        "resolved": 20,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 24,
+          "empty_patch": 6
+        },
+        "stop_reasons": {
+          "finish": 19,
+          "compaction_failed": 11
+        },
+        "model_requests": 1101,
+        "action_requests": 897,
+        "summary_requests": 204,
+        "total_tokens": 12492812,
+        "active_seconds_sum": 7152.71,
+        "generation_total_seconds_sum": 15051.719,
+        "grading_seconds_sum": 769.761
+      },
+      "source": {
+        "source_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff",
+        "source_sha256": {
+          "src/coding_harness/__init__.py": "902e71c66419636a0f745fd137f86d1e31a25c31e30c72f38d83dae41db6a515",
+          "src/coding_harness/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+          "src/coding_harness/agent.py": "6cf240faaf7a689c433f3496bdfda27c8006dbc17b9d8399f208c42698bab0e0",
+          "src/coding_harness/benchmark.py": "e81309199de1fd8f660a285eb3c27629b22295272d25f8c64573c949fd186d6f",
+          "src/coding_harness/cli.py": "78ebe73aab798792fb44979fc958cb02eb19a62f4973d85f8ce5435fed2d87db",
+          "src/coding_harness/config.py": "c3bac6235ff9b87470728c19e0f791b789176acfd6fbf08502d33cbb8b2b3a40",
+          "src/coding_harness/context.py": "72d1e0598e18a289f5356e3fef5c1156df6cf1d0c684c79c21ac0612c24d6333",
+          "src/coding_harness/contracts.py": "ab5d08c8e8e2dabdaaf6133393b9cbc4dee53147d1db2a1f71cb472724fde361",
+          "src/coding_harness/environment.py": "5ee8b06807993f33abd360b7d6e823b4c4b6ef2d2c1886f4221fe2db03155e0f",
+          "src/coding_harness/evidence.py": "8bd59a2e387cadcbc4e5c1fa3bff607aa2ded165016c5ecf62456763ea586b47",
+          "src/coding_harness/patching.py": "83f93747dec0320eac2f7df1fd550ac9c6ff855a3ed1c37ec0f77cd7418ff2fb",
+          "src/coding_harness/provider.py": "7cabc517063fdae546d5b6b9d8b675129cfd92288da57f3294ea4a2bc1790bdd",
+          "src/coding_harness/tools.py": "1b5bae7d46d9c7abc50a111ac86eacf93af0fad604f3e89419da8d5ed336097a",
+          "src/coding_harness/trace.py": "c73fb9f38116052bd78be4d35d48f6f4a353e8b135da3dddeb63c6e24ed1a9e3",
+          "src/coding_harness/worker.py": "89636624cecea7f61a8e32f300288e0b6f7c20351534b7a3bbaa35947d51f22f",
+          "src/coding_harness/workspace.py": "c49c43cc8952ed32120e9da76c743bb52c9372820c046056976651c85985d8a9",
+          "pyproject.toml": "b74626fb32231d4fff6a3c68ea18f741be2d2e3aae55472d7d8de8ba9f4d9e38"
+        },
+        "wrapper_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff",
+        "wrapper_sha256": "79b27728d103dbf283748c7be3b93240fa81cae3e605951bb0c597e7a75f0fa0"
+      },
+      "grader": {
+        "tasks_sha256": "6bf3a603e53cc0f4e9a1afa5c3c1d26d6befdcc5f3576c776b050a58f54a5276",
+        "grading_data_sha256": "4c17f8774ddc72f111679d1ca84fd6a8118af9fd160643651320b85503afa8fe",
+        "generation_plan_sha256": "aa9073a877150c700c2a5eb837cd98af196d9a71211b200d35248e8333c446d1",
+        "supervisor_sha256": "0ef109f6b2b0ba3191ed335690e6e12a372421054a026ba4c89366e3431a1a91",
+        "python_version": "3.12.3",
+        "swebench_version": "4.1.0",
+        "test_timeout": 1800,
+        "process_timeout": 3600,
+        "model_reruns": false,
+        "cache_level": "instance",
+        "clean": false
+      },
+      "rows": [
+        {
+          "instance_id": "astropy__astropy-12907",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 17,
+          "summary_requests": 1,
+          "model_requests": 18,
+          "usage": {
+            "input_tokens": 165013,
+            "output_tokens": 5342,
+            "cached_tokens": 127488,
+            "total_tokens": 170355
+          },
+          "active_seconds": 65.484,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 78.487,
+          "grading_seconds": 58.873,
+          "reused_from_same_C_first3": true,
+          "bindings": {
+            "result_sha256": "7d7fe74517e3717f6a49553f9f356276d26af0d3d04a5dbe95080497beaf821e",
+            "prediction_file_sha256": "e95fbe8e020078fc936911c724d245d5e8d663f64942da0d90d0e2aea1d2ba16",
+            "candidate_patch_sha256": "3b70d8655268f8f4ca4a3cac06deb2713c4c88c2802242dd3ef6398129d6e56e",
+            "official_patch_sha256": "3b70d8655268f8f4ca4a3cac06deb2713c4c88c2802242dd3ef6398129d6e56e",
+            "official_report_sha256": "fe3f3bddc9631279d3babf7270913070d91e9207c3468bd947823aee3e7b1b86",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e082963099ed7d5a5f75a0be46e338be36faae33b2cba5289a9ddbd505997f1f",
+          "behavior": {
+            "result_steps": 17,
+            "action_request_count": 17,
+            "model_request_count": 18,
+            "model_requests_by_purpose": {
+              "action": 17,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 5,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 4,
+            "last_patch_to_stop_rounds": 4,
+            "source_trace_sha256": "8ba84146d74ce4642773e94a54de360f5b20e0f757b192a37983dda104b39e83"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14182",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 44,
+          "summary_requests": 16,
+          "model_requests": 60,
+          "usage": {
+            "input_tokens": 740130,
+            "output_tokens": 30482,
+            "cached_tokens": 285056,
+            "total_tokens": 770612
+          },
+          "active_seconds": 245.233,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 255.643,
+          "grading_seconds": 60.839,
+          "reused_from_same_C_first3": true,
+          "bindings": {
+            "result_sha256": "bf964de57da74e41b9c713dda0b4053522691d2ff91cca252026c97eb35ff2e3",
+            "prediction_file_sha256": "011bb490ec6ba9b927ceb54900f0b21688907bb91b3d498681808513e9c12b95",
+            "candidate_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_patch_sha256": "de15153560612fab463855746ec24c1d1ef8d383992b6468f33c0a981ede07cb",
+            "official_report_sha256": "c916b93f99f25786c3a8f1c3064546c6df7f2054b7bc75d019209572a18c1530",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d25559050ee0b046e072ed31d2a1c8943a928d9d842462a50234118156888a0c",
+          "behavior": {
+            "result_steps": 44,
+            "action_request_count": 44,
+            "model_request_count": 60,
+            "model_requests_by_purpose": {
+              "action": 44,
+              "summary": 16
+            },
+            "successful_compactions": 15,
+            "read_like_execute_count": 40,
+            "read_like_exact_execute_repeat_count": 7,
+            "successful_read_evidence_count": 4,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 16,
+            "source_trace_sha256": "a8c0e8c7f6f5c7ffbc06c6a9aa0d761ad572af0b33bb8ee95bf77ac0e33df1d7"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14365",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 33,
+          "summary_requests": 6,
+          "model_requests": 39,
+          "usage": {
+            "input_tokens": 415321,
+            "output_tokens": 16880,
+            "cached_tokens": 237824,
+            "total_tokens": 432201
+          },
+          "active_seconds": 161.528,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 165.718,
+          "grading_seconds": 46.657,
+          "reused_from_same_C_first3": true,
+          "bindings": {
+            "result_sha256": "5dbe01483cfc55d375d7c0b462addb569c6a3aed8658d703da25a3ad41ea9cae",
+            "prediction_file_sha256": "80db7ac57a55defb32125f42803b6caaa92e5157197659639b21a421e11aa4ed",
+            "candidate_patch_sha256": "49ce57a8ec8aebc04c6f3fb063efd35050fc2c3518674bc6427b426dff92f6d7",
+            "official_patch_sha256": "49ce57a8ec8aebc04c6f3fb063efd35050fc2c3518674bc6427b426dff92f6d7",
+            "official_report_sha256": "384349816e04aed81c4cb27054fca285b6f2707d23741b1303311206f2d7c777",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:70da5c0d4fcbbc2cbc46bbccf8d9ac2dfd4453cf7a19f9fa150b30bb7346f2f4",
+          "behavior": {
+            "result_steps": 33,
+            "action_request_count": 33,
+            "model_request_count": 39,
+            "model_requests_by_purpose": {
+              "action": 33,
+              "summary": 6
+            },
+            "successful_compactions": 6,
+            "read_like_execute_count": 13,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 8,
+            "last_patch_to_stop_rounds": 8,
+            "source_trace_sha256": "88213ec9f156eb6744181e9c9fd795846ff8187462fce3b51693b7357365b4b0"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-14995",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 13,
+          "summary_requests": 2,
+          "model_requests": 15,
+          "usage": {
+            "input_tokens": 176739,
+            "output_tokens": 5194,
+            "cached_tokens": 117760,
+            "total_tokens": 181933
+          },
+          "active_seconds": 78.617,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 195.991,
+          "grading_seconds": 74.71,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "2c2dc20ed76249628fe135f0ed56bf9d55747ad8ba42c76b86c35181f1110195",
+            "prediction_file_sha256": "f27b74ad2e749823a3f44b6a1f738a9d947ad43389df543a3aa041add3914b01",
+            "candidate_patch_sha256": "ab31e534b0b64f66e5536232473dd0c2564c45c36317f246c5aebf088c256b33",
+            "official_patch_sha256": "ab31e534b0b64f66e5536232473dd0c2564c45c36317f246c5aebf088c256b33",
+            "official_report_sha256": "408f2193940e31411fa4dc6063fe3d91f5a687f9c5df3f2c5f31a12eb392979b",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:e1c746371f8f7132c29768bea9cc1380871c87f6e4404a2282d8d3c582786874",
+          "behavior": {
+            "result_steps": 13,
+            "action_request_count": 13,
+            "model_request_count": 15,
+            "model_requests_by_purpose": {
+              "action": 13,
+              "summary": 2
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 5,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 1,
+            "source_trace_sha256": "20a92c7ff6aba9c345be40a0b615f1058f8a533dfb36cbddcedaadd59a461272"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-6938",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 16,
+          "summary_requests": 1,
+          "model_requests": 17,
+          "usage": {
+            "input_tokens": 127791,
+            "output_tokens": 4450,
+            "cached_tokens": 94464,
+            "total_tokens": 132241
+          },
+          "active_seconds": 67.175,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 208.157,
+          "grading_seconds": 27.986,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "b679e74b10e80c80400af91c7447102a11a296d067fbfb543c21c3e177f799c2",
+            "prediction_file_sha256": "7b570a6d653c8ffdd726ef1efb830379d3000cbad5c91dd5a53c6a17a236ff2e",
+            "candidate_patch_sha256": "c9437a595f0f0be09390ab7c8fd99a8c53e660fc7670faa890f63425b39f6c06",
+            "official_patch_sha256": "c9437a595f0f0be09390ab7c8fd99a8c53e660fc7670faa890f63425b39f6c06",
+            "official_report_sha256": "4cfd655743d6cc20818d828a6ca470011d6c66fcffbcae2f90a8f71c9d565c91",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:00cb659e4042696f82d4ab703cf6966e33c7d539689df572e1278d38a7ba7bbb",
+          "behavior": {
+            "result_steps": 16,
+            "action_request_count": 16,
+            "model_request_count": 17,
+            "model_requests_by_purpose": {
+              "action": 16,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 5,
+            "last_patch_to_stop_rounds": 5,
+            "source_trace_sha256": "c07aa6ca848fa165a4ea1341536c8778152aa7f0c175cd77913aa5b1ce138a12"
+          }
+        },
+        {
+          "instance_id": "astropy__astropy-7746",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 16,
+          "summary_requests": 2,
+          "model_requests": 18,
+          "usage": {
+            "input_tokens": 175025,
+            "output_tokens": 14394,
+            "cached_tokens": 118528,
+            "total_tokens": 189419
+          },
+          "active_seconds": 119.393,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 250.346,
+          "grading_seconds": 23.039,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "ed977b3cbd0e9309f504647fd685a4fd0df08aa29cc532fc85f5e40c6f87b460",
+            "prediction_file_sha256": "c6c57a1416138c7499757822e410cff4f294443e10f258d626844f7beb50e09d",
+            "candidate_patch_sha256": "983b328b616672ff6d12805d0a7b42b17274e1bc7587c2a9161cd1683360706c",
+            "official_patch_sha256": "983b328b616672ff6d12805d0a7b42b17274e1bc7587c2a9161cd1683360706c",
+            "official_report_sha256": "a99748a2d770bb148f63cac2cb1bee39d6946c81fa1ab93355c69481b3a8eb53",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:8b0a5d3e7a868fb494f1bf1f4d82f7ecca662a5fe9094de4950de921163138fb",
+          "behavior": {
+            "result_steps": 16,
+            "action_request_count": 16,
+            "model_request_count": 18,
+            "model_requests_by_purpose": {
+              "action": 16,
+              "summary": 2
+            },
+            "successful_compactions": 2,
+            "read_like_execute_count": 6,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 9,
+            "last_patch_to_stop_rounds": 9,
+            "source_trace_sha256": "0aa7cc157fbbc20cd4a71c1d1ee65cd4b1005e85b2d674d85a2dc09889b178f9"
+          }
+        },
+        {
+          "instance_id": "django__django-10914",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 49,
+          "summary_requests": 11,
+          "model_requests": 60,
+          "usage": {
+            "input_tokens": 713237,
+            "output_tokens": 34770,
+            "cached_tokens": 393600,
+            "total_tokens": 748007
+          },
+          "active_seconds": 387.558,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 543.835,
+          "grading_seconds": 27.797,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "5b477e83ccc3a594e3aa08413e3182b1cae2ac30f71007aa71e23bdaff19910a",
+            "prediction_file_sha256": "c9dacf19b4129faa692898058f0cc56b0eafee50a79baa84212915835553ed9e",
+            "candidate_patch_sha256": "1ac719aa91075c558c198bc8aeac0e426a07382c1b646f9ec3389b878ceb5c3e",
+            "official_patch_sha256": "1ac719aa91075c558c198bc8aeac0e426a07382c1b646f9ec3389b878ceb5c3e",
+            "official_report_sha256": "b105979fe78dbf4323f40226cf6abc32a4c059331e95c1ae61031e8e8ef651b8",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:f26f0db931c6c1e785ab8287e1ea4f5f948846267db159deaf90b3fe7adea4e9",
+          "behavior": {
+            "result_steps": 49,
+            "action_request_count": 49,
+            "model_request_count": 60,
+            "model_requests_by_purpose": {
+              "action": 49,
+              "summary": 11
+            },
+            "successful_compactions": 11,
+            "read_like_execute_count": 16,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 11,
+            "last_patch_to_stop_rounds": 11,
+            "source_trace_sha256": "a49f03919ca1244a99bdc154c8b54a2a099a9a2f74bc4115316001ad8a230d4d"
+          }
+        },
+        {
+          "instance_id": "django__django-10924",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 7,
+          "summary_requests": 1,
+          "model_requests": 8,
+          "usage": {
+            "input_tokens": 57942,
+            "output_tokens": 3387,
+            "cached_tokens": 32896,
+            "total_tokens": 61329
+          },
+          "active_seconds": 42.667,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 230.789,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "d350a86b3f7f50d9efbf7a0101cc0dfce2de25767565da12e876ba77b8115e45",
+            "prediction_file_sha256": "6832a8782e22f2b0fdcf4fa8ad8596504df2c024cb2a5a05b6fe23f80868d8d4",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 7,
+            "action_request_count": 7,
+            "model_request_count": 8,
+            "model_requests_by_purpose": {
+              "action": 7,
+              "summary": 1
+            },
+            "successful_compactions": 0,
+            "read_like_execute_count": 5,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "601270f1b4762d415ba27351a44c983bb3bc931eea1d6cc0f74d2b5bf516a864"
+          }
+        },
+        {
+          "instance_id": "django__django-11001",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 39,
+          "summary_requests": 6,
+          "model_requests": 45,
+          "usage": {
+            "input_tokens": 460455,
+            "output_tokens": 18981,
+            "cached_tokens": 294656,
+            "total_tokens": 479436
+          },
+          "active_seconds": 280.934,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 602.579,
+          "grading_seconds": 24.592,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "3425b09334bd37173177f32903cfba2a3b684125a5270978fa3bdcc7c21cc033",
+            "prediction_file_sha256": "2a91883b76730a4a4f122dc546e086a76820bd80b3fa3a227a97853442c3b90a",
+            "candidate_patch_sha256": "7a0b0e7db11db067e6d11a08dc99b095be12f4047a0f7b15e45cf9e1c3a10034",
+            "official_patch_sha256": "7a0b0e7db11db067e6d11a08dc99b095be12f4047a0f7b15e45cf9e1c3a10034",
+            "official_report_sha256": "9cee548df441c178b26c7f1bacae655ce1f0eefa2f781d7d3b883017d73ebb41",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:68c61032db48a5eef2175532d3555e20acdd426aa5b426ba3acfe34a0ddd83b7",
+          "behavior": {
+            "result_steps": 39,
+            "action_request_count": 39,
+            "model_request_count": 45,
+            "model_requests_by_purpose": {
+              "action": 39,
+              "summary": 6
+            },
+            "successful_compactions": 6,
+            "read_like_execute_count": 6,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 4,
+            "last_patch_to_stop_rounds": 4,
+            "source_trace_sha256": "35f05d9f4d09a4db0a0ba1bd151174bd6c67a8e80833589c2ed7f9f11c0a4023"
+          }
+        },
+        {
+          "instance_id": "django__django-11019",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 45,
+          "summary_requests": 17,
+          "model_requests": 62,
+          "usage": {
+            "input_tokens": 707978,
+            "output_tokens": 54012,
+            "cached_tokens": 276224,
+            "total_tokens": 761990
+          },
+          "active_seconds": 433.402,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 796.424,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "668bec6079c8e087d0f1695345caf5ea234360a021df8f6e7b2fd2ea53d08572",
+            "prediction_file_sha256": "7b35d9c65f53f5869efc050823b2d67a4d9b766ec5e3b50927d0c2fb60133f8a",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 45,
+            "action_request_count": 45,
+            "model_request_count": 62,
+            "model_requests_by_purpose": {
+              "action": 45,
+              "summary": 17
+            },
+            "successful_compactions": 16,
+            "read_like_execute_count": 16,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "ac977ab38a8705b6688527971df19727eaa40dfda2d8c493d7bf94a1fe30ceca"
+          }
+        },
+        {
+          "instance_id": "django__django-11039",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 20,
+          "summary_requests": 1,
+          "model_requests": 21,
+          "usage": {
+            "input_tokens": 158111,
+            "output_tokens": 4902,
+            "cached_tokens": 124800,
+            "total_tokens": 163013
+          },
+          "active_seconds": 77.028,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 519.137,
+          "grading_seconds": 27.52,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "beee00003afd07852b5f88620d7bf8e984b0e357b2ee10b235cf28bd89368f04",
+            "prediction_file_sha256": "3833f56108489f53a1c930cb5a119fb9ef723b96664f6d19514798362bedf68e",
+            "candidate_patch_sha256": "6767b6ad02b048e03b705a7746388bdc2cc3acaf5e87db7f89e9c90582035575",
+            "official_patch_sha256": "6767b6ad02b048e03b705a7746388bdc2cc3acaf5e87db7f89e9c90582035575",
+            "official_report_sha256": "a213e90170fa18f1f820762a3e8e48e316a7c34e9cc6f570cd8f9b52f2fb6534",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:895cb9b96a9ba3a7236514c6c6ecc21814b68c3ede142d2bb10df31a3645d496",
+          "behavior": {
+            "result_steps": 20,
+            "action_request_count": 20,
+            "model_request_count": 21,
+            "model_requests_by_purpose": {
+              "action": 20,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 7,
+            "last_patch_to_stop_rounds": 7,
+            "source_trace_sha256": "87227b93effafcd52ead3dd4beba5e82ee2951e34a539198377924fdf9d0d3d5"
+          }
+        },
+        {
+          "instance_id": "django__django-11049",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 12,
+          "summary_requests": 1,
+          "model_requests": 13,
+          "usage": {
+            "input_tokens": 109907,
+            "output_tokens": 6570,
+            "cached_tokens": 75136,
+            "total_tokens": 116477
+          },
+          "active_seconds": 68.878,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 164.058,
+          "grading_seconds": 22.886,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "1c5eea55df965e632531ccaba7cc913a2c1ad422d95a51c2dc29a1d0b27989a7",
+            "prediction_file_sha256": "a3f0d437dc31571c4ffbb6928dcdecd2e32c283534c9416c86017df79c99efaa",
+            "candidate_patch_sha256": "0ab72dc53d3f48353ebf409660a7b9533fcb3ce62b21513cd65266635f66baf3",
+            "official_patch_sha256": "0ab72dc53d3f48353ebf409660a7b9533fcb3ce62b21513cd65266635f66baf3",
+            "official_report_sha256": "c24957410d5861764cfd179a2310177bdd845921645473c182c3f1d90458711d",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:c5700017c1dfcca5ee0d2b68bbce2f2e2a69933089f0afa4cd0d888d4f1617f7",
+          "behavior": {
+            "result_steps": 12,
+            "action_request_count": 12,
+            "model_request_count": 13,
+            "model_requests_by_purpose": {
+              "action": 12,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 9,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 4,
+            "last_patch_to_stop_rounds": 4,
+            "source_trace_sha256": "914e8a4f9c7a846c7edf790e458c175dca2c44ca553692bd22ec538eca856d3a"
+          }
+        },
+        {
+          "instance_id": "django__django-11099",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 8,
+          "summary_requests": 0,
+          "model_requests": 8,
+          "usage": {
+            "input_tokens": 27714,
+            "output_tokens": 1535,
+            "cached_tokens": 23552,
+            "total_tokens": 29249
+          },
+          "active_seconds": 27.58,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 562.229,
+          "grading_seconds": 26.901,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "8c12083b64930de984bfaf4937c9fe2b4fbdf9795fc541dc648e79edf9762b65",
+            "prediction_file_sha256": "3715ffb07049ef51d1eb19854e053a7c6fd2b09db7bbd13405b0d67857448fe9",
+            "candidate_patch_sha256": "e754832b486e044c733c1398de02f9bc0d2d872d5308f2956d16390e061ffd3b",
+            "official_patch_sha256": "e754832b486e044c733c1398de02f9bc0d2d872d5308f2956d16390e061ffd3b",
+            "official_report_sha256": "5f66c4bd739d1e88ab9c7ae37e15fc5d8fc09c6fe42eac77c673abc6771c4f7b",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:cca302934edd881cc4f1e4647a389a25cdaa3c02bfa33667a4204934a09c4fb1",
+          "behavior": {
+            "result_steps": 8,
+            "action_request_count": 8,
+            "model_request_count": 8,
+            "model_requests_by_purpose": {
+              "action": 8
+            },
+            "successful_compactions": 0,
+            "read_like_execute_count": 1,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 6,
+            "last_patch_to_stop_rounds": 6,
+            "source_trace_sha256": "2ff04b654d02006480f65e54158e741369f3588aa2e10940c30ca035cfff5dbe"
+          }
+        },
+        {
+          "instance_id": "django__django-11133",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 18,
+          "summary_requests": 1,
+          "model_requests": 19,
+          "usage": {
+            "input_tokens": 160799,
+            "output_tokens": 4070,
+            "cached_tokens": 127104,
+            "total_tokens": 164869
+          },
+          "active_seconds": 65.613,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 696.745,
+          "grading_seconds": 25.306,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "9bb3d1cbfe5849199081148db37391348b412bfb2aedbff221283dacc6ea9185",
+            "prediction_file_sha256": "5db1e772ba1e9e249437bd5ee1aae9f7023d5ad3096ac879f72a19ce419a88d5",
+            "candidate_patch_sha256": "39d48449404b04c79f43f44c038f285d97e26fadc8239f777dd8301893420b7d",
+            "official_patch_sha256": "39d48449404b04c79f43f44c038f285d97e26fadc8239f777dd8301893420b7d",
+            "official_report_sha256": "e6c4e83e2678aa3462dc7ee35126d3dc03429a80a27fe5ef474cc62e5cbc5366",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:914093363dbe12def92c5d36e9bdc5270cce5ed0aa6f3daad8bc4ef0389c29bf",
+          "behavior": {
+            "result_steps": 18,
+            "action_request_count": 18,
+            "model_request_count": 19,
+            "model_requests_by_purpose": {
+              "action": 18,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 5,
+            "last_patch_to_stop_rounds": 5,
+            "source_trace_sha256": "44e354fbd44ce63935781d08a08ce66a45fa37737b76b51450bfa7cf570b2e16"
+          }
+        },
+        {
+          "instance_id": "django__django-11179",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 14,
+          "summary_requests": 1,
+          "model_requests": 15,
+          "usage": {
+            "input_tokens": 113006,
+            "output_tokens": 4651,
+            "cached_tokens": 82560,
+            "total_tokens": 117657
+          },
+          "active_seconds": 63.198,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 289.263,
+          "grading_seconds": 27.126,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "1d79a36488ded08db4a17872e36634ee223df5b7e23bad92fb8ed6fda2d632cc",
+            "prediction_file_sha256": "2e72f9aad4408efc2f9831dcc40a17325d9c00f74abda6816b922ef31357ceb5",
+            "candidate_patch_sha256": "250f3584ec46ace11fe5a11a874b90cb12948f589e218c82630d4a60a08ec45b",
+            "official_patch_sha256": "250f3584ec46ace11fe5a11a874b90cb12948f589e218c82630d4a60a08ec45b",
+            "official_report_sha256": "37c4b1bd2975cc6e54026dd99bbbc3e0f08152491cd428fb79cc657549d3dd70",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:23e061f0071647d4c459b2c3aa84081011080f57a4580727c16997cf01e0d477",
+          "behavior": {
+            "result_steps": 14,
+            "action_request_count": 14,
+            "model_request_count": 15,
+            "model_requests_by_purpose": {
+              "action": 14,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 6,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 9,
+            "last_patch_to_stop_rounds": 9,
+            "source_trace_sha256": "ef2ee0f2b51feab3966feb94aef3b98aaf85a2df448ad4ffabf4e16464410594"
+          }
+        },
+        {
+          "instance_id": "django__django-11283",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 22,
+          "summary_requests": 7,
+          "model_requests": 29,
+          "usage": {
+            "input_tokens": 270336,
+            "output_tokens": 28229,
+            "cached_tokens": 126976,
+            "total_tokens": 298565
+          },
+          "active_seconds": 239.175,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 587.971,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "6c6d051c01db75a26c5a62687a7a9d1598f7dfe6041e98224c315b73babdaf83",
+            "prediction_file_sha256": "ff77dc0ff3d6fdcb29f6c2fc6d6798287a63db5069b9f08b3d8fa579ab14a658",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 22,
+            "action_request_count": 22,
+            "model_request_count": 29,
+            "model_requests_by_purpose": {
+              "action": 22,
+              "summary": 7
+            },
+            "successful_compactions": 6,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "7f00c3d39df784cf5383ea6f486f2681d2fc9cd083744afead383a18d60458f5"
+          }
+        },
+        {
+          "instance_id": "django__django-11422",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 17,
+          "summary_requests": 1,
+          "model_requests": 18,
+          "usage": {
+            "input_tokens": 148743,
+            "output_tokens": 5563,
+            "cached_tokens": 114688,
+            "total_tokens": 154306
+          },
+          "active_seconds": 71.467,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 634.074,
+          "grading_seconds": 27.047,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "c0a6dd80c028e35c6618f3ff42a8e459ec9c8577bbc543b1b09fd48035aff7ef",
+            "prediction_file_sha256": "8ab2e6001cb2a3eddabd09efffbb2c6376451fc4a95359e28be4a087c5b162fa",
+            "candidate_patch_sha256": "388cec7f6213739c6e445ad112d94452778bda44f1be8d34fcf6cb15a36def54",
+            "official_patch_sha256": "388cec7f6213739c6e445ad112d94452778bda44f1be8d34fcf6cb15a36def54",
+            "official_report_sha256": "5877ca494aee0065898f705bd82f712264b68c3fdc8fb3fe2f49363aa752d713",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:d8703d50c49fae62753520403c3d4cd8a1048b7e554159aa4f46bb5f778f0ed3",
+          "behavior": {
+            "result_steps": 17,
+            "action_request_count": 17,
+            "model_request_count": 18,
+            "model_requests_by_purpose": {
+              "action": 17,
+              "summary": 1
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 7,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 10,
+            "last_patch_to_stop_rounds": 10,
+            "source_trace_sha256": "d01873fcead0be4ec11c4d3e73c9e7bb91b7c2b2f0cda94ce665907127ba827b"
+          }
+        },
+        {
+          "instance_id": "django__django-11564",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 35,
+          "summary_requests": 19,
+          "model_requests": 54,
+          "usage": {
+            "input_tokens": 679768,
+            "output_tokens": 65873,
+            "cached_tokens": 174336,
+            "total_tokens": 745641
+          },
+          "active_seconds": 553.338,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 1086.362,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "d8788ece6e66d2a1493b1b14989d3aa8b00a371e6d193886f7b1e9767d4bfc3d",
+            "prediction_file_sha256": "f2b6a07442d28d2b639cfb668eed48068c0e4e1ac1229fef190e4dc5510ee9a3",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 35,
+            "action_request_count": 35,
+            "model_request_count": 54,
+            "model_requests_by_purpose": {
+              "action": 35,
+              "summary": 19
+            },
+            "successful_compactions": 18,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "24f31191200272443ee714c841d5bbb3c1fbae202e3f9bb17ee8ade07ac6d2ef"
+          }
+        },
+        {
+          "instance_id": "django__django-11583",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 22,
+          "summary_requests": 7,
+          "model_requests": 29,
+          "usage": {
+            "input_tokens": 307710,
+            "output_tokens": 25972,
+            "cached_tokens": 136704,
+            "total_tokens": 333682
+          },
+          "active_seconds": 222.703,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 624.444,
+          "grading_seconds": 31.652,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "ecbd137f38ba79cda1d60579d3b41e19d0f13cd0d942b7bdd61171d18dd2c9d7",
+            "prediction_file_sha256": "dcefe6bf98a467f8a3f54835373265037c9b578af73f988f37e7721f10006374",
+            "candidate_patch_sha256": "10243187dfcb8ae9715f39654d95b852e96d0a30522385268b05078d188cdb9d",
+            "official_patch_sha256": "10243187dfcb8ae9715f39654d95b852e96d0a30522385268b05078d188cdb9d",
+            "official_report_sha256": "b89ddcc9e9638680861c3b7aa908609c3dc60455081fe010e739e7d0afe16f00",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:f2ac03fe870177231ba0e72452b3617ebc54cbe62318deef41c7949397337d2e",
+          "behavior": {
+            "result_steps": 22,
+            "action_request_count": 22,
+            "model_request_count": 29,
+            "model_requests_by_purpose": {
+              "action": 22,
+              "summary": 7
+            },
+            "successful_compactions": 7,
+            "read_like_execute_count": 9,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 5,
+            "last_patch_to_stop_rounds": 5,
+            "source_trace_sha256": "342bff51146fe860e18898055017913972e734d5c15bd96778ae8c7f47362e3a"
+          }
+        },
+        {
+          "instance_id": "django__django-11620",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 41,
+          "summary_requests": 5,
+          "model_requests": 46,
+          "usage": {
+            "input_tokens": 450743,
+            "output_tokens": 18399,
+            "cached_tokens": 314496,
+            "total_tokens": 469142
+          },
+          "active_seconds": 231.18,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 690.987,
+          "grading_seconds": 29.936,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "9c3be0bf2e005170bfea612696cc8bf5dba868bfb8d0cbaeb8ab0e2b763696b2",
+            "prediction_file_sha256": "e7787b8ed740f857a9d23f324c8bed05ea1b8e467a8e8d3180cd94a9c9834718",
+            "candidate_patch_sha256": "a0403042027ecc8eeb21da30fdcdf6615cdd2077c61cbbde75c0c66ae7aad75d",
+            "official_patch_sha256": "a0403042027ecc8eeb21da30fdcdf6615cdd2077c61cbbde75c0c66ae7aad75d",
+            "official_report_sha256": "0ad6d0aba879a6363eef211534d2337748dde866ce035be80fcd044a694e6744",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:6c99f08e757436b33640c2a68bfa4572aad8dcdfe78adf77905dc7e25945aa47",
+          "behavior": {
+            "result_steps": 41,
+            "action_request_count": 41,
+            "model_request_count": 46,
+            "model_requests_by_purpose": {
+              "action": 41,
+              "summary": 5
+            },
+            "successful_compactions": 5,
+            "read_like_execute_count": 14,
+            "read_like_exact_execute_repeat_count": 2,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 14,
+            "last_patch_to_stop_rounds": 14,
+            "source_trace_sha256": "1d21371014e339810b4a8962780f959516561740924c00ceaa33cf9e917140a2"
+          }
+        },
+        {
+          "instance_id": "django__django-11630",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 31,
+          "summary_requests": 13,
+          "model_requests": 44,
+          "usage": {
+            "input_tokens": 504252,
+            "output_tokens": 46941,
+            "cached_tokens": 165504,
+            "total_tokens": 551193
+          },
+          "active_seconds": 407.183,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 946.982,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "84d339c66f67768021f7eabb6e7f0ce9cdd3a4a8000ba45c3d698db383b0cac1",
+            "prediction_file_sha256": "59f570f518de08c843348d77043a53521392dbc228814cae20c2c93406e7e65c",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 31,
+            "action_request_count": 31,
+            "model_request_count": 44,
+            "model_requests_by_purpose": {
+              "action": 31,
+              "summary": 13
+            },
+            "successful_compactions": 12,
+            "read_like_execute_count": 9,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "82b96b2405fb9c3e07c30e4faa01a891bb6139ad074f045870f8a7b88adf2bee"
+          }
+        },
+        {
+          "instance_id": "django__django-11742",
+          "official_status": "empty_patch",
+          "resolved": false,
+          "generation_status": "empty_patch",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 68,
+          "summary_requests": 28,
+          "model_requests": 96,
+          "usage": {
+            "input_tokens": 1290880,
+            "output_tokens": 89210,
+            "cached_tokens": 448640,
+            "total_tokens": 1380090
+          },
+          "active_seconds": 889.463,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 1432.171,
+          "grading_seconds": 0.0,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "5aaf575298a4acbe2297049e1c9ae960c577b576a0fe04a12cb7c0fbe9f7ff7c",
+            "prediction_file_sha256": "755a15fdf54847970e0c19b756e44755d9ecaaed0011a8c20e998cf6847d7435",
+            "candidate_patch_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "official_patch_sha256": null,
+            "official_report_sha256": null,
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": null,
+          "behavior": {
+            "result_steps": 68,
+            "action_request_count": 68,
+            "model_request_count": 96,
+            "model_requests_by_purpose": {
+              "action": 68,
+              "summary": 28
+            },
+            "successful_compactions": 27,
+            "read_like_execute_count": 8,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": null,
+            "source_trace_sha256": "961b14cc074b84443bfd22432708fd40c91ec876379d5eeb29e5da964f70b62b"
+          }
+        },
+        {
+          "instance_id": "django__django-11797",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 38,
+          "summary_requests": 5,
+          "model_requests": 43,
+          "usage": {
+            "input_tokens": 403939,
+            "output_tokens": 18876,
+            "cached_tokens": 269312,
+            "total_tokens": 422815
+          },
+          "active_seconds": 268.247,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 805.386,
+          "grading_seconds": 27.622,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "4266fafa20757ca54eab2d528890d9884a858b90b7e6569208b5a2a530b8e484",
+            "prediction_file_sha256": "3f1f9d29b666b0dec37084e5f0b2ceb7394b1a71546dc00485cbee35a08bc089",
+            "candidate_patch_sha256": "1651506f67d7edc3fc59c47454de3949e04ef30cbfb8c3a0cb68fb96573d39bd",
+            "official_patch_sha256": "1651506f67d7edc3fc59c47454de3949e04ef30cbfb8c3a0cb68fb96573d39bd",
+            "official_report_sha256": "e03241653a4284dad3e49da728afa8ce0a49f6a78561077eca79ee009c74a489",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:2d3c56fb0a332d8f393607d3ea6bf4581bcd41a78c17118ae76f5a4df00ee90f",
+          "behavior": {
+            "result_steps": 38,
+            "action_request_count": 38,
+            "model_request_count": 43,
+            "model_requests_by_purpose": {
+              "action": 38,
+              "summary": 5
+            },
+            "successful_compactions": 5,
+            "read_like_execute_count": 7,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 1,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 20,
+            "last_patch_to_stop_rounds": 20,
+            "source_trace_sha256": "6987581412ab959c7fa4adbe856c3847b006f206984e020cdf5ee81d70175b70"
+          }
+        },
+        {
+          "instance_id": "django__django-11815",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 16,
+          "summary_requests": 2,
+          "model_requests": 18,
+          "usage": {
+            "input_tokens": 152030,
+            "output_tokens": 5287,
+            "cached_tokens": 99840,
+            "total_tokens": 157317
+          },
+          "active_seconds": 75.284,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 369.534,
+          "grading_seconds": 28.04,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "ac6e6f78831c5f912473d37466aabdb63178f5c6272645c3632fee4b35cf1f77",
+            "prediction_file_sha256": "6c932372aeaa624a53a49513e97eabdd909170424dc11f9d5d46f89b6a0ece89",
+            "candidate_patch_sha256": "95ae1f6995e8eeaa9d7feff2dec017cde62de6ae69caecaf9706e9f1bf6a5913",
+            "official_patch_sha256": "95ae1f6995e8eeaa9d7feff2dec017cde62de6ae69caecaf9706e9f1bf6a5913",
+            "official_report_sha256": "ef0c8ca466a996ac66bc7de721fe4f048b68c404ee9c385a39dbe108d01e3c03",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:19b66392c9872e6d07b331b0ed59466c3e6c3588bc4cdd89f56f8767dc774f8a",
+          "behavior": {
+            "result_steps": 16,
+            "action_request_count": 16,
+            "model_request_count": 18,
+            "model_requests_by_purpose": {
+              "action": 16,
+              "summary": 2
+            },
+            "successful_compactions": 1,
+            "read_like_execute_count": 2,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 6,
+            "source_trace_sha256": "66f16a70295775582a6c05f5d78bb4a409b2ad5573c52e387831bf776af3a3a2"
+          }
+        },
+        {
+          "instance_id": "django__django-11848",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 38,
+          "summary_requests": 9,
+          "model_requests": 47,
+          "usage": {
+            "input_tokens": 522215,
+            "output_tokens": 43079,
+            "cached_tokens": 285568,
+            "total_tokens": 565294
+          },
+          "active_seconds": 417.564,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 607.143,
+          "grading_seconds": 24.697,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "ea87cf67d479e96d7048502098e72cff4b443e6cb17c296ee3504e63cebd361b",
+            "prediction_file_sha256": "fffcd530f1b1bd0244fa55a6e87e29b67bc0ce0af88cc4d8f4e5dd37a6bcc581",
+            "candidate_patch_sha256": "799e019aac2034f2c0f58b1dbf171128386fced55841f825e83a00132618935f",
+            "official_patch_sha256": "799e019aac2034f2c0f58b1dbf171128386fced55841f825e83a00132618935f",
+            "official_report_sha256": "6eea9db793b448eb25f06d4b91f6b362536cdc539ffe77537589472310500b01",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:08eac9219e5d4b15b445fde26c587157a0ad8a2d9209e4b1e266259edf51bb4b",
+          "behavior": {
+            "result_steps": 38,
+            "action_request_count": 38,
+            "model_request_count": 47,
+            "model_requests_by_purpose": {
+              "action": 38,
+              "summary": 9
+            },
+            "successful_compactions": 8,
+            "read_like_execute_count": 4,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 1,
+            "source_trace_sha256": "a699927401b6c0a50ceec53f468bf6595a8973f5df2ecfd207238254198e8258"
+          }
+        },
+        {
+          "instance_id": "django__django-11905",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 59,
+          "summary_requests": 7,
+          "model_requests": 66,
+          "usage": {
+            "input_tokens": 665679,
+            "output_tokens": 22456,
+            "cached_tokens": 464128,
+            "total_tokens": 688135
+          },
+          "active_seconds": 352.614,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 423.872,
+          "grading_seconds": 25.159,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "e18e261df0d4d04830d644b205473851949b15ed8e8ec35a3c152f29abd9c28f",
+            "prediction_file_sha256": "7c203863856f3b2cc6e7926e46d3f7974dfe04178fdeac9205362a1ff21913e1",
+            "candidate_patch_sha256": "42b721d69a761cc9d2195e48ee0ab3fc559991e6f327b6b51bfa0ba84e602e58",
+            "official_patch_sha256": "42b721d69a761cc9d2195e48ee0ab3fc559991e6f327b6b51bfa0ba84e602e58",
+            "official_report_sha256": "a0c34ba2364017ee2c6a3702c4545b8a63e7ae71e71108b59063234ce1a46070",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:3df74a2f17ce873f814bb6109f3f3bf0f8191fa2e2ae26be01a676ac62ac5aa1",
+          "behavior": {
+            "result_steps": 59,
+            "action_request_count": 59,
+            "model_request_count": 66,
+            "model_requests_by_purpose": {
+              "action": 59,
+              "summary": 7
+            },
+            "successful_compactions": 7,
+            "read_like_execute_count": 3,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 5,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 20,
+            "last_patch_to_stop_rounds": 20,
+            "source_trace_sha256": "0a48ae1f2ba1a12d3a6ba7da854accc1b2168f8f2084881407bfa43432b0ee2a"
+          }
+        },
+        {
+          "instance_id": "django__django-11910",
+          "official_status": "graded",
+          "resolved": false,
+          "generation_status": "generated",
+          "stop_reason": "compaction_failed",
+          "outcome": "budget_exhausted",
+          "action_requests": 89,
+          "summary_requests": 25,
+          "model_requests": 114,
+          "usage": {
+            "input_tokens": 1352245,
+            "output_tokens": 56291,
+            "cached_tokens": 661248,
+            "total_tokens": 1408536
+          },
+          "active_seconds": 616.633,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 623.613,
+          "grading_seconds": 23.264,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "f3de593417ed8ae9b9fd9e9a1ad70afeb46e08224efabc9c2eca1d3babd57344",
+            "prediction_file_sha256": "4c581893840aecd6fb64ab9e4a7e049ef7debc5eaf0df78169037ac2040db26b",
+            "candidate_patch_sha256": "21c743b5c0c0035c1773a22e06b7e79452f89134a497d634d22b5f1fd2aa93a9",
+            "official_patch_sha256": "21c743b5c0c0035c1773a22e06b7e79452f89134a497d634d22b5f1fd2aa93a9",
+            "official_report_sha256": "d0ff213ca646285817c0c522b94c7a5dcabead0de32e29636a95395deefb4005",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:1b7d3771528b12af143276c9b57be675401ca31c7f7acf3f8ea6b9cbb31f9373",
+          "behavior": {
+            "result_steps": 89,
+            "action_request_count": 89,
+            "model_request_count": 114,
+            "model_requests_by_purpose": {
+              "action": 89,
+              "summary": 25
+            },
+            "successful_compactions": 24,
+            "read_like_execute_count": 41,
+            "read_like_exact_execute_repeat_count": 4,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": null,
+            "last_patch_to_stop_rounds": 24,
+            "source_trace_sha256": "e786aade0df8f4f98d46865b577be5bf91e764c0c0d8041dabda59073e626325"
+          }
+        },
+        {
+          "instance_id": "django__django-11964",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 17,
+          "summary_requests": 2,
+          "model_requests": 19,
+          "usage": {
+            "input_tokens": 162851,
+            "output_tokens": 11569,
+            "cached_tokens": 104064,
+            "total_tokens": 174420
+          },
+          "active_seconds": 112.295,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 118.336,
+          "grading_seconds": 27.884,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "cfdb692f4351352b0857c1ae39b74cf26a2b68e2362c99a275c8eb0498dc6628",
+            "prediction_file_sha256": "3b292220018f29570245c9af1a74159dd95ec241e53b4f0625aa0314d41634e4",
+            "candidate_patch_sha256": "3408dd1f01a7b1b5494bd763986576eda4ee1bb394dce2b6eca1a1b92483c9ef",
+            "official_patch_sha256": "3408dd1f01a7b1b5494bd763986576eda4ee1bb394dce2b6eca1a1b92483c9ef",
+            "official_report_sha256": "b3275f6d867d8d92be8333acafe8728514e96377149fecb542ba686c5450617e",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:098474801410af7303f0814d0d8557791ca2f55e455e5db766c3b3d0a9826df2",
+          "behavior": {
+            "result_steps": 17,
+            "action_request_count": 17,
+            "model_request_count": 19,
+            "model_requests_by_purpose": {
+              "action": 17,
+              "summary": 2
+            },
+            "successful_compactions": 2,
+            "read_like_execute_count": 8,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 6,
+            "last_patch_to_stop_rounds": 6,
+            "source_trace_sha256": "a4e9d7d1996816e1cbd0676259ff3b5f8a04d6c6df531d22b429aba69569e65a"
+          }
+        },
+        {
+          "instance_id": "django__django-11999",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 20,
+          "summary_requests": 3,
+          "model_requests": 23,
+          "usage": {
+            "input_tokens": 212677,
+            "output_tokens": 14463,
+            "cached_tokens": 137600,
+            "total_tokens": 227140
+          },
+          "active_seconds": 185.851,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 192.51,
+          "grading_seconds": 26.36,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "29fa3ca593db28136e97793899c04a244ab85c393cb640df19cb2cf5b9525898",
+            "prediction_file_sha256": "b4b19aae3d4dcb852a9ca55bf115eac97814858d9ed60c21a93e3fe547f83d51",
+            "candidate_patch_sha256": "c4155efee4932d3f82a2d241aead580f73d385f221a262b9d5f0b6b86f636c4d",
+            "official_patch_sha256": "c4155efee4932d3f82a2d241aead580f73d385f221a262b9d5f0b6b86f636c4d",
+            "official_report_sha256": "196981629b8f9ab0fff6a0c0150c19ee5a8a41bdb9f554f54921a4a238246893",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:3c7e7f035f611b17f2093ee6409364bc28cce8b9bac266b9590db762d197607e",
+          "behavior": {
+            "result_steps": 20,
+            "action_request_count": 20,
+            "model_request_count": 23,
+            "model_requests_by_purpose": {
+              "action": 20,
+              "summary": 3
+            },
+            "successful_compactions": 3,
+            "read_like_execute_count": 6,
+            "read_like_exact_execute_repeat_count": 0,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 12,
+            "last_patch_to_stop_rounds": 12,
+            "source_trace_sha256": "f66c296e2bd28d90f95321ea44c7ebbe9241c6b7c3e92dd97cda487999b1155c"
+          }
+        },
+        {
+          "instance_id": "django__django-12113",
+          "official_status": "graded",
+          "resolved": true,
+          "generation_status": "generated",
+          "stop_reason": "finish",
+          "outcome": "completed",
+          "action_requests": 33,
+          "summary_requests": 4,
+          "model_requests": 37,
+          "usage": {
+            "input_tokens": 383484,
+            "output_tokens": 14264,
+            "cached_tokens": 275072,
+            "total_tokens": 397748
+          },
+          "active_seconds": 325.425,
+          "active_seconds_scope": "agent_loop",
+          "generation_total_seconds": 348.933,
+          "grading_seconds": 23.868,
+          "reused_from_same_C_first3": false,
+          "bindings": {
+            "result_sha256": "18f46c3a922629670a1f2aeed597f3c3964f9d6fe483cfbb0eb0c23a255d3161",
+            "prediction_file_sha256": "e397292a6b49ddbe8ecba8133b8f0e06aa3b195633afbf8fc955205bb8935223",
+            "candidate_patch_sha256": "820bd722bcc5a5435b12fe9eef2c45a398798406e535d0bc933f29f4e172f299",
+            "official_patch_sha256": "820bd722bcc5a5435b12fe9eef2c45a398798406e535d0bc933f29f4e172f299",
+            "official_report_sha256": "5365d7f17c0162c69ebe711dbd4074dbcf61f424cdd85fae9ee85d1a66a6d67a",
+            "framework_log_sha256": null
+          },
+          "evaluated_image_id": "sha256:aa903e0c1056165cde593f55770c833e5bfa37f4150a0ce2556fadc86690f5b0",
+          "behavior": {
+            "result_steps": 33,
+            "action_request_count": 33,
+            "model_request_count": 37,
+            "model_requests_by_purpose": {
+              "action": 33,
+              "summary": 4
+            },
+            "successful_compactions": 4,
+            "read_like_execute_count": 9,
+            "read_like_exact_execute_repeat_count": 1,
+            "successful_read_evidence_count": 0,
+            "exact_read_evidence_repeat_count": 0,
+            "last_patch_to_finish_rounds": 19,
+            "last_patch_to_stop_rounds": 19,
+            "source_trace_sha256": "c542e798f549e2f8f2bac320575b5483d88ff648cec81e970649286c59a2d7a0"
+          }
+        }
+      ],
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "agent_settings": {
+        "model": "deepseek-flash",
+        "base_url": "https://api.deepseek.com",
+        "reasoning_effort": "high",
+        "max_steps": 300,
+        "max_seconds": 900,
+        "max_total_tokens": 5000000,
+        "context_tokens": 24000,
+        "model_context_tokens": 128000,
+        "context_margin_tokens": 1024,
+        "recent_context_tokens": 6000,
+        "keep_recent_turns": 2,
+        "checkpoint_output_tokens": 2048,
+        "max_output_tokens": 32768,
+        "command_timeout": 60,
+        "request_timeout": 180,
+        "max_output_chars": 12000,
+        "execution_capture_bytes": 1048576,
+        "evidence_max_item_bytes": 16777216,
+        "evidence_max_total_bytes": 67108864
+      }
+    }
+  ]
+}

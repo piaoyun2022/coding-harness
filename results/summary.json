@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "historical_runs_not_new_release_pipeline_measurement": true,
+  "dataset": {
+    "name": "princeton-nlp/SWE-bench_Lite",
+    "split": "test",
+    "revision": "6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2",
+    "selection": "first 30 after prepare_dataset sorts the pinned test split by instance_id ascending; first3 is its first three; not randomized",
+    "task_manifest_sha256": "6bf3a603e53cc0f4e9a1afa5c3c1d26d6befdcc5f3576c776b050a58f54a5276",
+    "repository_counts": {
+      "astropy/astropy": 6,
+      "django/django": 24
+    }
+  },
+  "model": {
+    "model": "deepseek-flash",
+    "reasoning_effort": "high",
+    "max_output_tokens_per_request": 32768
+  },
+  "experiments": {
+    "bare30": {
+      "summary": {
+        "planned": 30,
+        "resolved": 9,
+        "resolved_rate": 0.3,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "generation_invalid": 9,
+          "patch_rejected": 8,
+          "graded": 13
+        },
+        "stop_reasons": {
+          "length": 9,
+          "stop": 21
+        },
+        "model_requests": 30,
+        "action_requests": null,
+        "summary_requests": null,
+        "total_tokens": 1136926,
+        "active_seconds_sum": 2679.56,
+        "generation_total_seconds_sum": 2730.28,
+        "grading_seconds_sum": 1234.205
+      },
+      "budget": {
+        "model_requests_per_task": 1,
+        "retrieved_context_chars": 64000,
+        "retrieval": "issue-lexical-v1",
+        "tools": false,
+        "test_feedback": false
+      },
+      "source_commit": null
+    },
+    "C30": {
+      "summary": {
+        "planned": 30,
+        "resolved": 20,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 24,
+          "empty_patch": 6
+        },
+        "stop_reasons": {
+          "finish": 19,
+          "compaction_failed": 11
+        },
+        "model_requests": 1101,
+        "action_requests": 897,
+        "summary_requests": 204,
+        "total_tokens": 12492812,
+        "active_seconds_sum": 7152.71,
+        "generation_total_seconds_sum": 15051.719,
+        "grading_seconds_sum": 769.761
+      },
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "source_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff"
+    },
+    "A": {
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 196,
+        "action_requests": 181,
+        "summary_requests": 15,
+        "total_tokens": 2484140,
+        "active_seconds_sum": 671.687,
+        "generation_total_seconds_sum": 707.761,
+        "grading_seconds_sum": 183.917
+      },
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "source_commit": "05359aeddfb57e601ff67a5b3567c15a53a29cb3"
+    },
+    "B": {
+      "summary": {
+        "planned": 3,
+        "resolved": 1,
+        "resolved_rate": 0.3333333333333333,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 268,
+        "action_requests": 201,
+        "summary_requests": 67,
+        "total_tokens": 3567426,
+        "active_seconds_sum": 1138.589,
+        "generation_total_seconds_sum": 1176.003,
+        "grading_seconds_sum": 189.819
+      },
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "source_commit": "6b050fe6a88fc234808007aa1b0c02e513b6dd4c"
+    },
+    "C": {
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 117,
+        "action_requests": 94,
+        "summary_requests": 23,
+        "total_tokens": 1373168,
+        "active_seconds_sum": 472.245,
+        "generation_total_seconds_sum": 499.848,
+        "grading_seconds_sum": 166.369
+      },
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "source_commit": "098e27d19042e28f0592dd27dc76ab7859bb19ff"
+    },
+    "D": {
+      "summary": {
+        "planned": 3,
+        "resolved": 1,
+        "resolved_rate": 0.3333333333333333,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 2,
+          "empty_patch": 1
+        },
+        "stop_reasons": {
+          "finish": 2,
+          "compaction_failed": 1
+        },
+        "model_requests": 51,
+        "action_requests": 45,
+        "summary_requests": 6,
+        "total_tokens": 498312,
+        "active_seconds_sum": 192.683,
+        "generation_total_seconds_sum": 218.837,
+        "grading_seconds_sum": 122.269
+      },
+      "budget": {
+        "max_action_rounds": 300,
+        "max_total_tokens_per_task": 5000000,
+        "max_agent_seconds_per_task": 900
+      },
+      "source_commit": "2f77d31c8107f2b440d0ac64a9638dfbb0702234"
+    },
+    "mini": {
+      "summary": {
+        "planned": 3,
+        "resolved": 2,
+        "resolved_rate": 0.6666666666666666,
+        "unknown": 0,
+        "provisional": false,
+        "statuses": {
+          "graded": 3
+        },
+        "stop_reasons": {
+          "Submitted": 3
+        },
+        "model_requests": 108,
+        "action_requests": 108,
+        "summary_requests": 0,
+        "total_tokens": 4423675,
+        "active_seconds_sum": 591.901,
+        "generation_total_seconds_sum": 600.2,
+        "grading_seconds_sum": 178.996
+      },
+      "budget": {
+        "native_step_limit": 250,
+        "native_estimated_cost_limit_usd_per_task": 3,
+        "total_token_limit": null,
+        "host_deadline_seconds_including_setup": 900,
+        "native_cost_is_estimate_not_invoice": true
+      },
+      "source_commit": "04d809ceab9df28f9adaed044884180159172930"
+    }
+  },
+  "C30_reuse": {
+    "prior_candidates": 3,
+    "identical_generation_files_verified": 146,
+    "new_candidates": 27,
+    "new_model_requests": 984,
+    "new_total_tokens": 11119644
+  },
+  "limitations": [
+    "Fixed nonrandom prefix: 6 Astropy and 24 Django tasks; not full SWE-bench Lite leaderboard.",
+    "Bare versus harness versus mini are not compute-matched.",
+    "A/B/C/D use the same declared limits, but realized compute differs and each has n=3, one stochastic generation per task.",
+    "Versions were iterated on these examples; this is development evidence, not an untouched held-out test set.",
+    "C30 contains the original C3 candidates; C3 and C30 are not independent experiments.",
+    "Times are per-task sums unless explicitly identified as wall-clock.",
+    "Public release wrappers and documentation were added after these runs; no model reruns were performed for publication."
+  ]
+}
