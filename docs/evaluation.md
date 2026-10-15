@@ -12,7 +12,7 @@ cp .env.example .env
 bash scripts/evaluate.sh --env-file .env
 ```
 
-shell 只为本 checkout 建立 `.harness/eval-venv`，按 `scripts/evaluation-constraints.txt` 安装依赖；默认不用已有全局 Python 包。固定 openai-agents 0.20.0，因为补丁 SDK 及 Docker 工具镜像会读取此版本。每轮 source.json 另记实际依赖版本，Python 路径在进程启动记录中可核对。不会把密钥加入命令行、os.environ、Docker 或结果文件。
+shell 为本 checkout 建立独立环境：普通 Linux 使用 `.harness/eval-venv`；WSL 且 checkout 位于 `/mnt/<drive>/` 时，默认使用 Linux `${XDG_CACHE_HOME:-$HOME/.cache}/coding-harness/eval-venvs/<checkout路径SHA前20位>`，避免跨 Windows 9P 文件系统大量小文件安装缓慢。`HARNESS_EVAL_VENV` 可显式覆盖；不同 checkout 的默认环境不混用，路径选择不会删除旧环境。脚本按 `scripts/evaluation-constraints.txt` 安装依赖，默认不用已有全局 Python 包。固定 openai-agents 0.20.0，因为补丁 SDK 及 Docker 工具镜像会读取此版本。每轮 source.json 另记实际依赖版本，Python 路径在进程启动记录中可核对。不会把密钥加入命令行、os.environ、Docker 或结果文件。
 
 ```bash
 bash scripts/evaluate.sh --env-file .env --preflight
@@ -74,3 +74,5 @@ Agent 的 finish 只是停止信号；预算停止但有非空补丁仍验收。
 官方评分器若报告容器/镜像清理异常（包括无法核验 ownership），保留其已经绑定的评分，但立即停止新增任务，整批 overall_complete=false/退出码2；已有 source 被保留不能掩盖官方残留资源。
 
 最新发布入口定向验收：25 passed（包括三种官方清理失败、源镜像变化拒绝、foreign editable 拒绝），此前复用批处理相关 51 项通过。
+
+WSL 首次发布预检实测原 `/mnt/c` 安装进程在9P RPC等待中持续推进但速度很慢；路径选择已调整到Linux缓存。`tests/test_evaluate_bootstrap.py` 直接source真实shell函数，验证原生Linux/WSL磁盘选择、checkout哈希隔离、显式路径含空格和shell字符不被执行，以及source不安装依赖。此验证不运行pip，也不改HOME或系统设置。

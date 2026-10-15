@@ -47,5 +47,6 @@
   "scripts/evaluate.ps1": "docs/evaluation.md",
   "scripts/evaluation-constraints.txt": "docs/evaluation.md",
   "tests/test_evaluate.py": "docs/evaluation.md",
-  "tests/test_evaluation_images.py": "docs/evaluation.md"
+  "tests/test_evaluation_images.py": "docs/evaluation.md",
+  "tests/test_evaluate_bootstrap.py": "docs/evaluation.md"
 }
