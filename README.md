@@ -49,7 +49,7 @@ bash scripts/evaluate.sh --mode agent --limit 30 --workers 2
 bash scripts/evaluate.sh --mode both --limit 300 --workers 2
 ```
 
-完整参数、Windows 发行版选择、产物格式、资源与失败处理见 [评测操作指南](docs/evaluation.md)。**新入口未重新跑出上述 20/30**；该成绩来自同一 C 版核心的已完成实验，公开入口的验证范围另行记录。
+完整参数、Windows 发行版选择、产物格式、资源与失败处理见 [评测操作指南](docs/evaluation.md)。**新入口未重新跑出上述 20/30**；该成绩来自同一 C 版核心的已完成实验，公开入口已通过安装预检与已有补丁的真实评分重放，详见[验证记录](docs/release-validation.md)。
 
 ## 用 Agent 修自己的仓库
 
