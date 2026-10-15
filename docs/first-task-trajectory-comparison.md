@@ -1,5 +1,7 @@
 # 第一题真实轨迹：我们的 Harness 与 mini-SWE
 
+> 这是早期 V2 的30步/100万累计token实验记录，不是发布 C 的300步/500万配置。文中“先清理预览”的机制用于解释历史轨迹；发布 C 已改为事务式摘要，见 [项目总报告](project-report.md)。当前多版本和30题结果见 [评测结果](evaluation-results.md)。
+
 核对日期：2026-10-14。题目：`astropy__astropy-12907`。以下使用已经完成的真实日志，不是演示生成的对话。
 
 ## 先看结论
@@ -69,7 +71,7 @@
 
 补充源码核对：我们的 Provider 保留 SDK 返回的正文，没有主动删除；准确说是本次 SDK 返回到 harness 的 30 次正文都为空，未额外保存原始 HTTP 字节。mini 的 28 次回复中 21 次有正文、7 次为空。我们的提示没有强制“只能工具调用”，mini 则明确要求说明当前操作意图；这可能影响可见输出，但单次记录不能证明因果。
 
-参考：[我们的 Provider](../src/coding_harness/provider.py)、[我们的循环与提交检查](../src/coding_harness/agent.py)、[mini 固定版本的 SWE-bench 提示](../artifacts/vendor/mini-swe-agent-04d809c/src/minisweagent/config/benchmarks/swebench.yaml)。
+参考：[我们的 Provider](../src/coding_harness/provider.py)、[我们的循环与提交检查](../src/coding_harness/agent.py)、[mini 固定版本的 SWE-bench 提示](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/config/benchmarks/swebench.yaml)。
 
 
 ## 问题主要出现在哪里
@@ -101,12 +103,12 @@
 
 ## 来源与复核
 
-- [我们的原始轨迹](../artifacts/agent-first30-1m/runs/astropy__astropy-12907/trajectory.jsonl)
-- [mini 原始轨迹](../artifacts/mini-swe-first3/runs/astropy__astropy-12907/trajectory.json)
-- [我们的单题运行结果](../artifacts/agent-first30-1m/runs/astropy__astropy-12907/result.json)
-- [mini 单题运行结果](../artifacts/mini-swe-first3/runs/astropy__astropy-12907/result.json)
-- [我们的官方验收报告](../artifacts/official-agent-first3-1m/report.md)
-- [mini 官方评分记录（包含后续题，可能更新）](../artifacts/official-mini-swe-first3/progress.json)
+- 我们的原始轨迹（本地归档：`artifacts/agent-first30-1m/runs/astropy__astropy-12907/trajectory.jsonl`，未公开）
+- mini 原始轨迹（本地归档：`artifacts/mini-swe-first3/runs/astropy__astropy-12907/trajectory.json`，未公开）
+- 我们的单题运行结果（本地归档：`artifacts/agent-first30-1m/runs/astropy__astropy-12907/result.json`，未公开）
+- mini 单题运行结果（本地归档：`artifacts/mini-swe-first3/runs/astropy__astropy-12907/result.json`，未公开）
+- 我们的官方验收报告（本地归档：`artifacts/official-agent-first3-1m/report.md`，未公开）
+- mini 官方评分记录（包含后续题，可能更新）（本地归档：`artifacts/official-mini-swe-first3/progress.json`，未公开）
 - [整体架构与源码对比](mini-swe-comparison.md)
 
 ## 附录 A：我们全部动作与上下文事件
@@ -11539,3 +11541,5 @@ The patch file is verified: it contains exactly one source-file change with corr
 ]
 ```
 </details>
+
+公开版只链接可分发的 [成绩汇总](evaluation-results.md) 与 [结果数据](../results/README.md)。上文以代码字体列出的原始归档标签仅说明来源位置，不是随仓库提供的下载地址；原始模型轨迹、补丁和完整评分日志未公开。

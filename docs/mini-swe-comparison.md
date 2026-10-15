@@ -1,14 +1,16 @@
 # mini-SWE-agent 与我们的最小 coding harness
 
+> 历史研究说明：本文原先比较 6c6e499 与早期 V2（05359ae），文中的“基线/V2”不是当前发布 C 的别名。当前 C 098e27d 的事务式摘要与收尾提示见 [总报告](project-report.md)，最新固定子集结果见 [评测结果](evaluation-results.md)。D 不在发布默认核心中。
+
 查证日期：**2026-10-14**。mini-SWE 固定到官方提交 [`04d809c…`](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/__init__.py#L11)，源码版本 **2.4.6**，提交日期 2026-09-03。比较对象是其默认 `DefaultAgent + LitellmModel + SWE-bench 配置`，不把其他后端或自定义扩展混为默认行为。
 
 我们的已提交基线是 **`6c6e499fcbcaf3c283767acf0a2363a6a50a0670`**。下文 **V2** 指本轮上下文改造：已通过本地集成回归、真实 Docker 输出捕获验证及六次连续真实模型摘要验证，已记录在本地提交 `05359ae`。摘要验证使用受控动作与替身环境；同题前三题实测现已完成，结果见末节；这不是完整 SWE-bench 成绩，不能据此声称上下文改造提升了代码能力。详细证据见 [集成验证](testing-core.md)。
 
 ## 先看这三点
 
-1. **两个 agent 的主线相同：问模型 → 执行工具 → 把结果带回下一轮。** mini-SWE v2 默认也使用原生 tool calling；区别是它只提供 `bash`，我们提供 `execute / apply_patch / finish`，V2 再加 `read_evidence`。[模型调用源码](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/models/litellm_model.py#L64-L105)、[我们的工具](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/tools.py:35)。
-2. **最大的设计差别在历史管理。** mini 默认一直追加消息，SWE 配置只缩短单次命令观察。我们基线已经有“早期摘要 + 最近完整回合”；V2 进一步保留原始任务、结构化工作摘要与可回读证据。这能处理较长任务，也增加了验证、预算和失败处理的代码。[mini 循环](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/agents/default.py#L69-L157)、[观察模板](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/config/benchmarks/swebench.yaml#L130-L158)、[我们的 Context](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/context.py:81)。
-3. **mini 把更多工作交给模型使用 shell；我们把编辑与执行约束做成明确组件。** 专用补丁工具让修改格式更可控，但需要补丁处理、路径校验和沙箱工具依赖；并非组件越多就越会修代码。[mini 工具定义](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/models/utils/actions_toolcall.py#L11-L27)、[我们的补丁实现](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/patching.py:107)。
+1. **两个 agent 的主线相同：问模型 → 执行工具 → 把结果带回下一轮。** mini-SWE v2 默认也使用原生 tool calling；区别是它只提供 `bash`，我们提供 `execute / apply_patch / finish`，V2 再加 `read_evidence`。[模型调用源码](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/models/litellm_model.py#L64-L105)、[我们的工具](../src/coding_harness/tools.py#L35)。
+2. **最大的设计差别在历史管理。** mini 默认一直追加消息，SWE 配置只缩短单次命令观察。我们基线已经有“早期摘要 + 最近完整回合”；V2 进一步保留原始任务、结构化工作摘要与可回读证据。这能处理较长任务，也增加了验证、预算和失败处理的代码。[mini 循环](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/agents/default.py#L69-L157)、[观察模板](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/config/benchmarks/swebench.yaml#L130-L158)、[我们的 Context](../src/coding_harness/context.py#L81)。
+3. **mini 把更多工作交给模型使用 shell；我们把编辑与执行约束做成明确组件。** 专用补丁工具让修改格式更可控，但需要补丁处理、路径校验和沙箱工具依赖；并非组件越多就越会修代码。[mini 工具定义](https://github.com/SWE-agent/mini-swe-agent/blob/04d809ceab9df28f9adaed044884180159172930/src/minisweagent/models/utils/actions_toolcall.py#L11-L27)、[我们的补丁实现](../src/coding_harness/patching.py#L107)。
 
 ## 一轮任务怎么走
 
@@ -40,14 +42,14 @@ flowchart TB
 
 | 组件 | mini-SWE 2.4.6 默认路径 | 我们的实现 |
 |---|---|---|
-| 核心循环 | `step = query + execute_actions`；模型适配器负责把回复解析成 actions、把结果转成观察 | 自写 Agent 调用 Context、模型和工具调度；完整配对 tool-call ID，写操作不自动重放。见 [Agent](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/agent.py:32) |
-| 模型接口 | 默认 LiteLLM 原生 `bash` tool call；另有文本代码块解析适配器可选，不应把 v1 方式当成 v2 默认 | OpenAI Python SDK 调 DeepSeek；保存 `reasoning_content` 与工具调用。只复用传输 SDK，不使用 Agent Runner。见 [Provider](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/provider.py:11) |
+| 核心循环 | `step = query + execute_actions`；模型适配器负责把回复解析成 actions、把结果转成观察 | 自写 Agent 调用 Context、模型和工具调度；完整配对 tool-call ID，写操作不自动重放。见 [Agent](../src/coding_harness/agent.py#L32) |
+| 模型接口 | 默认 LiteLLM 原生 `bash` tool call；另有文本代码块解析适配器可选，不应把 v1 方式当成 v2 默认 | OpenAI Python SDK 调 DeepSeek；保存 `reasoning_content` 与工具调用。只复用传输 SDK，不使用 Agent Runner。见 [Provider](../src/coding_harness/provider.py#L11) |
 | 改代码 | 用 `bash` 调 shell、Python 或环境已有编辑工具；默认工具表没有专用 `apply_patch` | `apply_patch` 支持新增、更新、移动、删除；复用 `agents.apply_diff`，包装路径检查和失败处理。`execute` 仍能写文件，专用编辑工具本身不是隔离边界 |
-| 历史与压缩 | 默认循环无自动摘要步骤；SWE 配置把大观察缩为头尾各 5000 字符。上下文超窗被列为不重试的模型错误 | **基线：**普通文本摘要 + 最近完整回合。**V2：**固定原始任务/规则，先移除可回读旧预览，再生成结构化工作摘要；程序填回工具事实，坏摘要不替换旧历史 |
-| 执行环境 | Local 在主机执行并继承宿主环境；Docker 使用已有镜像，仅按配置注入环境变量。Docker 默认 `run_args=[--rm]`，网络/资源策略可由配置补充 | Docker 默认禁网、CPU/内存/PID 限制、无宿主目录挂载；Local 必须显式允许；Modal 可选。worker 保留超时进程树清理。见 [Environment](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/environment.py:180) |
-| 终止与预算 | 命令成功且首行出现提交标记才结束；支持步数、美元成本、墙钟时间及连续格式错误上限。成本在调用后累计 | `finish` 必须独占一轮；限制步数、时间、累计 token、命令时长。V2 给输入、输出和余量分别留预算。见 [Settings](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/config.py:8) |
-| 轨迹与证据 | JSON 轨迹含模型原回复、成本及 `extra.raw_output`；请求模型前去掉 `extra`。不是“截断后原日志就没了” | 基线有脱敏 JSONL trace；**V2** 增加独立 EvidenceStore，模型按 ID 分页读取。每流默认捕获 1 MiB，超限明确标记，不宣称完整保存。见 [Trace](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/trace.py:8)、[Evidence](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/evidence.py:18)、[Worker](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/worker.py:94) |
-| 评测边界 | 批处理读取题目、创建环境、产出 `preds.json`；官方评分另跑 | Agent 导出补丁；裸模型基线为另一条单次生成路径；官方评分另跑，并核对报告与补丁的绑定。见 [评测入口](C:/Users/Vicco/Desktop/Aworkshop/cmu/2026Fall/NG/coding-harness/src/coding_harness/benchmark.py:455) |
+| 历史与压缩 | 默认循环无自动摘要步骤；SWE 配置把大观察缩为头尾各 5000 字符。上下文超窗被列为不重试的模型错误 | **基线：**普通文本摘要 + 最近完整回合。**历史 V2：**先移除旧预览再摘要。**发布 C：**原始任务/规则固定，从未清理的完整回合生成摘要，全部校验通过才一次替换；程序填回工具事实，但事实仍累加 |
+| 执行环境 | Local 在主机执行并继承宿主环境；Docker 使用已有镜像，仅按配置注入环境变量。Docker 默认 `run_args=[--rm]`，网络/资源策略可由配置补充 | Docker 默认禁网、CPU/内存/PID 限制、无宿主目录挂载；Local 必须显式允许；Modal 可选。worker 保留超时进程树清理。见 [Environment](../src/coding_harness/environment.py#L180) |
+| 终止与预算 | 命令成功且首行出现提交标记才结束；支持步数、美元成本、墙钟时间及连续格式错误上限。成本在调用后累计 | `finish` 必须独占一轮；限制步数、时间、累计 token、命令时长。V2 给输入、输出和余量分别留预算。见 [Settings](../src/coding_harness/config.py#L8) |
+| 轨迹与证据 | JSON 轨迹含模型原回复、成本及 `extra.raw_output`；请求模型前去掉 `extra`。不是“截断后原日志就没了” | 基线有脱敏 JSONL trace；**V2** 增加独立 EvidenceStore，模型按 ID 分页读取。每流默认捕获 1 MiB，超限明确标记，不宣称完整保存。见 [Trace](../src/coding_harness/trace.py#L8)、[Evidence](../src/coding_harness/evidence.py#L18)、[Worker](../src/coding_harness/worker.py#L94) |
+| 评测边界 | 批处理读取题目、创建环境、产出 `preds.json`；官方评分另跑 | Agent 导出补丁；裸模型基线为另一条单次生成路径；官方评分另跑，并核对报告与补丁的绑定。见 [评测入口](../src/coding_harness/benchmark.py#L455) |
 | 依赖与部署 | 标准包还有 LiteLLM、Pydantic、Jinja2、Tenacity、Typer、Textual、datasets 等；默认 Docker 直接调用镜像已有 shell，不需在镜像中安装 mini 的 Python 包 | 核心直接依赖 openai、pydantic、python-dotenv、openai-agents；入口用 argparse。容器需额外 Python 与补丁 SDK，因此首次准备更重 |
 
 **两处容易混淆：**mini 的“约 100 行”描述核心 agent，不是整个项目；本次固定版本的 `agents/default.py` 实际为 190 物理行，模型、环境、配置和评测脚本另计。其首页仍有“不用 tool calling”的旧描述，本篇以固定源码和 [v2 迁移说明](https://mini-swe-agent.com/latest/advanced/v2_migration/#tool-calling)为准。
@@ -62,7 +64,7 @@ flowchart TB
 
 ## 源码索引与查证范围
 
-以下 mini 链接全部固定到同一 SHA；本地链接指查证时工作区，行号可能随 V2 集成变化，可同时按方法名定位。
+以下 mini 链接固定到同一 SHA；本仓库链接现为公开相对路径，历史行号可能随版本变化，应同时按方法名定位。
 
 | 查证项 | 官方固定源码 |
 |---|---|
@@ -86,8 +88,8 @@ mini-SWE普通 AgentConfig 的step_limit默认0（无轮数上限），SWE-bench
 
 mini主预测遵循官方batch runner的native submission；非正常结束时工作区差异仅保存诊断，不补成主提交。我们的预算停止补丁仍会验收，两者提交策略不同；预算与提交差异必须和结果一并展示，不能将分数差直接归因于上下文架构。mini 已完成三题独立验收：2/3，通过首题及第二题；第三题补丁可应用，但目标测试未通过。三份官方报告与各自主预测补丁均已逐项绑定核验，无未知基础设施结果。
 
-- [我们前三题官方报告](../artifacts/official-agent-first3-1m/report.md)
-- [裸模型三十题报告及配对前三题](../artifacts/official-baseline-first30/report.md)
+- 我们前三题官方报告（本地归档：`artifacts/official-agent-first3-1m/report.md`，未公开）
+- [裸模型三十题报告及配对前三题](evaluation-results.md)
 - [mini固定版本、默认限制与DeepSeek参数验证](mini-swe-runtime.md)
 - [mini运行入口、隔离和输出约定](mini-swe-batch.md)
 
@@ -107,5 +109,7 @@ mini 第二题超过我们的 30 步和 100 万累计 token 上限；第三题�
 
 首题最终补丁完全相同，mini 第 5 轮成功修改，我们第 14 轮；我们清理旧预览后出现重读，mini 也持续验证到第 28 轮。详细证据与全部可观察输出见 [第一题完整轨迹对照](first-task-trajectory-comparison.md)。
 
-- [mini 三题官方评分记录](../artifacts/official-mini-swe-first3/run.json)
-- [mini 三题逐题进度与报告绑定](../artifacts/official-mini-swe-first3/progress.json)
+- [mini 三题公开评分汇总](../results/first3.json)
+- [mini 三题公开来源绑定](../results/provenance.json)
+
+公开版只链接可分发的 [成绩汇总](evaluation-results.md) 与 [结果数据](../results/README.md)。上文以代码字体列出的原始归档标签仅说明来源位置，不是随仓库提供的下载地址；原始模型轨迹、补丁和完整评分日志未公开。

@@ -1,5 +1,7 @@
 # 裸模型批量生成入口
 
+> 下文离线验证与全量计划保留实现时的历史范围，不代表全量300题已经完成。当前已核验的裸模型前30题为9/30；设置、失败分类与C对照见 [评测结果](evaluation-results.md)。
+
 `scripts/run_baseline_batch.py` 复用 benchmark.load_tasks / generate_baseline / write_predictions。目标是把固定任务清单逐题生成一次补丁，保留失败，供官方 grader 评分；不运行 agent 循环、不执行仓库代码，也不直接报告解决率。
 
 ## 调用
@@ -35,7 +37,7 @@ env-file 是唯一密钥来源，使用 dotenv_values(interpolate=False) 精确�
 
 
 
-已完成离线验证：tests/test_baseline_batch.py 共 6 passed，针对脚本和测试的 ruff 检查通过。没有进行真实网络获取、真实模型调用或完整 300 题运行。
+已完成离线验证：tests/test_baseline_batch.py 共 6 passed，针对脚本和测试的 ruff 检查通过。该次离线检查没有进行真实网络获取、真实模型调用或完整300题运行；后续已完成子集实测，见本文顶部结果入口。
 
 本次正式全量计划采用统一配置：max_output_tokens=32768、request_timeout=180、max_seconds=300、reasoning_effort=high、workers=2；64,000 字符上下文由脚本固定。配置由显式 settings JSON 传入并存档，必须全题一致，不能仅给失败题更大预算后混算成绩。模板如下：
 
