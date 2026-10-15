@@ -8,7 +8,7 @@
 
 - 数据集：princeton-nlp/SWE-bench_Lite，test split，固定 revision 6ec7bb89b9342f664a54a6e0a6ea6501d3437cc2。
 - 子集：该固定版本先按 instance_id 升序排序，再取任务 manifest 前 30 题，6 题 Astropy、24 题 Django；前三题对照就是其中最前面的三题。这是 prepare_dataset 的排序约定，不是数据文件天然行序。没有随机抽样，也没有按结果选题。
-- 模型：所有组使用 deepseek-flash、reasoning_effort=high，每次请求最多输出 32,768 tokens。模型名是当时服务端别名，不声称锁定不可变权重。
+- 模型：所有组的动作/裸模型请求使用 deepseek-flash、reasoning_effort=high，每次请求最多输出 32,768 tokens；Harness 的摘要请求使用 reasoning_effort=none，并有独立摘要输出额度。模型名是当时服务端别名，不声称锁定不可变权重。
 - 验收：Linux Docker 上的 swebench==4.1.0 官方验证器，每个候选独立 run ID；主分数为官方 resolved 数量 / 固定计划题数。官方工具的执行方式见 [SWE-bench Evaluation](https://www.swebench.com/SWE-bench/guides/evaluation/)。
 - 空补丁、截断的无效输出、已绑定候选的补丁应用失败保留在分母。未知基础设施状态单列；本报告各组未知数均为 0。finish 或 Submitted 不是通过判据。
 - Agent 接收任务、仓库及自身工具反馈，官方验收数据独立交给 grader。本公开包不分发 gold patch、验收测试、测试名称或完整测试日志。
@@ -24,7 +24,7 @@
 
 裸模型通过仅依赖 issue 文本的固定词法检索选择最多 64,000 字符的仓库上下文；一次请求，无工具调用和测试反馈，不使用 gold 修改文件或测试定位。其旧通用 settings 中的多轮预算字段不表示进行了多轮 Agent 执行。
 
-C 每题上限为 **300 个动作轮、累计 5,000,000 tokens、900 秒 Agent 循环**。1,101 次模型调用包括 897 次动作请求和 204 次摘要请求；摘要也计入 token 预算。C 的限制是上限，不表示实际每题花满。
+C 每题上限为 **300 个动作轮、累计 5,000,000 tokens、900 秒 Agent 循环**。1,101 次模型调用包括 897 次动作请求和 204 次摘要请求；摘要也计入 token 预算。这里的调用数是逻辑 complete 调用；冻结 Provider 的 SDK 配置为 max_retries=2，可能发生传输重试，未单独计数。本报告“不补考”指不重新生成整题候选、不挑优，不声称 HTTP 请求从不重试。C 的限制是上限，不表示实际每题花满。
 
 两组使用同模型和同题，但工具反馈、上下文和计算量不同；20/30 相对 9/30 是系统级对照，不能解释成等算力消融结果。有限子集不能推出完整 300 题成绩。
 

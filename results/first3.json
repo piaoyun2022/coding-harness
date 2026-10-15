@@ -4,7 +4,10 @@
   "model": {
     "model": "deepseek-flash",
     "reasoning_effort": "high",
-    "max_output_tokens_per_request": 32768
+    "max_output_tokens_per_request": 32768,
+    "reasoning_effort_scope": "high applies to action and bare-model requests; harness summary requests use none",
+    "harness_summary_reasoning_effort": "none",
+    "request_count_semantics": "logical complete calls; SDK transport retries (max_retries=2 in frozen harness provider) are not separately counted"
   },
   "experiments": [
     {
